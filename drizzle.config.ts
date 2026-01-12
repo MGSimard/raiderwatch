@@ -1,12 +1,13 @@
-import { config } from "dotenv";
+import "dotenv/config";
 import { defineConfig } from "drizzle-kit";
-config({ path: [".env.local", ".env"] });
+
+// TODO: T3ENV
 
 export default defineConfig({
   out: "./drizzle",
   schema: "./src/_server/db/schema.ts",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL!,
   },
 });

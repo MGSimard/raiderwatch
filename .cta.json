@@ -12,16 +12,5 @@
   "git": true,
   "version": 1,
   "framework": "react-cra",
-  "chosenAddOns": [
-    "eslint",
-    "cloudflare",
-    "start",
-    "neon",
-    "compiler",
-    "drizzle",
-    "form",
-    "shadcn",
-    "t3env",
-    "table"
-  ]
+  "chosenAddOns": ["eslint", "cloudflare", "start", "neon", "compiler", "drizzle", "form", "shadcn", "t3env", "table"]
 }

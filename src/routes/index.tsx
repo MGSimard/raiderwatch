@@ -1,20 +1,19 @@
-import { createFileRoute, useLoaderData } from "@tanstack/react-router";
-import { getUsers } from "@/_server/serverFunctions";
+import { createFileRoute } from "@tanstack/react-router";
+import { SignIn } from "@/_components/SignIn";
+import { SignUp } from "@/_components/SignUp";
+import { SignOut } from "@/_components/SignOut";
 
 export const Route = createFileRoute("/")({
   component: PageHome,
-  loader: async () => {
-    return await getUsers();
-  },
 });
 
 function PageHome() {
-  const users = useLoaderData({ from: "/" });
-
   return (
     <div>
       <h1>Hello World</h1>
-      <pre>{JSON.stringify(users, null, 2)}</pre>
+      <SignIn />
+      <SignUp />
+      <SignOut />
     </div>
   );
 }

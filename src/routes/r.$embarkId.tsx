@@ -1,3 +1,4 @@
+import { setTimeout } from "node:timers/promises";
 import { createFileRoute, useLoaderData } from "@tanstack/react-router";
 import { getRaiderApprovedReports } from "@/_server/serverFunctions";
 import { normalizeEmbarkId } from "@/_lib/utils";
@@ -5,6 +6,7 @@ import { normalizeEmbarkId } from "@/_lib/utils";
 export const Route = createFileRoute("/r/$embarkId")({
   component: PageRaiderProfile,
   loader: async ({ params: { embarkId } }) => {
+    await setTimeout(5000);
     const normalizedEmbarkId = normalizeEmbarkId(embarkId);
     console.log("normalizedEmbarkId", normalizedEmbarkId);
     const reports = await getRaiderApprovedReports({ data: { embarkId: normalizedEmbarkId } });
@@ -24,6 +26,10 @@ export const Route = createFileRoute("/r/$embarkId")({
 function PageRaiderProfile() {
   const { reports } = useLoaderData({ from: "/r/$embarkId" });
   const { embarkId } = Route.useParams();
+
+  if (reports.length === 0) {
+    return <div>No reports for {embarkId}</div>;
+  }
 
   return (
     <div>

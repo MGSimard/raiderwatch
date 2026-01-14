@@ -1,40 +1,48 @@
-import { setTimeout } from "node:timers/promises";
-import { createFileRoute, useLoaderData } from "@tanstack/react-router";
-import { getRaiderApprovedReports } from "@/_server/serverFunctions";
+import { Suspense } from "react";
+import { createFileRoute } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { normalizeEmbarkId } from "@/_lib/utils";
+import { approvedReportsQuery } from "@/_lib/queries";
 
 export const Route = createFileRoute("/r/$embarkId")({
   component: PageRaiderProfile,
-  loader: async ({ params: { embarkId } }) => {
-    await setTimeout(5000);
-    const normalizedEmbarkId = normalizeEmbarkId(embarkId);
-    console.log("normalizedEmbarkId", normalizedEmbarkId);
-    const reports = await getRaiderApprovedReports({ data: { embarkId: normalizedEmbarkId } });
-    return { reports };
+  loader: ({ context, params }) => {
+    const normalizedEmbarkId = normalizeEmbarkId(params.embarkId);
+    void context.queryClient.ensureQueryData(approvedReportsQuery(normalizedEmbarkId));
+    return { normalizedEmbarkId };
   },
 });
 
-// Display Raider Profile Page
-// Only matches if there are current approved reports for the matching Embark ID.
-// (No API, so we can't create regular profiles)
-
-// If has approved reports, show profile page
-// If not, show "Embark#ID has no active reports"
-
-// TODO Potentially analyze username layout to tell users how to search from URL (- instead of #)
-
 function PageRaiderProfile() {
-  const { reports } = useLoaderData({ from: "/r/$embarkId" });
-  const { embarkId } = Route.useParams();
-
-  if (reports.length === 0) {
-    return <div>No reports for {embarkId}</div>;
-  }
+  const { normalizedEmbarkId } = Route.useLoaderData();
 
   return (
     <div>
-      <h1>Raider Profile: {embarkId}</h1>
-      <p>Reports: {reports.length}</p>
+      <h1>Raider Profile: {normalizedEmbarkId}</h1>
+      <Suspense fallback={<div>Loading...</div>}>
+        <ReportData normalizedEmbarkId={normalizedEmbarkId} />
+      </Suspense>
     </div>
+  );
+}
+
+function ReportData({ normalizedEmbarkId }: { normalizedEmbarkId: string }) {
+  const { data: approvedReports } = useSuspenseQuery(approvedReportsQuery(normalizedEmbarkId));
+
+  return (
+    <>
+      <h2>Reports: {approvedReports.length}</h2>
+      {approvedReports.length > 0 && (
+        <ul>
+          {approvedReports.map((report) => (
+            <li key={report.id}>
+              <h3>{report.reason}</h3>
+              <p>{report.description}</p>
+              <p>{report.videoUrl}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
   );
 }

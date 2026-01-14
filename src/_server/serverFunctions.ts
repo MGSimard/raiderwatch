@@ -22,10 +22,10 @@ export const getRaiderApprovedReports = createServerFn()
   .inputValidator(z.object({ embarkId: z.string() }))
   .handler(async ({ data }) => {
     const { embarkId } = data;
-
     try {
       const results = await db
         .select({
+          id: reports.id,
           reason: reports.reason,
           description: reports.description,
           videoUrl: reports.videoUrl,
@@ -35,12 +35,11 @@ export const getRaiderApprovedReports = createServerFn()
         .from(reports)
         .innerJoin(raiders, eq(reports.raiderId, raiders.id))
         .where(and(eq(raiders.embarkId, embarkId), eq(reports.status, "approved")));
+
       return results;
     } catch (err: unknown) {
       const error = err instanceof Error ? err : new Error("Unknown error");
-      // Log the error for debugging
       console.error("Error fetching raider reports:", error);
-      // Re-throw to let TanStack's error boundary handle it
       throw new Error(`Failed to fetch reports for Embark ID: ${embarkId}`);
     }
   });

@@ -1,0 +1,10 @@
+/* LOGO FONT */
+@font-face {
+  font-family: "ITCAG";
+  src:
+    url("/assets/fonts/ITCAG/ITCAvantGardeStd-Bold.woff2") format("woff2"),
+    url("/assets/fonts//ITCAG/ITCAvantGardeStd-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}

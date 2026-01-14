@@ -4,6 +4,7 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import appCss from "@/_styles/app.css?url";
+import fontsCss from "@/_styles/fonts.css?url";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -28,6 +29,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         rel: "stylesheet",
         href: appCss,
       },
+      {
+        rel: "stylesheet",
+        href: fontsCss,
+      },
     ],
   }),
 
@@ -36,7 +41,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>

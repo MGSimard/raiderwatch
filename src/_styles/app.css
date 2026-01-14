@@ -75,6 +75,7 @@
 }
 
 @theme inline {
+  --font-logo: "ITCAG", sans-serif;
   --font-sans: "Inter Variable", sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -167,5 +168,20 @@
   }
   button:not(:disabled) {
     cursor: pointer;
+  }
+}
+
+@layer utilities {
+  @keyframes recording-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.1;
+    }
+  }
+  .animate-recording-pulse {
+    animation: recording-pulse 2s ease-in-out infinite;
   }
 }

@@ -20,8 +20,8 @@
 
 ```typescript
 // Utils - convert at boundary
-export const embarkIdToSlug = (id: string) => id.replace(/#(\d{4})$/, '-$1');
-export const slugToEmbarkId = (slug: string) => slug.replace(/-(\d{4})$/, '#$1');
+export const embarkIdToSlug = (id: string) => id.replace(/#(\d{4})$/, "-$1");
+export const slugToEmbarkId = (slug: string) => slug.replace(/-(\d{4})$/, "#$1");
 ```
 
 **Why regex?** Usernames can contain `-`, but discriminator is always 4 digits at the end.
@@ -61,14 +61,11 @@ yt-dlp -f "best[height<=720]" "https://youtube.com/watch?v=xxx" -o "evidence/rep
 
 ### Report Statuses
 
-| Status       | Meaning                                              |
-| ------------ | ---------------------------------------------------- |
-| `pending`    | Awaiting review                                      |
-| `approved`   | Confirmed, shown on profile                          |
-| `denied`     | Invalid/false report                                 |
-| `collateral` | Valid but superseded by another report (not denied!) |
-
-**Collateral:** For duplicate reports (e.g., same squad reporting same incident). Marks as valid without cluttering the profile. Optionally links to primary report via `collateralOf` field.
+| Status     | Meaning                     |
+| ---------- | --------------------------- |
+| `pending`  | Awaiting review             |
+| `approved` | Confirmed, shown on profile |
+| `denied`   | Invalid/false report        |
 
 ### Schema Design
 

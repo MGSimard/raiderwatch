@@ -1,6 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "./db";
+import { raiders, reports } from "./db/schema";
 
 // https://tanstack.com/start/latest/docs/framework/react/guide/server-functions
 
@@ -25,3 +27,21 @@ import { db } from "./db";
 //     }
 //     return post
 //   })
+
+export const getRaiderApprovedReports = createServerFn()
+  .inputValidator(z.object({ embarkId: z.string() }))
+  .handler(async ({ data }) => {
+    const { embarkId } = data;
+
+    return await db
+      .select({
+        reason: reports.reason,
+        description: reports.description,
+        videoUrl: reports.videoUrl,
+        videoStoragePath: reports.videoStoragePath,
+        reviewedAt: reports.reviewedAt,
+      })
+      .from(reports)
+      .innerJoin(raiders, eq(reports.raiderId, raiders.id))
+      .where(and(eq(raiders.embarkId, embarkId), eq(reports.status, "approved")));
+  });

@@ -13,6 +13,13 @@ export const Route = createFileRoute("/r/$embarkId")({
   },
 });
 
+// TODO:
+// Loading Component
+// Use shadcn sonner/toast
+// Error stuff
+// 404 stuff
+// Search component / index search page
+
 function PageRaiderProfile() {
   const { normalizedEmbarkId } = Route.useLoaderData();
 

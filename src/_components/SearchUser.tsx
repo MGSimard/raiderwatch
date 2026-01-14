@@ -34,22 +34,27 @@ export function SearchUser() {
     const embarkId = value.trim();
     const [username, discriminator] = embarkId.split("#");
 
-    if (!username || !discriminator || !/^\d{4}$/.test(discriminator) || !embarkId.includes("#")) {
+    if (!username || !discriminator || !embarkId.includes("#")) {
       setError("Invalid Embark ID. (e.g. username#1234)");
       return;
     }
 
-    // Navigate to the player profile (replace # with - for URL)
-    const urlSafeId = embarkId.replace("#", "-");
-    void navigate({ to: `/r/${urlSafeId}` });
+    if (!/^[a-zA-Z0-9\-_.]+$/.test(username)) {
+      setError("Usernames can only contain letters, numbers, and symbols: - _ .");
+      return;
+    }
+
+    if (!/^\d{4}$/.test(discriminator)) {
+      setError("Discriminator must be exactly 4 digits.");
+      return;
+    }
+
+    void navigate({ to: `/r/${embarkId.replace("#", "~")}` });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-    // Clear error when user starts typing again
-    if (error) {
-      setError(null);
-    }
+    if (error) setError(null);
   };
 
   const isEmpty = value.trim().length === 0;

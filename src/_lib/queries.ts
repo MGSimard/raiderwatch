@@ -1,9 +1,9 @@
 import { queryOptions } from "@tanstack/react-query";
 import { getRaiderApprovedReports } from "@/_server/serverFunctions";
 
-export const approvedReportsQuery = (normalizedEmbarkId: string) => {
+export const approvedReportsQuery = (embarkId: string) => {
   return queryOptions({
-    queryKey: ["approvedReports", normalizedEmbarkId],
-    queryFn: () => getRaiderApprovedReports({ data: { embarkId: normalizedEmbarkId } }),
+    queryKey: ["approvedReports", embarkId],
+    queryFn: () => getRaiderApprovedReports({ data: { embarkId } }),
   });
 };

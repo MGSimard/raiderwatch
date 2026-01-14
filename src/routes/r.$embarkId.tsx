@@ -1,15 +1,15 @@
 import { Suspense } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { normalizeEmbarkId } from "@/_lib/utils";
 import { approvedReportsQuery } from "@/_lib/queries";
 
 export const Route = createFileRoute("/r/$embarkId")({
   component: PageRaiderProfile,
   loader: ({ context, params }) => {
-    const normalizedEmbarkId = normalizeEmbarkId(params.embarkId);
-    void context.queryClient.ensureQueryData(approvedReportsQuery(normalizedEmbarkId));
-    return { normalizedEmbarkId };
+    // Convert tilde back to hashtag for database lookup
+    const embarkId = params.embarkId.replace("~", "#");
+    void context.queryClient.ensureQueryData(approvedReportsQuery(embarkId));
+    return { embarkId };
   },
 });
 
@@ -19,22 +19,27 @@ export const Route = createFileRoute("/r/$embarkId")({
 // Error stuff
 // 404 stuff
 // Search component / index search page
+// TODO Redirect hashtags to tilde format
 
 function PageRaiderProfile() {
-  const { normalizedEmbarkId } = Route.useLoaderData();
+  const { embarkId } = Route.useLoaderData();
 
   return (
-    <div>
-      <h1>Raider Profile: {normalizedEmbarkId}</h1>
+    <main>
+      <h1>Raider Profile: {embarkId}</h1>
       <Suspense fallback={<div>Loading...</div>}>
-        <ReportData normalizedEmbarkId={normalizedEmbarkId} />
+        <ReportData embarkId={embarkId} />
       </Suspense>
-    </div>
+    </main>
   );
 }
 
-function ReportData({ normalizedEmbarkId }: { normalizedEmbarkId: string }) {
-  const { data: approvedReports } = useSuspenseQuery(approvedReportsQuery(normalizedEmbarkId));
+function ReportData({ embarkId }: { embarkId: string }) {
+  const { data: approvedReports } = useSuspenseQuery(approvedReportsQuery(embarkId));
+
+  if (approvedReports.length === 0) {
+    return <NoReports embarkId={embarkId} />;
+  }
 
   return (
     <>
@@ -52,4 +57,8 @@ function ReportData({ normalizedEmbarkId }: { normalizedEmbarkId: string }) {
       )}
     </>
   );
+}
+
+function NoReports({ embarkId }: { embarkId: string }) {
+  return <div>No reports found for &quot;{embarkId}&quot;.</div>;
 }

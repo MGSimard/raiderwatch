@@ -1,6 +1,7 @@
 "use client";
 import { useMemo } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
+import type { VariantProps } from "class-variance-authority";
 import { cn } from "@/_lib/utils";
 import { Label } from "@/_components/ui/label";
 import { Separator } from "@/_components/ui/separator";
@@ -173,7 +174,7 @@ function FieldError({
 
     const uniqueErrors = [...new Map(errors.map((error) => [error?.message, error])).values()];
 
-    if (uniqueErrors?.length == 1) {
+    if (uniqueErrors.length == 1) {
       return uniqueErrors[0]?.message;
     }
 

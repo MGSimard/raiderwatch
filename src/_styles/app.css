@@ -122,11 +122,11 @@
     @apply border-border outline-ring/50;
   }
   html {
-    @apply font-sans;
+    @apply font-sans bg-background text-foreground;
   }
   body {
-    position: relative;
     @apply font-sans bg-background text-foreground;
+    position: relative;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -185,3 +185,7 @@
     animation: recording-pulse 2s ease-in-out infinite;
   }
 }
+
+/* * {
+  outline: 1px solid rgba(255, 0, 0, 0.2);
+} */

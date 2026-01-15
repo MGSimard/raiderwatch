@@ -22,12 +22,12 @@ export const getRaiderApprovedReports = createServerFn()
   .inputValidator(z.object({ embarkId: z.string() }))
   .handler(async ({ data }) => {
     const { embarkId } = data;
+
     try {
       const results = await db
         .select({
           id: reports.id,
           reason: reports.reason,
-          description: reports.description,
           videoUrl: reports.videoUrl,
           videoStoragePath: reports.videoStoragePath,
           reviewedAt: reports.reviewedAt,

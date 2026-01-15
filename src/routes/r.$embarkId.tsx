@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { approvedReportsQuery } from "@/_lib/queries";
+import { NoReports } from "@/_components/NoReports";
+import { LoaderBlocks } from "@/_components/LoaderBlocks";
 
 export const Route = createFileRoute("/r/$embarkId")({
   component: PageRaiderProfile,
@@ -24,9 +26,13 @@ function PageRaiderProfile() {
   const { embarkId } = Route.useLoaderData();
 
   return (
-    <main className="max-w-7xl w-full mx-auto">
-      <h1>Raider Profile: {embarkId}</h1>
-      <Suspense fallback={<div>Loading...</div>}>
+    <main className="flex flex-col max-w-3xl w-full mx-auto min-h-dvh px-8">
+      <Suspense
+        fallback={
+          <div className="grow grid place-items-center">
+            <LoaderBlocks />
+          </div>
+        }>
         <ReportData embarkId={embarkId} />
       </Suspense>
     </main>
@@ -48,7 +54,6 @@ function ReportData({ embarkId }: { embarkId: string }) {
           {approvedReports.map((report) => (
             <li key={report.id}>
               <h3>{report.reason}</h3>
-              <p>{report.description}</p>
               <p>{report.videoUrl}</p>
             </li>
           ))}
@@ -56,8 +61,4 @@ function ReportData({ embarkId }: { embarkId: string }) {
       )}
     </>
   );
-}
-
-function NoReports({ embarkId }: { embarkId: string }) {
-  return <div>No reports found for &quot;{embarkId}&quot;.</div>;
 }

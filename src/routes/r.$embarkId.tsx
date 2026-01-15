@@ -19,13 +19,12 @@ export const Route = createFileRoute("/r/$embarkId")({
 // Error stuff
 // 404 stuff
 // Search component / index search page
-// TODO Redirect hashtags to tilde format
 
 function PageRaiderProfile() {
   const { embarkId } = Route.useLoaderData();
 
   return (
-    <main>
+    <main className="max-w-7xl w-full mx-auto">
       <h1>Raider Profile: {embarkId}</h1>
       <Suspense fallback={<div>Loading...</div>}>
         <ReportData embarkId={embarkId} />

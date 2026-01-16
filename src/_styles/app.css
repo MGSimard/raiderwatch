@@ -225,14 +225,14 @@ body:has(.raider-page)::before {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image: url("/assets/light.png");
+  background-image: url("/assets/media/bg-light.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .dark body:has(.raider-page)::before {
-  background-image: url("/assets/dark.png");
+  background-image: url("/assets/media/bg-dark.webp");
 }
 
 /* Vignette overlay with progressive blur effect */

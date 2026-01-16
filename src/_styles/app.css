@@ -134,8 +134,57 @@
     text-rendering: optimizeLegibility;
     line-height: 1.5;
   }
+  /* More performant than background-attachment: fixed (causes repaints on scroll) */
+  body:has(.raider-page)::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("/assets/media/bg-light.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .dark body:has(.raider-page)::before {
+    background-image: url("/assets/media/bg-dark.webp");
+  }
+  /* Vignette overlay with progressive blur effect */
+  body:has(.raider-page)::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 30%,
+      rgba(0, 0, 0, 0.2) 60%,
+      rgba(0, 0, 0, 0.5) 85%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+    /* Progressive blur sort of following the vignette thresholds */
+    backdrop-filter: blur(4rem);
+    -webkit-backdrop-filter: blur(4rem);
+    mask-image: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 35%,
+      rgba(255, 255, 255, 0.3) 55%,
+      rgba(255, 255, 255, 0.7) 75%,
+      white 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 35%,
+      rgba(255, 255, 255, 0.3) 55%,
+      rgba(255, 255, 255, 0.7) 75%,
+      white 100%
+    );
+  }
   #root {
     isolation: isolate;
+    position: relative;
+    z-index: 1;
   }
   h1,
   h2,
@@ -215,59 +264,6 @@
   }
 }
 
-* {
+/* * {
   outline: 1px solid rgba(255, 0, 0, 0.2);
-}
-
-/* More performant than background-attachment: fixed (causes repaints on scroll) */
-body:has(.raider-page)::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background-image: url("/assets/media/bg-light.webp");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.dark body:has(.raider-page)::before {
-  background-image: url("/assets/media/bg-dark.webp");
-}
-
-/* Vignette overlay with progressive blur effect */
-body:has(.raider-page)::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  /* Darkening vignette gradient */
-  background: radial-gradient(
-    ellipse at center,
-    transparent 0%,
-    transparent 30%,
-    rgba(0, 0, 0, 0.2) 60%,
-    rgba(0, 0, 0, 0.5) 85%,
-    rgba(0, 0, 0, 0.7) 100%
-  );
-  /* Progressive blur sort of following the vignette thresholds */
-  backdrop-filter: blur(4rem);
-  -webkit-backdrop-filter: blur(4rem);
-  mask-image: radial-gradient(
-    ellipse at center,
-    transparent 0%,
-    transparent 35%,
-    rgba(255, 255, 255, 0.3) 55%,
-    rgba(255, 255, 255, 0.7) 75%,
-    white 100%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse at center,
-    transparent 0%,
-    transparent 35%,
-    rgba(255, 255, 255, 0.3) 55%,
-    rgba(255, 255, 255, 0.7) 75%,
-    white 100%
-  );
-}
+} */

@@ -14,7 +14,7 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.3085 0.1548 275.01);
+  --primary: oklch(0.66 0.2258 25.95);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -215,14 +215,59 @@
   }
 }
 
-/* * {
-  outline: 1px solid rgba(255, 0, 0, 0.1);
-} */
+* {
+  outline: 1px solid rgba(255, 0, 0, 0.2);
+}
 
-body {
-  background-image: url("/assets/test.png");
+/* More performant than background-attachment: fixed (causes repaints on scroll) */
+body:has(.raider-page)::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/assets/light.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+}
+
+.dark body:has(.raider-page)::before {
+  background-image: url("/assets/dark.png");
+}
+
+/* Vignette overlay with progressive blur effect */
+body:has(.raider-page)::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* Darkening vignette gradient */
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 30%,
+    rgba(0, 0, 0, 0.2) 60%,
+    rgba(0, 0, 0, 0.5) 85%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  /* Progressive blur sort of following the vignette thresholds */
+  backdrop-filter: blur(4rem);
+  -webkit-backdrop-filter: blur(4rem);
+  mask-image: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 35%,
+    rgba(255, 255, 255, 0.3) 55%,
+    rgba(255, 255, 255, 0.7) 75%,
+    white 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 35%,
+    rgba(255, 255, 255, 0.3) 55%,
+    rgba(255, 255, 255, 0.7) 75%,
+    white 100%
+  );
 }

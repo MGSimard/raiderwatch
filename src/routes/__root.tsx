@@ -18,7 +18,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
       {
         name: "viewport",
-        content: "width=device-width, initial-scale=1",
+        content: "width=device-width, initial-scale=1, minimum-scale=1",
       },
       {
         title: "TanStack Start Starter",
@@ -41,11 +41,11 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="light">
       <head>
         <HeadContent />
       </head>
-      <body className="overflow-x-hidden">
+      <body>
         <div id="root">{children}</div>
         <TanStackDevtools
           config={{

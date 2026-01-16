@@ -26,7 +26,7 @@ function PageRaiderProfile() {
   const { embarkId } = Route.useLoaderData();
 
   return (
-    <main className="flex flex-col max-w-3xl w-full mx-auto min-h-dvh px-8">
+    <main className="flex flex-col max-w-3xl w-full mx-auto min-h-dvh px-8 raider-page">
       <Suspense
         fallback={
           <div className="grow grid place-items-center">

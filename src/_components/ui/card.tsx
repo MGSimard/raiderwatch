@@ -32,7 +32,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-title"
       className={cn(
-        "text-2xl py-2 text-shadow-[0_0_0.2em_oklch(from_var(--primary)_calc(l-0.2)_c_h)] shadow-lg font-medium text-primary group-data-[size=sm]/card:text-sm test bg-linear-to-r from-transparent via-[oklch(from_var(--primary)calc(l-0.4)_0.1_h/0.5)] to-transparent border-2 [border-image:linear-gradient(to_left,transparent,var(--primary),transparent)1]",
+        "text-2xl py-2 text-shadow-[0_0_0.2em_oklch(from_var(--primary)_calc(l-0.2)_c_h)] dark:shadow-lg font-medium text-primary group-data-[size=sm]/card:text-sm bg-linear-to-r from-transparent via-[oklch(from_var(--primary)0.25_0.1_h/0.5)] to-transparent border-2 [border-image:linear-gradient(to_left,transparent,var(--primary),transparent)1]",
         className
       )}
       {...props}

@@ -186,6 +186,33 @@
   .animate-recording-pulse {
     animation: recording-pulse 2s ease-in-out infinite;
   }
+
+  .corner-brackets::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, var(--primary) 2px, transparent 2px),
+      linear-gradient(to bottom, var(--primary) 2px, transparent 2px),
+      linear-gradient(to left, var(--primary) 2px, transparent 2px),
+      linear-gradient(to bottom, var(--primary) 2px, transparent 2px),
+      linear-gradient(to right, var(--primary) 2px, transparent 2px),
+      linear-gradient(to top, var(--primary) 2px, transparent 2px),
+      linear-gradient(to left, var(--primary) 2px, transparent 2px),
+      linear-gradient(to top, var(--primary) 2px, transparent 2px);
+    background-size: 0.75rem 0.75rem;
+    background-position:
+      top 0 left 0,
+      top 0 left 0,
+      top 0 right 0,
+      top 0 right 0,
+      bottom 0 left 0,
+      bottom 0 left 0,
+      bottom 0 right 0,
+      bottom 0 right 0;
+    background-repeat: no-repeat;
+  }
 }
 
 /* * {

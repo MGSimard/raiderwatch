@@ -8,7 +8,7 @@ import { ReportDialog } from "@/_components/ReportDialog";
 export function NoReports({ embarkId }: { embarkId: string }) {
   return (
     <section className="grow grid place-items-center text-center">
-      <Card className="w-full max-w-sm">
+      <Card className="w-full max-w-sm relative corner-brackets">
         <CardHeader>
           <CardTitle>
             <h2>NO REPORTS</h2>
@@ -30,7 +30,7 @@ export function NoReports({ embarkId }: { embarkId: string }) {
             render={<Link to="/" aria-label="Return to search" />}>
             <ArrowLeftIcon weight="bold" /> RETURN
           </Button>
-          <ReportDialog />
+          <ReportDialog embarkId={embarkId} />
         </CardFooter>
       </Card>
     </section>

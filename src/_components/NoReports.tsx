@@ -3,6 +3,7 @@ import { ArrowLeftIcon } from "@phosphor-icons/react";
 import { Button } from "@/_components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/_components/ui/card";
 import { Separator } from "@/_components/ui/separator";
+import { ReportDialog } from "@/_components/ReportDialog";
 
 export function NoReports({ embarkId }: { embarkId: string }) {
   return (
@@ -29,7 +30,7 @@ export function NoReports({ embarkId }: { embarkId: string }) {
             render={<Link to="/" aria-label="Return to search" />}>
             <ArrowLeftIcon weight="bold" /> RETURN
           </Button>
-          <Button type="button">FILE REPORT</Button>
+          <ReportDialog />
         </CardFooter>
       </Card>
     </section>

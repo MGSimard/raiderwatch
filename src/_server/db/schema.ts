@@ -1,5 +1,5 @@
-import { defineRelations, sql } from "drizzle-orm";
-import { boolean, index, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { defineRelations } from "drizzle-orm";
+import { boolean, index, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { REPORT_REASON_ENUMS, REPORT_STATUS_ENUMS } from "@/_lib/enums";
 
 export const user = pgTable("user", {
@@ -79,28 +79,15 @@ export const verification = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)]
 );
 
-export const raiders = pgTable(
-  "raiders",
-  {
-    id: text("id").primaryKey(),
-    embarkId: text("embark_id").notNull().unique(),
-    // SteamID is static unlike Embark ID which can be changed. This means we need to allow the same Steam ID to be used by multiple Embark IDs.
-    steamId: text("steam_id"), // Optional
-    // Later on if Steam ID is on multiple profiles we'll add a little (!) or triangle icon that shows the links
-    // Won't bother including other platform identifiers since they aren't unique or static
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
-      .defaultNow()
-      .$onUpdate(() => /* @__PURE__ */ new Date())
-      .notNull(),
-  },
-  (table) => [
-    // Embark ID index is implicit since it's unique
-    index("raiders_steam_id_idx")
-      .on(table.steamId)
-      .where(sql`${table.steamId} IS NOT NULL`),
-  ]
-);
+export const raiders = pgTable("raiders", {
+  id: serial("id").primaryKey(),
+  embarkId: text("embark_id").notNull().unique(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
+});
 
 export const reportReasonEnum = pgEnum("report_reason", REPORT_REASON_ENUMS);
 export const reportStatusEnum = pgEnum("report_status", REPORT_STATUS_ENUMS);
@@ -108,11 +95,10 @@ export const reportStatusEnum = pgEnum("report_status", REPORT_STATUS_ENUMS);
 export const reports = pgTable(
   "reports",
   {
-    id: text("id").primaryKey(),
-    raiderId: text("raider_id")
+    id: serial("id").primaryKey(),
+    embarkId: text("embark_id")
       .notNull()
-      .references(() => raiders.id, { onDelete: "cascade" }),
-    steamId: text("steam_id"), // Snapshot of steamId at report time (no FK since raiders.steamId isn't unique)
+      .references(() => raiders.embarkId, { onDelete: "cascade" }),
     reason: reportReasonEnum("reason").notNull(),
     description: text("description").notNull(),
     videoUrl: text("video_url").notNull(),
@@ -120,14 +106,14 @@ export const reports = pgTable(
     status: reportStatusEnum("status").notNull().default("pending"),
     reviewedAt: timestamp("reviewed_at"),
     reviewedBy: text("reviewed_by").references(() => user.id, { onDelete: "set null" }),
-    reviewerComment: text("reviewer_comment").notNull(),
+    reviewerComment: text("reviewer_comment"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at")
       .defaultNow()
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
   },
-  (table) => [index("reports_raider_id_idx").on(table.raiderId), index("reports_status_idx").on(table.status)]
+  (table) => [index("reports_embark_id_idx").on(table.embarkId), index("reports_status_idx").on(table.status)]
 );
 
 export const relations = defineRelations({ user, session, account, verification, raiders, reports }, (r) => ({
@@ -159,14 +145,14 @@ export const relations = defineRelations({ user, session, account, verification,
   },
   raiders: {
     reports: r.many.reports({
-      from: r.raiders.id,
-      to: r.reports.raiderId,
+      from: r.raiders.embarkId,
+      to: r.reports.embarkId,
     }),
   },
   reports: {
     raider: r.one.raiders({
-      from: r.reports.raiderId,
-      to: r.raiders.id,
+      from: r.reports.embarkId,
+      to: r.raiders.embarkId,
     }),
     reviewer: r.one.user({
       from: r.reports.reviewedBy,

@@ -71,7 +71,6 @@ export const fileReport = createServerFn()
 
         // Create report tied to matching raider
         await tx.insert(reports).values({ embarkId, reason, description, videoUrl });
-
       });
     } catch (err: unknown) {
       const error = err instanceof Error ? err : new Error("Unknown error");

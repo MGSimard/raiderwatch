@@ -9,6 +9,7 @@ import type { QueryClient } from "@tanstack/react-query";
 import { ThemeProvider } from "@/_components/ThemeProvider";
 import { ThemeToggle } from "@/_components/ThemeToggle";
 import { Toaster } from "@/_components/ui/sonner";
+import { TooltipProvider } from "@/_components/ui/tooltip";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -51,11 +52,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <ThemeProvider>
-          <div id="root">
-            <ThemeToggle />
-            {children}
-          </div>
-          <Toaster className="z-9999" />
+          <TooltipProvider>
+            <div id="root">
+              <ThemeToggle />
+              {children}
+            </div>
+            <Toaster className="z-9999" />
+          </TooltipProvider>
         </ThemeProvider>
         {/* <TanStackDevtools
           config={{

@@ -13,6 +13,9 @@ import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as REmbarkIdRouteImport } from './routes/r.$embarkId'
+import { Route as DashboardTeamRouteImport } from './routes/dashboard/team'
+import { Route as DashboardReportsRouteImport } from './routes/dashboard/reports'
+import { Route as DashboardAuditLogsRouteImport } from './routes/dashboard/audit-logs'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
@@ -35,6 +38,21 @@ const REmbarkIdRoute = REmbarkIdRouteImport.update({
   path: '/r/$embarkId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardTeamRoute = DashboardTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardReportsRoute = DashboardReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardAuditLogsRoute = DashboardAuditLogsRouteImport.update({
+  id: '/audit-logs',
+  path: '/audit-logs',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -44,12 +62,18 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
+  '/dashboard/team': typeof DashboardTeamRoute
   '/r/$embarkId': typeof REmbarkIdRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
+  '/dashboard/team': typeof DashboardTeamRoute
   '/r/$embarkId': typeof REmbarkIdRoute
   '/dashboard': typeof DashboardIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -58,19 +82,40 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
+  '/dashboard/team': typeof DashboardTeamRoute
   '/r/$embarkId': typeof REmbarkIdRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/r/$embarkId' | '/dashboard/' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/dashboard/audit-logs'
+    | '/dashboard/reports'
+    | '/dashboard/team'
+    | '/r/$embarkId'
+    | '/dashboard/'
+    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/r/$embarkId' | '/dashboard' | '/api/auth/$'
+  to:
+    | '/'
+    | '/dashboard/audit-logs'
+    | '/dashboard/reports'
+    | '/dashboard/team'
+    | '/r/$embarkId'
+    | '/dashboard'
+    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
+    | '/dashboard/audit-logs'
+    | '/dashboard/reports'
+    | '/dashboard/team'
     | '/r/$embarkId'
     | '/dashboard/'
     | '/api/auth/$'
@@ -113,6 +158,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof REmbarkIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/team': {
+      id: '/dashboard/team'
+      path: '/team'
+      fullPath: '/dashboard/team'
+      preLoaderRoute: typeof DashboardTeamRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/reports': {
+      id: '/dashboard/reports'
+      path: '/reports'
+      fullPath: '/dashboard/reports'
+      preLoaderRoute: typeof DashboardReportsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/audit-logs': {
+      id: '/dashboard/audit-logs'
+      path: '/audit-logs'
+      fullPath: '/dashboard/audit-logs'
+      preLoaderRoute: typeof DashboardAuditLogsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -124,10 +190,16 @@ declare module '@tanstack/react-router' {
 }
 
 interface DashboardRouteRouteChildren {
+  DashboardAuditLogsRoute: typeof DashboardAuditLogsRoute
+  DashboardReportsRoute: typeof DashboardReportsRoute
+  DashboardTeamRoute: typeof DashboardTeamRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardAuditLogsRoute: DashboardAuditLogsRoute,
+  DashboardReportsRoute: DashboardReportsRoute,
+  DashboardTeamRoute: DashboardTeamRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 

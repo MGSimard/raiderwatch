@@ -12,7 +12,6 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/_components/ui/avatar";
 
 export function NavUser() {
-  
   // TODO: Grab user info from query context
   const user = {
     name: "shadcn",

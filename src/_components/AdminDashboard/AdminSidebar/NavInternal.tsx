@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { BellIcon, UsersIcon } from "@phosphor-icons/react";
 import {
   SidebarGroup,
@@ -8,20 +9,19 @@ import {
   SidebarMenuItem,
 } from "@/_components/ui/sidebar";
 
-
 export function NavInternal() {
- const navItems = [ 
-  {
-    title: "Team",
-    url: "#",
-    icon: UsersIcon,
-  },
-  {
-    title: "Audit Logs",
-    url: "#",
-    icon: BellIcon,
-  },
- ];
+  const navItems = [
+    {
+      title: "Team",
+      url: "/dashboard/team",
+      icon: UsersIcon,
+    },
+    {
+      title: "Audit Logs",
+      url: "/dashboard/audit-logs",
+      icon: BellIcon,
+    },
+  ];
 
   return (
     <SidebarGroup>
@@ -30,7 +30,7 @@ export function NavInternal() {
         <SidebarMenu>
           {navItems.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title} render={<a href={item.url} />}>
+              <SidebarMenuButton tooltip={item.title} render={<Link to={item.url} />}>
                 <item.icon className="size-4" />
                 <span>{item.title}</span>
               </SidebarMenuButton>

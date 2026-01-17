@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { GaugeIcon, WarningIcon } from "@phosphor-icons/react";
 import {
   SidebarGroup,
@@ -8,22 +9,19 @@ import {
   SidebarMenuItem,
 } from "@/_components/ui/sidebar";
 
-
-
 export function NavMain() {
   const navItems = [
     {
       title: "Overview",
-      url: "#",
+      url: "/dashboard",
       icon: GaugeIcon,
     },
     {
       title: "Reports",
-      url: "#",
+      url: "/dashboard/reports",
       icon: WarningIcon,
     },
   ];
-
 
   return (
     <SidebarGroup>
@@ -32,7 +30,7 @@ export function NavMain() {
         <SidebarMenu>
           {navItems.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title} render={<a href={item.url} />}>
+              <SidebarMenuButton tooltip={item.title} render={<Link to={item.url} />}>
                 <item.icon className="size-4" />
                 <span>{item.title}</span>
               </SidebarMenuButton>

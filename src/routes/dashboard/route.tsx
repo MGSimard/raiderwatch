@@ -3,8 +3,6 @@ import { Outlet, createFileRoute } from "@tanstack/react-router";
 import { SidebarProvider } from "@/_components/ui/sidebar";
 import { AdminSidebar } from "@/_components/AdminDashboard/AdminSidebar";
 import { AdminHeader } from "@/_components/AdminDashboard/AdminSidebar/AdminHeader";
-import { SectionCards } from "@/_components/AdminDashboard/SectionCards";
-import { ChartAreaInteractive } from "@/_components/AdminDashboard/ChartAreaInteractive";
 
 export const Route = createFileRoute("/dashboard")({
   component: LayoutDashboard,
@@ -26,11 +24,8 @@ function LayoutDashboard() {
       <AdminSidebar />
       <main className="bg-background relative flex w-full flex-1 flex-col md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2">
         <AdminHeader />
-        <div className="flex flex-1 flex-col gap-2 @container/main p-4">
-            <div className="flex flex-col gap-4">
-              <SectionCards />
-                <ChartAreaInteractive />
-          </div>
+        <div className="flex flex-1 flex-col gap-2 @container/main p-4 md:p-6">
+          <Outlet />
         </div>
       </main>
     </SidebarProvider>

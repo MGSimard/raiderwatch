@@ -191,7 +191,7 @@ const formSchema = z.object({
     .string()
     .trim()
     .min(20, "Description must be at least 20 characters in length")
-    .max(300, "Description must be at most 300 characters in length"),
+    .max(1024, "Description must be at most 300 characters in length"),
   videoUrl: z
     .url()
     .trim()

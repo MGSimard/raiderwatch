@@ -8,7 +8,6 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
@@ -35,10 +34,6 @@ function MenubarMenu({ ...props }: React.ComponentProps<typeof DropdownMenu>) {
 
 function MenubarGroup({ ...props }: React.ComponentProps<typeof DropdownMenuGroup>) {
   return <DropdownMenuGroup data-slot="menubar-group" {...props} />;
-}
-
-function MenubarPortal({ ...props }: React.ComponentProps<typeof DropdownMenuPortal>) {
-  return <DropdownMenuPortal data-slot="menubar-portal" {...props} />;
 }
 
 function MenubarTrigger({ className, ...props }: React.ComponentProps<typeof DropdownMenuTrigger>) {
@@ -212,7 +207,6 @@ function MenubarSubContent({ className, ...props }: React.ComponentProps<typeof 
 
 export {
   Menubar,
-  MenubarPortal,
   MenubarMenu,
   MenubarTrigger,
   MenubarContent,

@@ -13,33 +13,7 @@ import {
 } from "@/_components/ui/sidebar";
 
 export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const navMain = [
-    {
-      title: "Overview",
-      url: "#",
-    },
-    {
-      title: "Reports",
-      url: "#",
-    },
-  ];
 
-  const navInternal = [
-    {
-      name: "Team",
-      url: "#",
-    },
-    {
-      name: "Audit Logs",
-      url: "#",
-    },
-  ];
-
-  const user = {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  };
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -48,17 +22,17 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
           <SidebarMenuItem>
             <SidebarMenuButton render={<a href="#" />} className="data-[slot=sidebar-menu-button]:p-1.5!">
               <PlaceholderIcon className="size-5!" />
-              <span className="text-base font-semibold">Acme Inc.</span>
+              <span className="text-base font-semibold">RAIDER.WATCH</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={navMain} />
-        <NavInternal items={navInternal} />
+        <NavMain />
+        <NavInternal />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={user} />
+        <NavUser />
       </SidebarFooter>
     </Sidebar>
   );

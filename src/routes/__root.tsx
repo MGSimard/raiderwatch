@@ -1,7 +1,7 @@
 import { HeadContent, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import { TanStackDevtools } from "@tanstack/react-devtools";
-import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
+// import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+// import { TanStackDevtools } from "@tanstack/react-devtools";
+// import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 // import { FormDevtoolsPanel } from "@tanstack/react-form-devtools";
 import appCss from "../_styles/app.css?url";
 import fontsCss from "../_styles/fonts.css?url";
@@ -57,7 +57,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           </div>
           <Toaster className="z-9999" />
         </ThemeProvider>
-        <TanStackDevtools
+        {/* <TanStackDevtools
           config={{
             position: "bottom-right",
           }}
@@ -74,7 +74,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             // some random ass solidjs garbage that crashes the app
             // despite being a React package
           ]}
-        />
+        /> */}
         <Scripts />
       </body>
     </html>

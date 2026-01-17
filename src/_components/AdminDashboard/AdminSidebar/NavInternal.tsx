@@ -1,63 +1,43 @@
-import { PlaceholderIcon } from "@phosphor-icons/react";
+import { BellIcon, UsersIcon } from "@phosphor-icons/react";
 import {
   SidebarGroup,
+  SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/_components/ui/sidebar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/_components/ui/dropdown-menu";
 
-export function NavInternal({
-  items,
-}: {
-  items: Array<{
-    name: string;
-    url: string;
-  }>;
-}) {
+
+export function NavInternal() {
+ const navItems = [ 
+  {
+    title: "Team",
+    url: "#",
+    icon: UsersIcon,
+  },
+  {
+    title: "Audit Logs",
+    url: "#",
+    icon: BellIcon,
+  },
+ ];
+
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
+    <SidebarGroup>
       <SidebarGroupLabel>Internal</SidebarGroupLabel>
-      <SidebarMenu>
-        {items.map((item) => (
-          <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton render={<a href={item.url} />}>
-              <PlaceholderIcon className="size-4" />
-              <span>{item.name}</span>
-            </SidebarMenuButton>
-            <DropdownMenu>
-              <DropdownMenuTrigger
-                render={<SidebarMenuAction showOnHover className="data-[state=open]:bg-accent rounded-sm" />}>
-                <PlaceholderIcon className="size-4" />
-                <span className="sr-only">More</span>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-24 rounded-lg" align="end">
-                <DropdownMenuItem>
-                  <PlaceholderIcon className="size-4" />
-                  <span>Open</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <PlaceholderIcon className="size-4" />
-                  <span>Share</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem variant="destructive">
-                  <PlaceholderIcon className="size-4" />
-                  <span>Delete</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
-        ))}
-      </SidebarMenu>
+      <SidebarGroupContent>
+        <SidebarMenu>
+          {navItems.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton tooltip={item.title} render={<a href={item.url} />}>
+                <item.icon className="size-4" />
+                <span>{item.title}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarGroupContent>
     </SidebarGroup>
   );
 }

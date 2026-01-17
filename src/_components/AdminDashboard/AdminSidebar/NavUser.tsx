@@ -1,4 +1,4 @@
-import { PlaceholderIcon } from "@phosphor-icons/react";
+import { CaretRightIcon, SignOutIcon, UserIcon } from "@phosphor-icons/react";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/_components/ui/sidebar";
 import {
   DropdownMenu,
@@ -11,15 +11,15 @@ import {
 } from "@/_components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/_components/ui/avatar";
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
+export function NavUser() {
+  
+  // TODO: Grab user info from query context
+  const user = {
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
   };
-}) {
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -28,7 +28,7 @@ export function NavUser({
             render={
               <SidebarMenuButton
                 size="lg"
-                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                className="data-popup-open:bg-sidebar-accent data-popup-open:text-sidebar-accent-foreground"
               />
             }>
             <Avatar className="h-8 w-8 rounded-lg grayscale">
@@ -39,44 +39,38 @@ export function NavUser({
               <span className="truncate font-medium">{user.name}</span>
               <span className="text-muted-foreground truncate text-xs">{user.email}</span>
             </div>
-            <PlaceholderIcon className="ml-auto size-4" />
+            <CaretRightIcon className="ml-auto size-4" />
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+            className="w-(--anchor-width) min-w-56 rounded-lg"
             side="right"
             align="end"
             sideOffset={4}>
-            <DropdownMenuLabel className="p-0 font-normal">
-              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-                </Avatar>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
-                  <span className="text-muted-foreground truncate text-xs">{user.email}</span>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="p-0 font-normal">
+                <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                  <Avatar className="h-8 w-8 rounded-lg">
+                    <AvatarImage src={user.avatar} alt={user.name} />
+                    <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  </Avatar>
+                  <div className="grid flex-1 text-left text-sm leading-tight">
+                    <span className="truncate font-medium">{user.name}</span>
+                    <span className="text-muted-foreground truncate text-xs">{user.email}</span>
+                  </div>
                 </div>
-              </div>
-            </DropdownMenuLabel>
+              </DropdownMenuLabel>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <PlaceholderIcon className="size-4" />
+                <UserIcon className="size-4" />
                 Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <PlaceholderIcon className="size-4" />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <PlaceholderIcon className="size-4" />
-                Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <PlaceholderIcon className="size-4" />
-              Log out
+              <SignOutIcon className="size-4" />
+              Disconnect
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

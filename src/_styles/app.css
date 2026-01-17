@@ -266,7 +266,7 @@
     display: grid;
     grid-template-rows: 0fr;
     animation: animate-height 0.2s ease-in-out forwards;
-    &>.expander {
+    & > .expander {
       overflow: hidden;
       opacity: 0;
       animation: fade-in 0.2s ease-in-out 0.2s forwards;

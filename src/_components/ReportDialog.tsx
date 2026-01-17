@@ -19,6 +19,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { REPORT_REASON_ENUMS, REPORT_REASON_LABELS } from "@/_lib/enums";
 import { Field, FieldError, FieldLabel } from "@/_components/ui/field";
 import { InputGroup, InputGroupAddon, InputGroupText, InputGroupTextarea } from "@/_components/ui/input-group";
+import { fileReport } from "@/_server/serverFunctions";
 
 export function ReportDialog({ embarkId }: { embarkId: string }) {
   const form = useForm({
@@ -32,9 +33,15 @@ export function ReportDialog({ embarkId }: { embarkId: string }) {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      console.log("Submitted values:", value);
-      toast.success("Report submitted successfully");
+      try {
+        const validated = formSchema.parse(value); // Needed since we use "" default for reason
+        await fileReport({ data: validated });
+        toast.success("Report submitted successfully. A curator will review it shortly.");
+        form.reset();
+      } catch (err) {
+        console.error("Error submitting report:", err);
+        toast.error("Failed to submit report, view console for more details.");
+      }
     },
   });
 
@@ -151,7 +158,9 @@ export function ReportDialog({ embarkId }: { embarkId: string }) {
                         aria-invalid={isInvalid}
                       />
                       <InputGroupAddon align="block-end">
-                        <InputGroupText className={cn(field.state.value.length > 300 && "text-destructive")}>{field.state.value.length}/300 characters</InputGroupText>
+                        <InputGroupText className={cn(field.state.value.length > 300 && "text-destructive")}>
+                          {field.state.value.length}/300 characters
+                        </InputGroupText>
                       </InputGroupAddon>
                     </InputGroup>
                     {isInvalid && <FieldError errors={field.state.meta.errors} />}

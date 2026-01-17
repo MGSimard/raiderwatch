@@ -1,4 +1,4 @@
-import { drizzle } from "drizzle-orm/neon-http";
+import { drizzle } from "drizzle-orm/neon-serverless";
 import { relations } from "./schema";
 
 // TODO: T3env

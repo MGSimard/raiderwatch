@@ -54,8 +54,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <div id="root">
             <ThemeToggle />
             {children}
-            <Toaster />
           </div>
+          <Toaster className="z-9999" />
         </ThemeProvider>
         <TanStackDevtools
           config={{

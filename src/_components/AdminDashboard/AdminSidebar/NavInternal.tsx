@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/_components/ui/dropdown-menu";
 
-export function NavDocuments({
+export function NavInternal({
   items,
 }: {
   items: Array<{
@@ -25,7 +25,7 @@ export function NavDocuments({
 }) {
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Documents</SidebarGroupLabel>
+      <SidebarGroupLabel>Internal</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.name}>
@@ -57,12 +57,6 @@ export function NavDocuments({
             </DropdownMenu>
           </SidebarMenuItem>
         ))}
-        <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
-            <PlaceholderIcon className="text-sidebar-foreground/70 size-4" />
-            <span>More</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
       </SidebarMenu>
     </SidebarGroup>
   );

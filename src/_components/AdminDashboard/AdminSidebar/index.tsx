@@ -1,7 +1,6 @@
 import { PlaceholderIcon } from "@phosphor-icons/react";
 import { NavMain } from "./NavMain";
-import { NavDocuments } from "./NavDocuments";
-import { NavSecondary } from "./NavSecondary";
+import { NavInternal } from "./NavInternal";
 import { NavUser } from "./NavUser";
 import {
   Sidebar,
@@ -16,53 +15,22 @@ import {
 export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const navMain = [
     {
-      title: "Dashboard",
+      title: "Overview",
       url: "#",
     },
     {
-      title: "Lifecycle",
-      url: "#",
-    },
-    {
-      title: "Analytics",
-      url: "#",
-    },
-    {
-      title: "Projects",
-      url: "#",
-    },
-    {
-      title: "Team",
+      title: "Reports",
       url: "#",
     },
   ];
 
-  const navSecondary = [
+  const navInternal = [
     {
-      title: "Settings",
+      name: "Team",
       url: "#",
     },
     {
-      title: "Get Help",
-      url: "#",
-    },
-    {
-      title: "Search",
-      url: "#",
-    },
-  ];
-
-  const documents = [
-    {
-      name: "Data Library",
-      url: "#",
-    },
-    {
-      name: "Reports",
-      url: "#",
-    },
-    {
-      name: "Word Assistant",
+      name: "Audit Logs",
       url: "#",
     },
   ];
@@ -87,8 +55,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navMain} />
-        <NavDocuments items={documents} />
-        <NavSecondary items={navSecondary} className="mt-auto" />
+        <NavInternal items={navInternal} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
+import { cn } from "@/_lib/utils";
 import { Button } from "@/_components/ui/button";
 import {
   Dialog,
@@ -146,11 +147,11 @@ export function ReportDialog({ embarkId }: { embarkId: string }) {
                         onChange={(e) => field.handleChange(e.target.value)}
                         placeholder="Briefly describe the situation..."
                         rows={6}
-                        className="min-h-24 resize-none"
+                        className="min-h-24 resize-none wrap-break-word"
                         aria-invalid={isInvalid}
                       />
                       <InputGroupAddon align="block-end">
-                        <InputGroupText>{field.state.value.length}/300 characters</InputGroupText>
+                        <InputGroupText className={cn(field.state.value.length > 300 && "text-destructive")}>{field.state.value.length}/300 characters</InputGroupText>
                       </InputGroupAddon>
                     </InputGroup>
                     {isInvalid && <FieldError errors={field.state.meta.errors} />}

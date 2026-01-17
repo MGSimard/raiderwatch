@@ -2,11 +2,13 @@ import { HeadContent, Scripts, createRootRouteWithContext } from "@tanstack/reac
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
+import { FormDevtoolsPanel } from "@tanstack/react-form-devtools";
 import appCss from "../_styles/app.css?url";
 import fontsCss from "../_styles/fonts.css?url";
 import type { QueryClient } from "@tanstack/react-query";
 import { ThemeProvider } from "@/_components/ThemeProvider";
 import { ThemeToggle } from "@/_components/ThemeToggle";
+import { Toaster } from "@/_components/ui/sonner";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -52,6 +54,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <div id="root">
             <ThemeToggle />
             {children}
+            <Toaster />
           </div>
         </ThemeProvider>
         <TanStackDevtools
@@ -60,13 +63,16 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           }}
           plugins={[
             {
-              name: "Tanstack Router",
+              name: "TanStack Router",
               render: <TanStackRouterDevtoolsPanel />,
             },
             {
-              name: "Tanstack Query",
+              name: "TanStack Query",
               render: <ReactQueryDevtoolsPanel />,
             },
+            // Not using FormDevtoolsPanel because it invokes
+            // some random ass solidjs garbage that crashes the app
+            // despite being a React package
           ]}
         />
         <Scripts />

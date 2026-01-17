@@ -72,6 +72,7 @@ export function SearchUser() {
           aria-invalid={!!error}
           value={value}
           onChange={handleChange}
+          autoComplete="off"
           autoFocus
           required
         />

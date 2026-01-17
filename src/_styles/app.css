@@ -235,7 +235,6 @@
   .animate-recording-pulse {
     animation: recording-pulse 2s ease-in-out infinite;
   }
-
   .corner-brackets::before {
     content: "";
     position: absolute;
@@ -261,6 +260,33 @@
       bottom 0 right 0,
       bottom 0 right 0;
     background-repeat: no-repeat;
+  }
+  .animated-height {
+    position: relative;
+    display: grid;
+    grid-template-rows: 0fr;
+    animation: animate-height 0.2s ease-in-out forwards;
+    &>.expander {
+      overflow: hidden;
+      opacity: 0;
+      animation: fade-in 0.2s ease-in-out 0.2s forwards;
+    }
+  }
+  @keyframes animate-height {
+    from {
+      grid-template-rows: 0fr;
+    }
+    to {
+      grid-template-rows: 1fr;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }
 

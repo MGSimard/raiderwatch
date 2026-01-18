@@ -45,7 +45,8 @@ export function NavMain() {
                   <Link
                     to={item.url}
                     onClick={() => setOpenMobile(false)}
-                    activeProps={{ className: "bg-linear-to-r from-primary to-transparent" }}
+                      className="group-data-[state=expanded]:border-l-2"
+                    activeProps={{ className: "border-primary group-data-[state=collapsed]:bg-primary" }}
                     activeOptions={{ exact: item.activeExact, includeSearch: false }}
                   />
                 }>

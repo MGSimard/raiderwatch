@@ -39,7 +39,8 @@ export function NavInternal() {
                   <Link
                     to={item.url}
                     onClick={() => setOpenMobile(false)}
-                    activeProps={{ className: "border-l border-primary" }}
+                    className="group-data-[state=expanded]:border-l-2"
+                    activeProps={{ className: "border-primary group-data-[state=collapsed]:bg-primary" }}
                   />
                 }>
                 <item.icon className="size-4" />

@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/_components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/_components/ui/avatar";
+import { authClient } from "@/_auth/auth-client";
 
 export function NavUser() {
   const { setOpenMobile } = useSidebar();
@@ -69,7 +70,7 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => setOpenMobile(false)}>
+            <DropdownMenuItem onClick={() => authClient.signOut()}>
               <SignOutIcon className="size-4" />
               Disconnect
             </DropdownMenuItem>

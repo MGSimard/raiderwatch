@@ -1,15 +1,16 @@
 import { Outlet, createFileRoute } from "@tanstack/react-router";
-// import { authMiddleware } from "@/_auth/authMiddleware";
+import { authMiddleware } from "@/_auth/authMiddleware";
 import { SidebarProvider } from "@/_components/admin/ui/sidebar";
 import { AdminSidebar } from "@/_components/admin/sidebar";
 import { Header } from "@/_components/admin/Header";
 
+// https://tanstack.com/router/latest/docs/framework/react/guide/authenticated-routes
+
 export const Route = createFileRoute("/dashboard")({
   component: LayoutDashboard,
-  // TODO: Re-enable once I have the login form done
-  // server: {
-  //   middleware: [authMiddleware],
-  // },
+  server: {
+    middleware: [authMiddleware],
+  },
 });
 
 function LayoutDashboard() {
@@ -31,3 +32,31 @@ function LayoutDashboard() {
     </SidebarProvider>
   );
 }
+
+// AUTH NOTES
+// import { createFileRoute, redirect, isRedirect } from '@tanstack/react-router'
+
+// // src/routes/_authenticated.tsx
+// export const Route = createFileRoute('/_authenticated')({
+//   beforeLoad: async ({ location }) => {
+//     try {
+//       const user = await verifySession() // might throw on network error
+//       if (!user) {
+//         throw redirect({
+//           to: '/login',
+//           search: { redirect: location.href },
+//         })
+//       }
+//       return { user }
+//     } catch (error) {
+//       // Re-throw redirects (they're intentional, not errors)
+//       if (isRedirect(error)) throw error
+
+//       // Auth check failed (network error, etc.) - redirect to login
+//       throw redirect({
+//         to: '/login',
+//         search: { redirect: location.href },
+//       })
+//     }
+//   },
+// })

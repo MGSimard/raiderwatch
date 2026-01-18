@@ -6,10 +6,13 @@ import { auth } from "@/_auth";
 export const authMiddleware = createMiddleware().server(async ({ next }) => {
   const headers = getRequestHeaders() as Headers;
   const session = await auth.api.getSession({ headers });
+  
+
+    // Add role checks later
 
   if (!session) {
     // eslint-disable-next-line @typescript-eslint/only-throw-error
-    throw redirect({ to: "/" });
+    throw redirect({ to: "/authorization" });
   }
 
   return await next();

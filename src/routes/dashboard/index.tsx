@@ -7,8 +7,11 @@ export const Route = createFileRoute("/dashboard/")({
 });
 
 function PageDashboard() {
+  const { user } = Route.useRouteContext();
+
   return (
     <>
+      <p>User ID: {user?.id}</p>
       <StatCards />
       <ChartTotalReports />
     </>

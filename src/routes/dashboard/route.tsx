@@ -1,8 +1,8 @@
-import { Outlet, createFileRoute } from "@tanstack/react-router";
-import { authMiddleware } from "@/_auth/authMiddleware";
+import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 import { SidebarProvider } from "@/_components/admin/ui/sidebar";
 import { AdminSidebar } from "@/_components/admin/sidebar";
 import { Header } from "@/_components/admin/Header";
+import { getCurrentUser } from "@/_server/serverFunctions";
 
 // https://tanstack.com/router/latest/docs/framework/react/guide/authenticated-routes
 
@@ -10,8 +10,13 @@ import { Header } from "@/_components/admin/Header";
 
 export const Route = createFileRoute("/dashboard")({
   component: LayoutDashboard,
-  server: {
-    middleware: [authMiddleware],
+  beforeLoad: async ({ location }) => {
+    const user = await getCurrentUser();
+    if (!user) {
+      // eslint-disable-next-line @typescript-eslint/only-throw-error
+      throw redirect({ to: "/authorization", search: { redirect: location.href } });
+    }
+    return { user };
   },
 });
 

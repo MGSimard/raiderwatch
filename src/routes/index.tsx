@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { SearchUser } from "@/_components/SearchUser";
 import { Separator } from "@/_components/ui/separator";
 import { SignIn } from "@/_components/SignIn";
@@ -31,6 +31,7 @@ function PageHome() {
         <SignIn />
         <SignUp />
         <SignOut />
+        <Link to="/dashboard">Dashboard</Link>
       </div>
     </main>
   );

@@ -5,6 +5,7 @@ import { z } from "zod";
 import { db } from "./db";
 import { raiders, reports } from "./db/schema";
 import { REPORT_REASON_ENUMS } from "@/_lib/enums";
+import { authMiddleware } from "@/_auth/authMiddleware";
 
 // https://tanstack.com/start/latest/docs/framework/react/guide/server-functions
 
@@ -77,4 +78,20 @@ export const fileReport = createServerFn()
       console.error("Error filing report:", error);
       throw new Error(`Failed to file report for Embark ID: ${embarkId}`);
     }
+  });
+
+  export const getCurrentUser = createServerFn({ method: "GET" })
+  .middleware([authMiddleware])
+  // eslint-disable-next-line @typescript-eslint/require-await
+  .handler(async ({ context }) => {
+    const user = context.session?.user;
+    if (!user) return null;
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      image: user.image,
+      role: user.role,
+    };
   });

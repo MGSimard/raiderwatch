@@ -1,5 +1,5 @@
 import { CaretRightIcon, SignOutIcon, UserIcon } from "@phosphor-icons/react";
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/_components/ui/sidebar";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/_components/ui/sidebar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +12,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/_components/ui/avatar";
 
 export function NavUser() {
+  const { setOpenMobile } = useSidebar();
+
   // TODO: Grab user info from query context
   const user = {
     name: "shadcn",
@@ -61,13 +63,13 @@ export function NavUser() {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setOpenMobile(false)}>
                 <UserIcon className="size-4" />
                 Account
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setOpenMobile(false)}>
               <SignOutIcon className="size-4" />
               Disconnect
             </DropdownMenuItem>

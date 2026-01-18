@@ -7,9 +7,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/_components/ui/sidebar";
 
 export function NavInternal() {
+  const { setOpenMobile } = useSidebar();
+
   const navItems = [
     {
       title: "Team",
@@ -30,7 +33,9 @@ export function NavInternal() {
         <SidebarMenu>
           {navItems.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title} render={<Link to={item.url} />}>
+              <SidebarMenuButton
+                tooltip={item.title}
+                render={<Link to={item.url} onClick={() => setOpenMobile(false)} />}>
                 <item.icon className="size-4" />
                 <span>{item.title}</span>
               </SidebarMenuButton>

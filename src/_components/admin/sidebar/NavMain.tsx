@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { GaugeIcon, WarningIcon } from "@phosphor-icons/react";
+import { GaugeIcon, MagnifyingGlassIcon, WarningIcon } from "@phosphor-icons/react";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -7,9 +7,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/_components/ui/sidebar";
 
 export function NavMain() {
+  const { setOpenMobile } = useSidebar();
+
   const navItems = [
     {
       title: "Overview",
@@ -21,6 +24,11 @@ export function NavMain() {
       url: "/dashboard/reports",
       icon: WarningIcon,
     },
+    {
+      title: "Lookup",
+      url: "/dashboard/lookup",
+      icon: MagnifyingGlassIcon,
+    },
   ];
 
   return (
@@ -30,7 +38,9 @@ export function NavMain() {
         <SidebarMenu>
           {navItems.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title} render={<Link to={item.url} />}>
+              <SidebarMenuButton
+                tooltip={item.title}
+                render={<Link to={item.url} onClick={() => setOpenMobile(false)} />}>
                 <item.icon className="size-4" />
                 <span>{item.title}</span>
               </SidebarMenuButton>

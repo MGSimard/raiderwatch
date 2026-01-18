@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
-import type { ChartConfig } from "@/_components/ui/chart";
+import type { ChartConfig } from "@/_components/admin/ui/chart";
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/_components/admin/ui/card";
 import { ToggleGroup, ToggleGroupItem } from "@/_components/ui/toggle-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/_components/ui/select";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/_components/ui/chart";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/_components/admin/ui/chart";
 
 const chartConfig = {
   reports: {

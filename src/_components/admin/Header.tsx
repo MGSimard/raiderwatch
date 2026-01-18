@@ -1,5 +1,5 @@
 import { XLogoIcon } from "@phosphor-icons/react";
-import { SidebarTrigger } from "@/_components/ui/sidebar";
+import { SidebarTrigger } from "@/_components/admin/ui/sidebar";
 import { Separator } from "@/_components/ui/separator";
 import { Button } from "@/_components/ui/button";
 

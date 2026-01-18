@@ -1,5 +1,5 @@
 import { CaretRightIcon, SignOutIcon, UserIcon } from "@phosphor-icons/react";
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/_components/ui/sidebar";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/_components/admin/ui/sidebar";
 import {
   DropdownMenu,
   DropdownMenuContent,

@@ -8,7 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/_components/ui/sidebar";
+} from "@/_components/admin/ui/sidebar";
 
 export function NavInternal() {
   const { setOpenMobile } = useSidebar();
@@ -35,7 +35,13 @@ export function NavInternal() {
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
                 tooltip={item.title}
-                render={<Link to={item.url} onClick={() => setOpenMobile(false)} />}>
+                render={
+                  <Link
+                    to={item.url}
+                    onClick={() => setOpenMobile(false)}
+                    activeProps={{ className: "border-l border-primary" }}
+                  />
+                }>
                 <item.icon className="size-4" />
                 <span>{item.title}</span>
               </SidebarMenuButton>

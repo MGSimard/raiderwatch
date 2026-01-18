@@ -8,7 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/_components/ui/sidebar";
+} from "@/_components/admin/ui/sidebar";
 
 export function NavMain() {
   const { setOpenMobile } = useSidebar();
@@ -18,6 +18,7 @@ export function NavMain() {
       title: "Overview",
       url: "/dashboard",
       icon: GaugeIcon,
+      activeExact: true,
     },
     {
       title: "Reports",
@@ -40,7 +41,14 @@ export function NavMain() {
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
                 tooltip={item.title}
-                render={<Link to={item.url} onClick={() => setOpenMobile(false)} />}>
+                render={
+                  <Link
+                    to={item.url}
+                    onClick={() => setOpenMobile(false)}
+                    activeProps={{ className: "bg-linear-to-r from-primary to-transparent" }}
+                    activeOptions={{ exact: item.activeExact, includeSearch: false }}
+                  />
+                }>
                 <item.icon className="size-4" />
                 <span>{item.title}</span>
               </SidebarMenuButton>

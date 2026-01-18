@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WpAdminRouteImport } from './routes/wp-admin'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
@@ -19,6 +20,11 @@ import { Route as DashboardLookupRouteImport } from './routes/dashboard/lookup'
 import { Route as DashboardAuditLogsRouteImport } from './routes/dashboard/audit-logs'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
+const WpAdminRoute = WpAdminRouteImport.update({
+  id: '/wp-admin',
+  path: '/wp-admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -68,6 +74,7 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
   '/dashboard/lookup': typeof DashboardLookupRoute
   '/dashboard/reports': typeof DashboardReportsRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
   '/dashboard/lookup': typeof DashboardLookupRoute
   '/dashboard/reports': typeof DashboardReportsRoute
@@ -90,6 +98,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
   '/dashboard/lookup': typeof DashboardLookupRoute
   '/dashboard/reports': typeof DashboardReportsRoute
@@ -103,6 +112,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/dashboard'
+    | '/wp-admin'
     | '/dashboard/audit-logs'
     | '/dashboard/lookup'
     | '/dashboard/reports'
@@ -113,6 +123,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/wp-admin'
     | '/dashboard/audit-logs'
     | '/dashboard/lookup'
     | '/dashboard/reports'
@@ -124,6 +135,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/dashboard'
+    | '/wp-admin'
     | '/dashboard/audit-logs'
     | '/dashboard/lookup'
     | '/dashboard/reports'
@@ -136,12 +148,20 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
+  WpAdminRoute: typeof WpAdminRoute
   REmbarkIdRoute: typeof REmbarkIdRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wp-admin': {
+      id: '/wp-admin'
+      path: '/wp-admin'
+      fullPath: '/wp-admin'
+      preLoaderRoute: typeof WpAdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -231,6 +251,7 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
+  WpAdminRoute: WpAdminRoute,
   REmbarkIdRoute: REmbarkIdRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }

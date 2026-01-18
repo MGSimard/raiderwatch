@@ -2,12 +2,16 @@ import { authClient } from "@/_auth/auth-client";
 
 export function SignIn() {
   const handleSignIn = async () => {
-    await authClient.signIn.email({
-      email: "mgsimard.dev@gmail.com", // required
-      password: "password1234", // required
-      rememberMe: true,
-      callbackURL: "http://localhost:3000/dashboard",
-    });
+    try {
+      const test = await authClient.signIn.email({
+        email: "mgsimard.dev@gmail.com", // required
+        password: "password1234", // required
+      });
+      console.log(test);
+      console.log("Signed In");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

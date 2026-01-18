@@ -2,7 +2,13 @@ import { authClient } from "@/_auth/auth-client";
 
 export function SignOut() {
   const handleSignOut = async () => {
-    await authClient.signOut();
+    try {
+      const test = await authClient.signOut();
+      console.log(test);
+      console.log("Signed Out");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

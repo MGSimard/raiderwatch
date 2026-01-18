@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WpAdminRouteImport } from './routes/wp-admin'
+import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
 import { Route as AuthorizationRouteImport } from './routes/authorization'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -24,6 +25,11 @@ import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 const WpAdminRoute = WpAdminRouteImport.update({
   id: '/wp-admin',
   path: '/wp-admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UnauthorizedRoute = UnauthorizedRouteImport.update({
+  id: '/unauthorized',
+  path: '/unauthorized',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthorizationRoute = AuthorizationRouteImport.update({
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/authorization': typeof AuthorizationRoute
+  '/unauthorized': typeof UnauthorizedRoute
   '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
   '/dashboard/lookup': typeof DashboardLookupRoute
@@ -93,6 +100,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/authorization': typeof AuthorizationRoute
+  '/unauthorized': typeof UnauthorizedRoute
   '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
   '/dashboard/lookup': typeof DashboardLookupRoute
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/authorization': typeof AuthorizationRoute
+  '/unauthorized': typeof UnauthorizedRoute
   '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
   '/dashboard/lookup': typeof DashboardLookupRoute
@@ -122,6 +131,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/authorization'
+    | '/unauthorized'
     | '/wp-admin'
     | '/dashboard/audit-logs'
     | '/dashboard/lookup'
@@ -134,6 +144,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/authorization'
+    | '/unauthorized'
     | '/wp-admin'
     | '/dashboard/audit-logs'
     | '/dashboard/lookup'
@@ -147,6 +158,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/authorization'
+    | '/unauthorized'
     | '/wp-admin'
     | '/dashboard/audit-logs'
     | '/dashboard/lookup'
@@ -161,6 +173,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   AuthorizationRoute: typeof AuthorizationRoute
+  UnauthorizedRoute: typeof UnauthorizedRoute
   WpAdminRoute: typeof WpAdminRoute
   REmbarkIdRoute: typeof REmbarkIdRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -173,6 +186,13 @@ declare module '@tanstack/react-router' {
       path: '/wp-admin'
       fullPath: '/wp-admin'
       preLoaderRoute: typeof WpAdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/unauthorized': {
+      id: '/unauthorized'
+      path: '/unauthorized'
+      fullPath: '/unauthorized'
+      preLoaderRoute: typeof UnauthorizedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/authorization': {
@@ -272,6 +292,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   AuthorizationRoute: AuthorizationRoute,
+  UnauthorizedRoute: UnauthorizedRoute,
   WpAdminRoute: WpAdminRoute,
   REmbarkIdRoute: REmbarkIdRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,

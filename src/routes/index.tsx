@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SearchUser } from "@/_components/SearchUser";
 import { Separator } from "@/_components/ui/separator";
+import { SignIn } from "@/_components/SignIn";
+import { SignUp } from "@/_components/SignUp";
+import { SignOut } from "@/_components/SignOut";
 
 export const Route = createFileRoute("/")({
   component: PageHome,
@@ -25,6 +28,9 @@ function PageHome() {
         </h1>
         <Separator orientation="horizontal" className="-mt-1" />
         <SearchUser />
+        <SignIn />
+        <SignUp />
+        <SignOut />
       </div>
     </main>
   );

@@ -16,4 +16,3 @@ export const approvedReportsQuery = (embarkId: string) => {
     queryFn: () => getRaiderApprovedReports({ data: { embarkId } }),
   });
 };
-

@@ -1,9 +1,8 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
+import { EyeIcon } from "@phosphor-icons/react";
 import { SearchUser } from "@/_components/SearchUser";
 import { Separator } from "@/_components/ui/separator";
-import { SignIn } from "@/_components/SignIn";
-import { SignUp } from "@/_components/SignUp";
-import { SignOut } from "@/_components/SignOut";
+import { Button } from "@/_components/ui/button";
 
 export const Route = createFileRoute("/")({
   component: PageHome,
@@ -12,6 +11,14 @@ export const Route = createFileRoute("/")({
 function PageHome() {
   return (
     <main className="relative grow grid place-items-center text-center min-h-dvh">
+      <Button
+        variant="outline"
+        size="icon"
+        className="absolute top-4 right-4"
+        nativeButton={false}
+        aria-hidden
+        tabIndex={-1}
+        render={<Link to="/dashboard"><EyeIcon /></Link>}></Button>
       <video
         className="absolute inset-0 w-full h-full object-cover opacity-30 blur-sm select-none pointer-events-none"
         poster="/assets/media/hero.webp"
@@ -28,10 +35,6 @@ function PageHome() {
         </h1>
         <Separator orientation="horizontal" className="-mt-1" />
         <SearchUser />
-        <SignIn />
-        <SignUp />
-        <SignOut />
-        <Link to="/dashboard">Dashboard</Link>
       </div>
     </main>
   );

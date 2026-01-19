@@ -4,4 +4,4 @@ import { relations } from "./schema";
 
 // TODO: T3env
 const sql = neon(process.env.DATABASE_URL!);
-export const db = drizzle({ client: sql, relations});
+export const db = drizzle({ client: sql, relations });

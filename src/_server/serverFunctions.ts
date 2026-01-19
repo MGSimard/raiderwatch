@@ -70,7 +70,7 @@ export const fileReport = createServerFn()
     }
   });
 
-  export const getCurrentUser = createServerFn({ method: "GET" })
+export const getCurrentUser = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
   // eslint-disable-next-line @typescript-eslint/require-await
   .handler(async ({ context }) => {

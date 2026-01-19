@@ -2,18 +2,18 @@ import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 import { SidebarProvider } from "@/_components/admin/ui/sidebar";
 import { AdminSidebar } from "@/_components/admin/sidebar";
 import { Header } from "@/_components/admin/Header";
-import { currentUserQuery } from "@/_lib/queries";
-
+import { getCurrentUser } from "@/_server/serverFunctions";
 // https://tanstack.com/router/latest/docs/framework/react/guide/authenticated-routes
 
 export const Route = createFileRoute("/dashboard")({
   component: LayoutDashboard,
-  beforeLoad: async ({ context: { queryClient }, location }) => {
-    const user = await queryClient.ensureQueryData(currentUserQuery());
+  beforeLoad: async () => {
+    const user = await getCurrentUser();
     if (!user) {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
-      throw redirect({ to: "/authorization", search: { redirect: location.href } });
+      throw redirect({ to: "/authorization", replace: true });
     }
+    return { user }
   },
 });
 

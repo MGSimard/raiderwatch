@@ -239,7 +239,7 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
         toggleSidebar();
       }}
       {...props}>
-      <SidebarIcon />
+      <SidebarIcon aria-hidden />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );

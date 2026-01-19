@@ -32,7 +32,9 @@ function SelectTrigger({
       )}
       {...props}>
       {children}
-      <SelectPrimitive.Icon render={<CaretDownIcon className="text-muted-foreground size-4 pointer-events-none" />} />
+      <SelectPrimitive.Icon
+        render={<CaretDownIcon className="text-muted-foreground size-4 pointer-events-none" aria-hidden />}
+      />
     </SelectPrimitive.Trigger>
   );
 }
@@ -97,7 +99,7 @@ function SelectItem({ className, children, ...props }: SelectPrimitive.Item.Prop
       </SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator
         render={<span className="pointer-events-none absolute right-2 flex size-4 items-center justify-center" />}>
-        <CheckIcon className="pointer-events-none" />
+        <CheckIcon className="pointer-events-none" aria-hidden />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   );
@@ -122,7 +124,7 @@ function SelectScrollUpButton({ className, ...props }: React.ComponentProps<type
         className
       )}
       {...props}>
-      <CaretUpIcon />
+      <CaretUpIcon aria-hidden />
     </SelectPrimitive.ScrollUpArrow>
   );
 }
@@ -136,7 +138,7 @@ function SelectScrollDownButton({ className, ...props }: React.ComponentProps<ty
         className
       )}
       {...props}>
-      <CaretDownIcon />
+      <CaretDownIcon aria-hidden />
     </SelectPrimitive.ScrollDownArrow>
   );
 }

@@ -2,18 +2,21 @@ import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 import { SidebarProvider } from "@/_components/admin/ui/sidebar";
 import { AdminSidebar } from "@/_components/admin/sidebar";
 import { Header } from "@/_components/admin/Header";
-import { getCurrentUser } from "@/_server/serverFunctions";
-// https://tanstack.com/router/latest/docs/framework/react/guide/authenticated-routes
+import { getUserWithPermissions } from "@/_server/serverFunctions";
 
 export const Route = createFileRoute("/dashboard")({
   component: LayoutDashboard,
   beforeLoad: async () => {
-    const user = await getCurrentUser();
-    if (!user) {
+    const result = await getUserWithPermissions();
+    if (!result) {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
-      throw redirect({ to: "/authorization", replace: true });
+      throw redirect({ to: "/auth", replace: true });
     }
-    return { user }
+    if (!result.hasAssessorPermission) {
+      // eslint-disable-next-line @typescript-eslint/only-throw-error
+      throw redirect({ to: "/unauthorized", replace: true });
+    }
+    return { user: result.user };
   },
 });
 

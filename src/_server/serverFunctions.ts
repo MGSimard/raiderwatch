@@ -6,6 +6,7 @@ import { db } from "./db";
 import { raiders, reports } from "./db/schema";
 import { REPORT_REASON_ENUMS } from "@/_lib/enums";
 import { authMiddleware } from "@/_auth/authMiddleware";
+import { auth } from "@/_auth";
 
 // https://tanstack.com/start/latest/docs/framework/react/guide/server-functions
 // https://www.better-auth.com/docs/plugins/admin#access-control-usage
@@ -82,5 +83,48 @@ export const getCurrentUser = createServerFn({ method: "GET" })
       email: user.email,
       image: user.image,
       role: user.role,
+    };
+  });
+
+export const isAssessor = createServerFn({ method: "GET" })
+  .middleware([authMiddleware])
+  .handler(async ({ context }) => {
+    const user = context.session?.user;
+    if (!user) return false;
+    const { success: hasPermission } = await auth.api.userHasPermission({
+      body: {
+        userId: user.id,
+        permissions: {
+          report: ["assess"],
+        },
+      },
+    });
+    return hasPermission;
+  });
+
+export const getUserWithPermissions = createServerFn({ method: "GET" })
+  .middleware([authMiddleware])
+  .handler(async ({ context }) => {
+    const user = context.session?.user;
+    if (!user) return null;
+
+    const { success: hasPermission } = await auth.api.userHasPermission({
+      body: {
+        userId: user.id,
+        permissions: {
+          report: ["assess"],
+        },
+      },
+    });
+
+    return {
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        image: user.image,
+        role: user.role,
+      },
+      hasAssessorPermission: hasPermission,
     };
   });

@@ -43,7 +43,7 @@ export function NavInternal() {
                     activeProps={{ className: "border-primary group-data-[state=collapsed]:bg-primary" }}
                   />
                 }>
-                <item.icon className="size-4" />
+                <item.icon className="size-4" aria-hidden />
                 <span>{item.title}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>

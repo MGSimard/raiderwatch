@@ -24,7 +24,7 @@ export function NavUser() {
         onSuccess: () => {
           // TODO router invalidation, clear query cache, etc
           setOpenMobile(false);
-          void navigate({ to: "/authorization" });
+          void navigate({ to: "/auth" });
         },
       },
     });
@@ -49,7 +49,7 @@ export function NavUser() {
               <span className="truncate font-medium">{user.name}</span>
               <span className="text-muted-foreground truncate text-xs">{user.email}</span>
             </div>
-            <CaretRightIcon className="ml-auto size-4" />
+            <CaretRightIcon className="ml-auto size-4" aria-hidden />
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-(--anchor-width) min-w-56 rounded-lg"
@@ -73,13 +73,13 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem onClick={() => setOpenMobile(false)}>
-                <UserIcon className="size-4" />
+                <UserIcon className="size-4" aria-hidden />
                 Account
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSignOut}>
-              <SignOutIcon className="size-4" />
+              <SignOutIcon className="size-4" aria-hidden />
               Disconnect
             </DropdownMenuItem>
           </DropdownMenuContent>

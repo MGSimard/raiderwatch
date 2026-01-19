@@ -22,7 +22,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
             <SidebarMenuButton
               render={<Link to="/" aria-label="Return home" />}
               className="data-[slot=sidebar-menu-button]:p-1.5!">
-              <PlaceholderIcon className="size-5!" />
+              <PlaceholderIcon className="size-5!" aria-hidden />
               <span className="text-base font-semibold">RAIDER.WATCH</span>
             </SidebarMenuButton>
           </SidebarMenuItem>

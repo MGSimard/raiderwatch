@@ -10,7 +10,11 @@ export function ThemeToggle() {
       size="icon"
       className="fixed bottom-4 right-4 bg-transparent hover:bg-transparent text-primary/50 hover:text-primary focus-visible:text-primary z-10"
       onClick={() => setTheme(activeTheme === "light" ? "dark" : "light")}>
-      {activeTheme === "light" ? <IconBolt className="size-5" /> : <IconBoltSlash className="size-5" />}
+      {activeTheme === "light" ? (
+        <IconBolt className="size-5" aria-hidden />
+      ) : (
+        <IconBoltSlash className="size-5" aria-hidden />
+      )}
     </Button>
   );
 }

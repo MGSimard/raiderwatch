@@ -1,20 +1,3 @@
-// Search for a user by their Embark ID or Platform ID
-// Embark ID is the username#XXXX discriminator format
-// Platform ID is the platform specific ID (Steam ID, Epic Games ID, etc.)
-
-// List of current platforms supported for Arc Raiders and their identifier types:
-
-// - STEAM: SteamID (Static, Unique), Username, Community Username
-
-// STEAM:
-// Static: SteamID
-// Dynamic: Username, Community Username
-
-// EMBARK:
-// Dynamic: Embark ID (Username#XXXX)
-
-// EPIC GAMES:
-// Dynamic: Username
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
@@ -79,7 +62,7 @@ export function SearchUser() {
         {error && <FieldError>{error}</FieldError>}
       </Field>
       <Button type="submit" variant="outline" size="icon" disabled={isEmpty}>
-        <MagnifyingGlassIcon className="size-4" />
+        <MagnifyingGlassIcon className="size-4" aria-hidden />
       </Button>
     </form>
   );

@@ -28,9 +28,12 @@ export function NoReports({ embarkId }: { embarkId: string }) {
               variant="outline"
               size="default"
               nativeButton={false}
-              render={<Link to="/" aria-label="Return to search" />}>
-              <ArrowLeftIcon weight="bold" /> RETURN
-            </Button>
+              render={
+                <Link to="/" aria-label="Return to search">
+                  <ArrowLeftIcon weight="bold" aria-hidden /> RETURN
+                </Link>
+              }
+            />
             <ReportDialog embarkId={embarkId} />
           </CardFooter>
         </div>

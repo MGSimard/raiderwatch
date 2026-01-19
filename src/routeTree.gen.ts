@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WpAdminRouteImport } from './routes/wp-admin'
 import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
-import { Route as AuthorizationRouteImport } from './routes/authorization'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
@@ -32,9 +32,9 @@ const UnauthorizedRoute = UnauthorizedRouteImport.update({
   path: '/unauthorized',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthorizationRoute = AuthorizationRouteImport.update({
-  id: '/authorization',
-  path: '/authorization',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
@@ -86,7 +86,7 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/authorization': typeof AuthorizationRoute
+  '/auth': typeof AuthRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
@@ -99,7 +99,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/authorization': typeof AuthorizationRoute
+  '/auth': typeof AuthRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
@@ -114,7 +114,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/authorization': typeof AuthorizationRoute
+  '/auth': typeof AuthRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
@@ -130,7 +130,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/dashboard'
-    | '/authorization'
+    | '/auth'
     | '/unauthorized'
     | '/wp-admin'
     | '/dashboard/audit-logs'
@@ -143,7 +143,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/authorization'
+    | '/auth'
     | '/unauthorized'
     | '/wp-admin'
     | '/dashboard/audit-logs'
@@ -157,7 +157,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/dashboard'
-    | '/authorization'
+    | '/auth'
     | '/unauthorized'
     | '/wp-admin'
     | '/dashboard/audit-logs'
@@ -172,7 +172,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
-  AuthorizationRoute: typeof AuthorizationRoute
+  AuthRoute: typeof AuthRoute
   UnauthorizedRoute: typeof UnauthorizedRoute
   WpAdminRoute: typeof WpAdminRoute
   REmbarkIdRoute: typeof REmbarkIdRoute
@@ -195,11 +195,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnauthorizedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/authorization': {
-      id: '/authorization'
-      path: '/authorization'
-      fullPath: '/authorization'
-      preLoaderRoute: typeof AuthorizationRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -291,7 +291,7 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
-  AuthorizationRoute: AuthorizationRoute,
+  AuthRoute: AuthRoute,
   UnauthorizedRoute: UnauthorizedRoute,
   WpAdminRoute: WpAdminRoute,
   REmbarkIdRoute: REmbarkIdRoute,

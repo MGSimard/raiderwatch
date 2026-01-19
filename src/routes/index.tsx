@@ -18,7 +18,12 @@ function PageHome() {
         nativeButton={false}
         aria-hidden
         tabIndex={-1}
-        render={<Link to="/dashboard"><EyeIcon /></Link>}></Button>
+        render={
+          <Link to="/dashboard">
+            <EyeIcon aria-hidden />
+          </Link>
+        }
+      />
       <video
         className="absolute inset-0 w-full h-full object-cover opacity-30 blur-sm select-none pointer-events-none"
         poster="/assets/media/hero.webp"

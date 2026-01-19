@@ -18,7 +18,7 @@ function ComboboxTrigger({ className, children, ...props }: ComboboxPrimitive.Tr
       className={cn("[&_svg:not([class*='size-'])]:size-4", className)}
       {...props}>
       {children}
-      <CaretDownIcon className="text-muted-foreground size-4 pointer-events-none" />
+      <CaretDownIcon className="text-muted-foreground size-4 pointer-events-none" aria-hidden />
     </ComboboxPrimitive.Trigger>
   );
 }
@@ -30,7 +30,7 @@ function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
       render={<InputGroupButton variant="ghost" size="icon-xs" />}
       className={cn(className)}
       {...props}>
-      <XIcon className="pointer-events-none" />
+      <XIcon className="pointer-events-none" aria-hidden />
     </ComboboxPrimitive.Clear>
   );
 }
@@ -210,7 +210,7 @@ function ComboboxChip({
           render={<Button variant="ghost" size="icon-xs" />}
           className="-ml-1 opacity-50 hover:opacity-100"
           data-slot="combobox-chip-remove">
-          <XIcon className="pointer-events-none" />
+          <XIcon className="pointer-events-none" aria-hidden />
         </ComboboxPrimitive.ChipRemove>
       )}
     </ComboboxPrimitive.Chip>

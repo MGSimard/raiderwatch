@@ -2,10 +2,9 @@
 
 import * as React from "react";
 import { Dialog as SheetPrimitive } from "@base-ui/react/dialog";
-
+import { XIcon } from "@phosphor-icons/react";
 import { cn } from "@/_lib/utils";
 import { Button } from "@/_components/ui/button";
-import { XIcon } from "@phosphor-icons/react";
 
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
@@ -62,7 +61,7 @@ function SheetContent({
           <SheetPrimitive.Close
             data-slot="sheet-close"
             render={<Button variant="ghost" className="absolute top-3 right-3" size="icon-sm" />}>
-            <XIcon />
+            <XIcon aria-hidden />
             <span className="sr-only">Close</span>
           </SheetPrimitive.Close>
         )}

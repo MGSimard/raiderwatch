@@ -44,7 +44,7 @@ export function SignInForm() {
         setIsLoading(false);
         return;
       }
-      
+
       void navigate({ to: "/dashboard" });
     } catch (err) {
       setError("An error occurred during authentication. View console for more details.");
@@ -66,7 +66,9 @@ export function SignInForm() {
   return (
     <Card className="w-full max-w-sm relative">
       <CardHeader>
-        <CardTitle>AUTHORIZATION</CardTitle>
+        <CardTitle>
+          <h1>AUTHORIZATION</h1>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit}>

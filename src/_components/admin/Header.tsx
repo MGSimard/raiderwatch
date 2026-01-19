@@ -1,8 +1,6 @@
 import { useLocation } from "@tanstack/react-router";
-// import { XLogoIcon } from "@phosphor-icons/react";
 import { SidebarTrigger } from "@/_components/admin/ui/sidebar";
 import { Separator } from "@/_components/admin/ui/separator";
-// import { Button } from "@/_components/ui/button";
 
 export function Header() {
   const location = useLocation();
@@ -16,15 +14,6 @@ export function Header() {
         className="data-[orientation=vertical]:h-4 data-[orientation=vertical]:self-auto mr-1"
       />
       <h1 className="text-base font-medium capitalize">{pageName}</h1>
-      {/* <div className="ml-auto flex items-center gap-2">
-          <Button
-            variant="ghost"
-            nativeButton={false}
-            render={<a href="https://x.com/mgsimard" rel="noopener noreferrer" target="_blank" />}
-            size="icon">
-            <XLogoIcon className="size-4" />
-          </Button>
-        </div> */}
     </header>
   );
 }

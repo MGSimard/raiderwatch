@@ -7,17 +7,7 @@ import { routeTree } from "./routeTree.gen";
 
 // Create a new router instance
 export const getRouter = () => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        // Default cache configuration for all queries
-        staleTime: 1000 * 60, // Consider data fresh for 1 minute by default
-        gcTime: 1000 * 60 * 5, // Keep unused data in cache for 5 minutes
-        retry: 1, // Retry failed requests once
-        refetchOnWindowFocus: false, // Don't refetch on window focus for better UX
-      },
-    },
-  });
+  const queryClient = new QueryClient();
 
   const router = createRouter({
     routeTree,

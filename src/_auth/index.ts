@@ -15,6 +15,12 @@ export const auth = betterAuth({
     enabled: true,
     disableSignUp: false, // TODO: Disable sign-ups later
   },
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 5 * 60, // 5 minutes
+    },
+  },
   plugins: [
     tanstackStartCookies(),
     // https://www.better-auth.com/docs/plugins/admin

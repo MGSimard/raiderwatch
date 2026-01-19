@@ -2,21 +2,18 @@ import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 import { SidebarProvider } from "@/_components/admin/ui/sidebar";
 import { AdminSidebar } from "@/_components/admin/sidebar";
 import { Header } from "@/_components/admin/Header";
-import { getCurrentUser } from "@/_server/serverFunctions";
+import { currentUserQuery } from "@/_lib/queries";
 
 // https://tanstack.com/router/latest/docs/framework/react/guide/authenticated-routes
 
-// TODO FIX THE 500 ON SIGN-IN AND USESESSION
-
 export const Route = createFileRoute("/dashboard")({
   component: LayoutDashboard,
-  beforeLoad: async ({ location }) => {
-    const user = await getCurrentUser();
+  beforeLoad: async ({ context: { queryClient }, location }) => {
+    const user = await queryClient.ensureQueryData(currentUserQuery());
     if (!user) {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({ to: "/authorization", search: { redirect: location.href } });
     }
-    return { user };
   },
 });
 

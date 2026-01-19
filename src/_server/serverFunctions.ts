@@ -8,17 +8,7 @@ import { REPORT_REASON_ENUMS } from "@/_lib/enums";
 import { authMiddleware } from "@/_auth/authMiddleware";
 
 // https://tanstack.com/start/latest/docs/framework/react/guide/server-functions
-
 // https://www.better-auth.com/docs/plugins/admin#access-control-usage
-
-// Example of requiring authentication
-// export const requireAuth = createServerFn().handler(async () => {
-//   const user = await getCurrentUser()
-//   if (!user) {
-//     throw redirect({ to: '/login' })
-//   }
-//   return user
-// })
 
 export const getRaiderApprovedReports = createServerFn()
   .inputValidator(z.object({ embarkId: z.string() }))
@@ -86,7 +76,6 @@ export const fileReport = createServerFn()
   .handler(async ({ context }) => {
     const user = context.session?.user;
     if (!user) return null;
-
     return {
       id: user.id,
       name: user.name,

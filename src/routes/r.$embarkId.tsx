@@ -8,19 +8,11 @@ import { LoaderBlocks } from "@/_components/LoaderBlocks";
 export const Route = createFileRoute("/r/$embarkId")({
   component: PageRaiderProfile,
   loader: ({ context, params }) => {
-    // Convert tilde back to hashtag for database lookup
     const embarkId = params.embarkId.replace("~", "#");
     void context.queryClient.ensureQueryData(approvedReportsQuery(embarkId));
     return { embarkId };
   },
 });
-
-// TODO:
-// Loading Component
-// Use shadcn sonner/toast
-// Error stuff
-// 404 stuff
-// Search component / index search page
 
 function PageRaiderProfile() {
   const { embarkId } = Route.useLoaderData();

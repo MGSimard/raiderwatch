@@ -33,7 +33,7 @@ export function ChartTotalReports() {
   return (
     <Card className="@container/card">
       <CardHeader>
-        <CardTitle>Tracked</CardTitle>
+        <CardTitle>Total Reports Submitted</CardTitle>
         <CardDescription>4,833 Reports</CardDescription>
         <CardAction>
           <ToggleGroup

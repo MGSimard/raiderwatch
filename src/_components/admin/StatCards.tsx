@@ -7,12 +7,12 @@ export function StatCards() {
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 md:gap-6 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Total Revenue</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">$1,250.00</CardTitle>
+          <CardDescription>Tracked Raiders</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">1,250</CardTitle>
           <CardAction>
             <Badge variant="outline">
               <PlaceholderIcon aria-hidden />
-              +12.5%
+              +125
             </Badge>
           </CardAction>
         </CardHeader>
@@ -20,61 +20,61 @@ export function StatCards() {
           <div className="line-clamp-1 flex gap-2 font-medium">
             Trending up this month <PlaceholderIcon className="size-4" aria-hidden />
           </div>
-          <div className="text-muted-foreground">Visitors for the last 6 months</div>
+          <div className="text-muted-foreground">Raiders reported</div>
         </CardFooter>
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>New Customers</CardDescription>
+          <CardDescription>Approved Reports</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">1,234</CardTitle>
           <CardAction>
             <Badge variant="outline">
               <PlaceholderIcon aria-hidden />
-              -20%
+              +20
             </Badge>
           </CardAction>
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm border-none">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            Down 20% this period <PlaceholderIcon className="size-4" aria-hidden />
+            Trending up this month <PlaceholderIcon className="size-4" aria-hidden />
           </div>
-          <div className="text-muted-foreground">Acquisition needs attention</div>
+          <div className="text-muted-foreground">Reports approved</div>
         </CardFooter>
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Active Accounts</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">45,678</CardTitle>
+          <CardDescription>Denied Reports</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">125</CardTitle>
           <CardAction>
             <Badge variant="outline">
               <PlaceholderIcon aria-hidden />
-              +12.5%
+              +125
             </Badge>
           </CardAction>
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm border-none">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            Strong user retention <PlaceholderIcon className="size-4" aria-hidden />
+            Trending down this month <PlaceholderIcon className="size-4" aria-hidden />
           </div>
-          <div className="text-muted-foreground">Engagement exceed targets</div>
+          <div className="text-muted-foreground">Reports denied</div>
         </CardFooter>
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Growth Rate</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">4.5%</CardTitle>
+          <CardDescription>Pending Reports</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">125</CardTitle>
           <CardAction>
             <Badge variant="outline">
               <PlaceholderIcon aria-hidden />
-              +4.5%
+              +125
             </Badge>
           </CardAction>
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm border-none">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            Steady performance increase <PlaceholderIcon className="size-4" aria-hidden />
+            Trending up this month <PlaceholderIcon className="size-4" aria-hidden />
           </div>
-          <div className="text-muted-foreground">Meets growth projections</div>
+          <div className="text-muted-foreground">Reports pending</div>
         </CardFooter>
       </Card>
     </div>

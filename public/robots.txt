@@ -1,2 +1,5 @@
 User-agent: *
 Disallow: /wp-admin/
+Disallow: /dashboard/
+Disallow: /unauthorized/
+Disallow: /auth/

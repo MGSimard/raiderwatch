@@ -21,7 +21,7 @@ export function StatCards() {
           </CardTitle>
           <CardAction>
             <Badge variant="outline" className="text-muted-foreground">
-              {weeklyRaiders ? `${String(weeklyRaiders)} last week` : "-"}
+              {weeklyRaiders ? `${String(weeklyRaiders)} this week` : "-"}
             </Badge>
           </CardAction>
         </CardHeader>
@@ -34,7 +34,7 @@ export function StatCards() {
           </CardTitle>
           <CardAction>
             <Badge variant="outline" className="text-muted-foreground">
-              {weeklyApproved ? `${String(weeklyApproved)} last week` : "-"}
+              {weeklyApproved ? `${String(weeklyApproved)} this week` : "-"}
             </Badge>
           </CardAction>
         </CardHeader>
@@ -47,7 +47,7 @@ export function StatCards() {
           </CardTitle>
           <CardAction>
             <Badge variant="outline" className="text-muted-foreground">
-              {weeklyRejected ? `${String(weeklyRejected)} last week` : "-"}
+              {weeklyRejected ? `${String(weeklyRejected)} this week` : "-"}
             </Badge>
           </CardAction>
         </CardHeader>
@@ -58,7 +58,7 @@ export function StatCards() {
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">{pending ?? "-"}</CardTitle>
           <CardAction>
             <Badge variant="outline" className="text-muted-foreground">
-              {weeklyPending ? `${String(weeklyPending)} last week` : "-"}
+              {weeklyPending ? `${String(weeklyPending)} this week` : "-"}
             </Badge>
           </CardAction>
         </CardHeader>

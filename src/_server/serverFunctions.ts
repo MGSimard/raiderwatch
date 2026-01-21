@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 // import { notFound } from "@tanstack/react-router"; // Available for 404 handling
-import { and, eq } from "drizzle-orm";
+import { and, eq, gte, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "./db";
 import { raiders, reports } from "./db/schema";
@@ -51,17 +51,9 @@ export const fileReport = createServerFn()
 
     try {
       await db.transaction(async (tx) => {
-        // Check if raider already exists
-        const [existingRaider] = await tx
-          .select({ id: raiders.id })
-          .from(raiders)
-          .where(eq(raiders.embarkId, embarkId));
-
-        // If raider doesn't exist create it
-        // If created by someone else during this, skip conflict and add report (.onConflictDoNothing())
-        if (!existingRaider) await tx.insert(raiders).values({ embarkId }).onConflictDoNothing();
-
-        // Create report tied to matching raider
+        // If raider doesn't exist, create it
+        await tx.insert(raiders).values({ embarkId }).onConflictDoNothing();
+        // Add report
         await tx.insert(reports).values({ embarkId, reason, description, videoUrl });
       });
     } catch (err: unknown) {
@@ -127,4 +119,89 @@ export const getUserWithPermissions = createServerFn({ method: "GET" })
       },
       hasAssessorPermission: hasPermission,
     };
+  });
+
+export const getDashboardOverview = createServerFn({ method: "GET" })
+  .middleware([authMiddleware])
+  .handler(async ({ context }) => {
+    const user = context.session?.user;
+    if (!user) throw new Error("Unauthenticated");
+
+    const { success: hasPermission } = await auth.api.userHasPermission({
+      body: {
+        userId: user.id,
+        permissions: {
+          report: ["assess"],
+        },
+      },
+    });
+    if (!hasPermission) throw new Error("Unauthorized");
+
+    try {
+      const [result] = await db
+        .select({
+          totalRaiders: sql<number>`(select cast(count(*) as int) from ${raiders})`,
+          approved: sql<number>`cast(count(case when ${reports.status} = 'approved' then 1 end) as int)`,
+          rejected: sql<number>`cast(count(case when ${reports.status} = 'rejected' then 1 end) as int)`,
+          pending: sql<number>`cast(count(case when ${reports.status} = 'pending' then 1 end) as int)`,
+        })
+        .from(reports);
+
+      return result;
+    } catch (err: unknown) {
+      const error = err instanceof Error ? err : new Error("Unknown error");
+      console.error("Error fetching admin stats:", error);
+      throw new Error("Failed to fetch admin statistics.");
+    }
+  });
+
+export const getReportsChartData = createServerFn({ method: "GET" })
+  .middleware([authMiddleware])
+  .handler(async ({ context }) => {
+    const user = context.session?.user;
+    if (!user) throw new Error("Unauthenticated");
+
+    const { success: hasPermission } = await auth.api.userHasPermission({
+      body: {
+        userId: user.id,
+        permissions: {
+          report: ["assess"],
+        },
+      },
+    });
+    if (!hasPermission) throw new Error("Unauthorized");
+
+    try {
+      const ninetyDaysAgo = new Date();
+      ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
+
+      const [[totals], daily] = await Promise.all([
+        // Total reports count (all-time)
+        db
+          .select({
+            totalReports: sql<number>`cast(count(*) as int)`,
+          })
+          .from(reports),
+
+        // Daily reports for last 90 days
+        db
+          .select({
+            date: sql<string>`to_char(${reports.createdAt}, 'YYYY-MM-DD')`,
+            reports: sql<number>`cast(count(*) as int)`,
+          })
+          .from(reports)
+          .where(gte(reports.createdAt, ninetyDaysAgo))
+          .groupBy(sql`to_char(${reports.createdAt}, 'YYYY-MM-DD')`)
+          .orderBy(sql`to_char(${reports.createdAt}, 'YYYY-MM-DD')`),
+      ]);
+
+      return {
+        totalReports: totals?.totalReports ?? 0,
+        daily,
+      };
+    } catch (err: unknown) {
+      const error = err instanceof Error ? err : new Error("Unknown error");
+      console.error("Error fetching reports chart data:", error);
+      throw new Error("Failed to fetch reports chart data.");
+    }
   });

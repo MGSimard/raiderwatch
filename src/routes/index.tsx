@@ -9,7 +9,6 @@ export const Route = createFileRoute("/")({
 });
 
 function PageHome() {
-
   return (
     <main className="relative grow grid place-items-center text-center min-h-dvh">
       <Button

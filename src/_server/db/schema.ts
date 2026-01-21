@@ -1,8 +1,7 @@
-import { defineRelations } from "drizzle-orm";
 import { boolean, index, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 import { REPORT_REASON_ENUMS, REPORT_STATUS_ENUMS } from "@/_lib/enums";
 
-export const user = pgTable("user", {
+export const users = pgTable("users", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
@@ -19,15 +18,15 @@ export const user = pgTable("user", {
     .notNull(),
 });
 
-export const session = pgTable(
-  "session",
+export const sessions = pgTable(
+  "sessions",
   {
     id: text("id").primaryKey(),
     expiresAt: timestamp("expires_at").notNull(),
     token: text("token").notNull().unique(),
     userId: text("user_id")
       .notNull()
-      .references(() => user.id, { onDelete: "cascade" }),
+      .references(() => users.id, { onDelete: "cascade" }),
     ipAddress: text("ip_address"),
     userAgent: text("user_agent"),
     impersonatedBy: text("impersonated_by"),
@@ -39,15 +38,15 @@ export const session = pgTable(
   (table) => [index("session_userId_idx").on(table.userId)]
 );
 
-export const account = pgTable(
-  "account",
+export const accounts = pgTable(
+  "accounts",
   {
     id: text("id").primaryKey(),
     accountId: text("account_id").notNull(),
     providerId: text("provider_id").notNull(),
     userId: text("user_id")
       .notNull()
-      .references(() => user.id, { onDelete: "cascade" }),
+      .references(() => users.id, { onDelete: "cascade" }),
     accessToken: text("access_token"),
     refreshToken: text("refresh_token"),
     idToken: text("id_token"),
@@ -63,8 +62,8 @@ export const account = pgTable(
   (table) => [index("account_userId_idx").on(table.userId)]
 );
 
-export const verification = pgTable(
-  "verification",
+export const verifications = pgTable(
+  "verifications",
   {
     id: text("id").primaryKey(),
     identifier: text("identifier").notNull(),
@@ -105,7 +104,7 @@ export const reports = pgTable(
     videoStoragePath: text("video_storage_path"),
     status: reportStatusEnum("status").notNull().default("pending"),
     reviewedAt: timestamp("reviewed_at"),
-    reviewedBy: text("reviewed_by").references(() => user.id, { onDelete: "set null" }),
+    reviewedBy: text("reviewed_by").references(() => users.id, { onDelete: "set null" }),
     reviewerComment: text("reviewer_comment"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at")
@@ -115,48 +114,3 @@ export const reports = pgTable(
   },
   (table) => [index("reports_embark_id_idx").on(table.embarkId), index("reports_status_idx").on(table.status)]
 );
-
-export const relations = defineRelations({ user, session, account, verification, raiders, reports }, (r) => ({
-  user: {
-    sessions: r.many.session({
-      from: r.user.id,
-      to: r.session.userId,
-    }),
-    accounts: r.many.account({
-      from: r.user.id,
-      to: r.account.userId,
-    }),
-    reviewedReports: r.many.reports({
-      from: r.user.id,
-      to: r.reports.reviewedBy,
-    }),
-  },
-  session: {
-    user: r.one.user({
-      from: r.session.userId,
-      to: r.user.id,
-    }),
-  },
-  account: {
-    user: r.one.user({
-      from: r.account.userId,
-      to: r.user.id,
-    }),
-  },
-  raiders: {
-    reports: r.many.reports({
-      from: r.raiders.embarkId,
-      to: r.reports.embarkId,
-    }),
-  },
-  reports: {
-    raider: r.one.raiders({
-      from: r.reports.embarkId,
-      to: r.raiders.embarkId,
-    }),
-    reviewer: r.one.user({
-      from: r.reports.reviewedBy,
-      to: r.user.id,
-    }),
-  },
-}));

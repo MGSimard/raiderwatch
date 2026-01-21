@@ -1,7 +1,8 @@
-import { drizzle } from "drizzle-orm/neon-http";
-import { neon } from "@neondatabase/serverless";
-import { relations } from "./schema";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
+import * as schema from "./schema";
+import { relations } from "./relations";
 
 // TODO: T3env
-const sql = neon(process.env.DATABASE_URL!);
-export const db = drizzle({ client: sql, relations });
+export const client = postgres(process.env.DATABASE_URL!, { prepare: false });
+export const db = drizzle({ client, schema, relations });

@@ -1,14 +1,24 @@
 import { PlaceholderIcon } from "@phosphor-icons/react";
+import { useQuery } from "@tanstack/react-query";
 import { Card, CardAction, CardDescription, CardFooter, CardHeader, CardTitle } from "@/_components/admin/ui/card";
 import { Badge } from "@/_components/ui/badge";
+import { getDashboardOverview } from "@/_server/serverFunctions";
 
 export function StatCards() {
+  const { data } = useQuery({
+    queryKey: ["dashboardOverview"],
+    queryFn: () => getDashboardOverview(),
+  });
+  const { totalRaiders, approved, rejected, pending } = data ?? {};
+
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 md:gap-6 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Tracked Raiders</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">1,250</CardTitle>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {totalRaiders ?? "-"}
+          </CardTitle>
           <CardAction>
             <Badge variant="outline">
               <PlaceholderIcon aria-hidden />
@@ -26,7 +36,9 @@ export function StatCards() {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Approved Reports</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">1,234</CardTitle>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {approved ?? "-"}
+          </CardTitle>
           <CardAction>
             <Badge variant="outline">
               <PlaceholderIcon aria-hidden />
@@ -44,7 +56,9 @@ export function StatCards() {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Denied Reports</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">125</CardTitle>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {rejected ?? "-"}
+          </CardTitle>
           <CardAction>
             <Badge variant="outline">
               <PlaceholderIcon aria-hidden />
@@ -62,7 +76,7 @@ export function StatCards() {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Pending Reports</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">125</CardTitle>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">{pending ?? "-"}</CardTitle>
           <CardAction>
             <Badge variant="outline">
               <PlaceholderIcon aria-hidden />

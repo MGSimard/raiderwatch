@@ -4,6 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { approvedReportsQuery } from "@/_lib/queries";
 import { NoReports } from "@/_components/NoReports";
 import { LoaderBlocks } from "@/_components/LoaderBlocks";
+import { HasReports } from "@/_components/HasReports";
 
 export const Route = createFileRoute("/r/$embarkId")({
   component: PageRaiderProfile,
@@ -39,18 +40,6 @@ function ReportData({ embarkId }: { embarkId: string }) {
   }
 
   return (
-    <>
-      <h2>Reports: {approvedReports.length}</h2>
-      {approvedReports.length > 0 && (
-        <ul>
-          {approvedReports.map((report) => (
-            <li key={report.id}>
-              <h3>{report.reason}</h3>
-              <p>{report.videoUrl}</p>
-            </li>
-          ))}
-        </ul>
-      )}
-    </>
+    <HasReports embarkId={embarkId} approvedReports={approvedReports} />
   );
 }

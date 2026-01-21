@@ -18,16 +18,15 @@ export const getRaiderApprovedReports = createServerFn()
 
     try {
       const results = await db
-        .select({
-          id: reports.id,
-          reason: reports.reason,
-          videoUrl: reports.videoUrl,
-          videoStoragePath: reports.videoStoragePath,
-          reviewedAt: reports.reviewedAt,
-        })
-        .from(reports)
-        .innerJoin(raiders, eq(reports.embarkId, raiders.embarkId))
-        .where(and(eq(raiders.embarkId, embarkId), eq(reports.status, "approved")));
+      .select({
+        id: reports.id,
+        reason: reports.reason,
+        videoUrl: reports.videoUrl,
+        videoStoragePath: reports.videoStoragePath,
+        reviewedAt: reports.reviewedAt,
+      })
+      .from(reports)
+      .where(and(eq(reports.embarkId, embarkId), eq(reports.status, "approved")));
 
       return results;
     } catch (err: unknown) {

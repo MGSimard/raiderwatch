@@ -9,11 +9,9 @@ export const Route = createFileRoute("/dashboard")({
   beforeLoad: async () => {
     const result = await getUserWithPermissions();
     if (!result) {
-      // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({ to: "/auth", replace: true });
     }
     if (!result.hasAssessorPermission) {
-      // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({ to: "/unauthorized", replace: true });
     }
     return { user: result.user };

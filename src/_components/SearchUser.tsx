@@ -56,7 +56,7 @@ export function SearchUser() {
           value={value}
           onChange={handleChange}
           autoComplete="off"
-          autoFocus
+          autoFocus // eslint-disable-line no-autofocus
           required
         />
         {error && <FieldError>{error}</FieldError>}

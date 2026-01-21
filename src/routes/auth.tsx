@@ -7,7 +7,6 @@ export const Route = createFileRoute("/auth")({
   beforeLoad: async () => {
     const user = await getCurrentUser();
     if (user) {
-      // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({ to: "/dashboard", replace: true });
     }
   },

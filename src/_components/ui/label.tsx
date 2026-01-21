@@ -1,3 +1,4 @@
+/* oxlint-disable label-has-associated-control */
 import { cn } from "@/_lib/utils";
 
 function Label({ className, ...props }: React.ComponentProps<"label">) {

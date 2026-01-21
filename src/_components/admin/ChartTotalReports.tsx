@@ -146,19 +146,24 @@ export function ChartTotalReports() {
             <ChartTooltip
               cursor={true}
               animationDuration={0}
-              content={(props) => (
-                <ChartTooltipContent
-                  {...props}
-                  labelFormatter={(value) => {
-                    return new Date(value as string).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      timeZone: "UTC",
-                    });
-                  }}
-                  indicator="dot"
-                />
-              )}
+              content={(props) => {
+                const { active, payload, label } = props;
+                return (
+                  <ChartTooltipContent
+                    active={active}
+                    payload={payload}
+                    label={label}
+                    labelFormatter={(value) => {
+                      return new Date(value as string).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        timeZone: "UTC",
+                      });
+                    }}
+                    indicator="dot"
+                  />
+                );
+              }}
             />
             <Bar dataKey="reports" fill="var(--color-reports)" />
           </BarChart>

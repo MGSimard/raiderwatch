@@ -18,15 +18,15 @@ export const getRaiderApprovedReports = createServerFn()
 
     try {
       const results = await db
-      .select({
-        id: reports.id,
-        reason: reports.reason,
-        videoUrl: reports.videoUrl,
-        videoStoragePath: reports.videoStoragePath,
-        reviewedAt: reports.reviewedAt,
-      })
-      .from(reports)
-      .where(and(eq(reports.embarkId, embarkId), eq(reports.status, "approved")));
+        .select({
+          id: reports.id,
+          reason: reports.reason,
+          videoUrl: reports.videoUrl,
+          videoStoragePath: reports.videoStoragePath,
+          reviewedAt: reports.reviewedAt,
+        })
+        .from(reports)
+        .where(and(eq(reports.embarkId, embarkId), eq(reports.status, "approved")));
 
       return results;
     } catch (err: unknown) {
@@ -64,7 +64,6 @@ export const fileReport = createServerFn()
 
 export const getCurrentUser = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
-  // eslint-disable-next-line @typescript-eslint/require-await
   .handler(async ({ context }) => {
     const user = context.session?.user;
     if (!user) return null;

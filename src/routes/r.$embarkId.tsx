@@ -39,7 +39,5 @@ function ReportData({ embarkId }: { embarkId: string }) {
     return <NoReports embarkId={embarkId} />;
   }
 
-  return (
-    <HasReports embarkId={embarkId} approvedReports={approvedReports} />
-  );
+  return <HasReports embarkId={embarkId} approvedReports={approvedReports} />;
 }

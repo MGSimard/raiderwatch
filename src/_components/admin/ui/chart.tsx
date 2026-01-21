@@ -149,7 +149,6 @@ function ChartTooltipContent({
   const { config } = useChart();
 
   const tooltipLabel = React.useMemo(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (hideLabel || !payload) {
       return null;
     }
@@ -157,14 +156,10 @@ function ChartTooltipContent({
     if (payload.length === 0) {
       return null;
     }
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const item = payload[0];
     if (!item) return null;
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const itemDataKey = item.dataKey as string | undefined;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const itemName = item.name as string | undefined;
     const key = labelKey ?? itemDataKey ?? itemName ?? "value";
     const itemConfig = getPayloadConfigFromPayload(config, item, key);
@@ -185,7 +180,6 @@ function ChartTooltipContent({
     return <div className={cn("font-medium", labelClassName)}>{value}</div>;
   }, [label, labelFormatter, payload, hideLabel, labelClassName, config, labelKey]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!active || !payload) {
     return null;
   }
@@ -205,18 +199,13 @@ function ChartTooltipContent({
       {!nestLabel ? tooltipLabel : null}
       <div className="grid gap-1.5">
         {payload.map((item, index) => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           const itemName = item.name as string | undefined;
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           const itemDataKey = item.dataKey as string | undefined;
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           const itemValue = item.value as number | string | undefined;
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           const itemColor = item.color as string | undefined;
 
           const key = nameKey ?? itemName ?? itemDataKey ?? "value";
           const itemConfig = getPayloadConfigFromPayload(config, item, key);
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           const itemPayload = item.payload as Record<string, unknown> | undefined;
           const payloadFill = itemPayload?.fill;
           const fillColor = typeof payloadFill === "string" ? payloadFill : undefined;

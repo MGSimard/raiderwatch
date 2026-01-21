@@ -1,12 +1,18 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeftIcon, WarningIcon } from "@phosphor-icons/react";
 import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,  } from "@/_components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/_components/ui/card";
 import { Button } from "@/_components/ui/button";
 import { ReportDialog } from "@/_components/ReportDialog";
 import { Separator } from "@/_components/ui/separator";
 
-export function HasReports({ embarkId, approvedReports }: { embarkId: string, approvedReports: Awaited<ReturnType<typeof getRaiderApprovedReports>> }) {
+export function HasReports({
+  embarkId,
+  approvedReports,
+}: {
+  embarkId: string;
+  approvedReports: Awaited<ReturnType<typeof getRaiderApprovedReports>>;
+}) {
   return (
     <section className="grow grid place-items-center">
       <Card className="w-full max-w-sm relative corner-brackets animated-height">
@@ -21,7 +27,9 @@ export function HasReports({ embarkId, approvedReports }: { embarkId: string, ap
             <h2 className="text-2xl text-primary">REPORT HISTORY</h2>
             <ul>
               {approvedReports.map((report) => (
-                <li key={report.id}><WarningIcon aria-hidden className="size-4" /> {report.reason}</li>
+                <li key={report.id}>
+                  <WarningIcon aria-hidden className="size-4" /> {report.reason}
+                </li>
               ))}
             </ul>
             <CardDescription>

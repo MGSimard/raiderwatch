@@ -1,5 +1,5 @@
-import { cva } from "class-variance-authority";
-import type { VariantProps } from "class-variance-authority";
+/* oxlint-disable click-events-have-key-events */
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/_lib/utils";
 import { Button } from "@/_components/ui/button";
 import { Input } from "@/_components/ui/input";

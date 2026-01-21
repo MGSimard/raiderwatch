@@ -1,3 +1,4 @@
+/* oxlint-disable anchor-has-content */
 import * as React from "react";
 import { CaretLeftIcon, CaretRightIcon, DotsThreeIcon } from "@phosphor-icons/react";
 import { cn } from "@/_lib/utils";
@@ -6,7 +7,6 @@ import { Button } from "@/_components/admin/ui/button";
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
     <nav
-      role="navigation"
       aria-label="pagination"
       data-slot="pagination"
       className={cn("mx-auto flex w-full justify-center", className)}

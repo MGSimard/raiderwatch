@@ -1,26 +1,26 @@
-/* oxlint-disable no-children-prop */
-import { z } from "zod";
-import { useForm } from "@tanstack/react-form";
-import { toast } from "sonner";
-import { cn } from "@/_lib/utils";
 import { Button } from "@/_components/ui/button";
 import {
   Dialog,
-  DialogBody,
-  DialogClose,
+  DialogTrigger,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogDescription,
+  DialogBody,
+  DialogClose,
+  DialogFooter,
 } from "@/_components/ui/dialog";
+import { Field, FieldError, FieldLabel } from "@/_components/ui/field";
 import { Input } from "@/_components/ui/input";
+import { InputGroup, InputGroupAddon, InputGroupText, InputGroupTextarea } from "@/_components/ui/input-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/_components/ui/select";
 import { REPORT_REASON_ENUMS, REPORT_REASON_LABELS } from "@/_lib/enums";
-import { Field, FieldError, FieldLabel } from "@/_components/ui/field";
-import { InputGroup, InputGroupAddon, InputGroupText, InputGroupTextarea } from "@/_components/ui/input-group";
+import { cn } from "@/_lib/utils";
 import { fileReport } from "@/_server/serverFunctions";
+import { useForm } from "@tanstack/react-form";
+import { toast } from "sonner";
+/* oxlint-disable no-children-prop */
+import { z } from "zod";
 
 export function ReportDialog({ embarkId }: { embarkId: string }) {
   const form = useForm({

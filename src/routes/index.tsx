@@ -1,8 +1,8 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { EyeIcon } from "@phosphor-icons/react";
 import { SearchUser } from "@/_components/SearchUser";
-import { Separator } from "@/_components/ui/separator";
 import { Button } from "@/_components/ui/button";
+import { Separator } from "@/_components/ui/separator";
+import { EyeIcon } from "@phosphor-icons/react";
 
 export const Route = createFileRoute("/")({
   component: PageHome,

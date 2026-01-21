@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowLeftIcon, WarningIcon } from "@phosphor-icons/react";
-import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
+import { ReportDialog } from "@/_components/ReportDialog";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/_components/ui/card";
 import { Button } from "@/_components/ui/button";
-import { ReportDialog } from "@/_components/ReportDialog";
 import { Separator } from "@/_components/ui/separator";
+import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
+import { ArrowLeftIcon, WarningIcon } from "@phosphor-icons/react";
 
 export function HasReports({
   embarkId,

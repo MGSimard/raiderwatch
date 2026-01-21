@@ -1,15 +1,15 @@
 import { HeadContent, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
-// import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-// import { TanStackDevtools } from "@tanstack/react-devtools";
-// import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
+import { TanStackDevtools } from "@tanstack/react-devtools";
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 // import { FormDevtoolsPanel } from "@tanstack/react-form-devtools";
-import appCss from "../_styles/app.css?url";
-import fontsCss from "../_styles/fonts.css?url";
-import type { QueryClient } from "@tanstack/react-query";
 import { ThemeProvider } from "@/_components/ThemeProvider";
 import { ThemeToggle } from "@/_components/ThemeToggle";
 import { Toaster } from "@/_components/ui/sonner";
 import { TooltipProvider } from "@/_components/ui/tooltip";
+import type { QueryClient } from "@tanstack/react-query";
+import appCss from "../_styles/app.css?url";
+import fontsCss from "../_styles/fonts.css?url";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -60,7 +60,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <Toaster className="z-9999" />
           </TooltipProvider>
         </ThemeProvider>
-        {/* <TanStackDevtools
+        <TanStackDevtools
           config={{
             position: "bottom-right",
           }}
@@ -77,7 +77,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             // some random ass solidjs garbage that crashes the app
             // despite being a React package
           ]}
-        /> */}
+        />
         <Scripts />
       </body>
     </html>

@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowLeftIcon } from "@phosphor-icons/react";
-import { Button } from "@/_components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/_components/ui/card";
-import { Separator } from "@/_components/ui/separator";
 import { ReportDialog } from "@/_components/ReportDialog";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/_components/ui/card";
+import { Button } from "@/_components/ui/button";
+import { Separator } from "@/_components/ui/separator";
+import { ArrowLeftIcon } from "@phosphor-icons/react";
 
 export function NoReports({ embarkId }: { embarkId: string }) {
   return (

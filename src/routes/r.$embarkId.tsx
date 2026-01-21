@@ -2,8 +2,8 @@ import { Suspense } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { approvedReportsQuery } from "@/_lib/queries";
-import { NoReports } from "@/_components/NoReports";
 import { LoaderBlocks } from "@/_components/LoaderBlocks";
+import { NoReports } from "@/_components/NoReports";
 import { HasReports } from "@/_components/HasReports";
 
 export const Route = createFileRoute("/r/$embarkId")({

@@ -28,6 +28,7 @@ const config = defineConfig({
       },
     }),
   ],
+  // Todo: Remove when Better Auth gets their shit together
   optimizeDeps: {
     exclude: [
       "@tanstack/start-server-core",

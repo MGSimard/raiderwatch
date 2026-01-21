@@ -1,6 +1,5 @@
-import { PlaceholderIcon } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
-import { Card, CardAction, CardDescription, CardFooter, CardHeader, CardTitle } from "@/_components/admin/ui/card";
+import { Card, CardAction, CardDescription, CardHeader, CardTitle } from "@/_components/admin/ui/card";
 import { Badge } from "@/_components/ui/badge";
 import { getDashboardOverview } from "@/_server/serverFunctions";
 
@@ -9,7 +8,8 @@ export function StatCards() {
     queryKey: ["dashboardOverview"],
     queryFn: () => getDashboardOverview(),
   });
-  const { totalRaiders, approved, rejected, pending } = data ?? {};
+  const { totalRaiders, approved, rejected, pending, weeklyRaiders, weeklyApproved, weeklyRejected, weeklyPending } =
+    data ?? {};
 
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 md:gap-6 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
@@ -20,18 +20,11 @@ export function StatCards() {
             {totalRaiders ?? "-"}
           </CardTitle>
           <CardAction>
-            <Badge variant="outline">
-              <PlaceholderIcon aria-hidden />
-              +125
+            <Badge variant="outline" className="text-muted-foreground">
+              {weeklyRaiders ? `${String(weeklyRaiders)} last week` : "-"}
             </Badge>
           </CardAction>
         </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm border-none">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Trending up this month <PlaceholderIcon className="size-4" aria-hidden />
-          </div>
-          <div className="text-muted-foreground">Raiders reported</div>
-        </CardFooter>
       </Card>
       <Card className="@container/card">
         <CardHeader>
@@ -40,18 +33,11 @@ export function StatCards() {
             {approved ?? "-"}
           </CardTitle>
           <CardAction>
-            <Badge variant="outline">
-              <PlaceholderIcon aria-hidden />
-              +20
+            <Badge variant="outline" className="text-muted-foreground">
+              {weeklyApproved ? `${String(weeklyApproved)} last week` : "-"}
             </Badge>
           </CardAction>
         </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm border-none">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Trending up this month <PlaceholderIcon className="size-4" aria-hidden />
-          </div>
-          <div className="text-muted-foreground">Reports approved</div>
-        </CardFooter>
       </Card>
       <Card className="@container/card">
         <CardHeader>
@@ -60,36 +46,22 @@ export function StatCards() {
             {rejected ?? "-"}
           </CardTitle>
           <CardAction>
-            <Badge variant="outline">
-              <PlaceholderIcon aria-hidden />
-              +125
+            <Badge variant="outline" className="text-muted-foreground">
+              {weeklyRejected ? `${String(weeklyRejected)} last week` : "-"}
             </Badge>
           </CardAction>
         </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm border-none">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Trending down this month <PlaceholderIcon className="size-4" aria-hidden />
-          </div>
-          <div className="text-muted-foreground">Reports denied</div>
-        </CardFooter>
       </Card>
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Pending Reports</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">{pending ?? "-"}</CardTitle>
           <CardAction>
-            <Badge variant="outline">
-              <PlaceholderIcon aria-hidden />
-              +125
+            <Badge variant="outline" className="text-muted-foreground">
+              {weeklyPending ? `${String(weeklyPending)} last week` : "-"}
             </Badge>
           </CardAction>
         </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm border-none">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Trending up this month <PlaceholderIcon className="size-4" aria-hidden />
-          </div>
-          <div className="text-muted-foreground">Reports pending</div>
-        </CardFooter>
       </Card>
     </div>
   );

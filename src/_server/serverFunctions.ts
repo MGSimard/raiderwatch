@@ -138,12 +138,20 @@ export const getDashboardOverview = createServerFn({ method: "GET" })
     if (!hasPermission) throw new Error("Unauthorized");
 
     try {
+      const oneWeekAgo = new Date();
+      oneWeekAgo.setUTCDate(oneWeekAgo.getUTCDate() - 7);
+      const oneWeekAgoStr = sql.raw(`'${oneWeekAgo.toISOString()}'`);
+
       const [result] = await db
         .select({
           totalRaiders: sql<number>`(select cast(count(*) as int) from ${raiders})`,
           approved: sql<number>`cast(count(case when ${reports.status} = 'approved' then 1 end) as int)`,
           rejected: sql<number>`cast(count(case when ${reports.status} = 'rejected' then 1 end) as int)`,
           pending: sql<number>`cast(count(case when ${reports.status} = 'pending' then 1 end) as int)`,
+          weeklyRaiders: sql<number>`(select cast(count(*) as int) from ${raiders} where ${raiders.createdAt} >= ${oneWeekAgoStr})`,
+          weeklyApproved: sql<number>`cast(count(case when ${reports.status} = 'approved' and ${reports.reviewedAt} >= ${oneWeekAgoStr} then 1 end) as int)`,
+          weeklyRejected: sql<number>`cast(count(case when ${reports.status} = 'rejected' and ${reports.reviewedAt} >= ${oneWeekAgoStr} then 1 end) as int)`,
+          weeklyPending: sql<number>`cast(count(case when ${reports.status} = 'pending' and ${reports.createdAt} >= ${oneWeekAgoStr} then 1 end) as int)`,
         })
         .from(reports);
 

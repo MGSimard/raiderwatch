@@ -89,31 +89,20 @@ const buildPaginationRange = (
 
   if (!showLeftEllipsis && showRightEllipsis) {
     const leftItemCount = 3 + 2 * siblingCount;
-    return [
-      ...Array.from({ length: leftItemCount }, (_, index) => index + 1),
-      "ellipsis",
-      totalPages,
-    ];
+    return [...Array.from({ length: leftItemCount }, (_, index) => index + 1), "ellipsis", totalPages];
   }
 
   if (showLeftEllipsis && !showRightEllipsis) {
     const rightItemCount = 3 + 2 * siblingCount;
     const start = totalPages - rightItemCount + 1;
-    return [
-      1,
-      "ellipsis",
-      ...Array.from({ length: rightItemCount }, (_, index) => start + index),
-    ];
+    return [1, "ellipsis", ...Array.from({ length: rightItemCount }, (_, index) => start + index)];
   }
 
   if (showLeftEllipsis && showRightEllipsis) {
     return [
       1,
       "ellipsis",
-      ...Array.from(
-        { length: rightSiblingIndex - leftSiblingIndex + 1 },
-        (_, index) => leftSiblingIndex + index
-      ),
+      ...Array.from({ length: rightSiblingIndex - leftSiblingIndex + 1 }, (_, index) => leftSiblingIndex + index),
       "ellipsis",
       totalPages,
     ];
@@ -266,10 +255,7 @@ export function ReportsTable() {
   const start = totalRows === 0 ? 0 : pageIndex * pageSize + 1;
   const end = totalRows === 0 ? 0 : Math.min(totalRows, (pageIndex + 1) * pageSize);
 
-  const paginationItems = React.useMemo(
-    () => buildPaginationRange(currentPage, pageCount),
-    [currentPage, pageCount]
-  );
+  const paginationItems = React.useMemo(() => buildPaginationRange(currentPage, pageCount), [currentPage, pageCount]);
 
   const handlePreviousClick = () => {
     if (table.getCanPreviousPage()) {
@@ -352,9 +338,7 @@ export function ReportsTable() {
                     const isStatus = cell.column.id === "status";
                     const isActions = cell.column.id === "actions";
                     return (
-                      <TableCell
-                        key={cell.id}
-                        style={isStatus || isActions ? { width: "1%" } : undefined}>
+                      <TableCell key={cell.id} style={isStatus || isActions ? { width: "1%" } : undefined}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>
                     );
@@ -398,43 +382,37 @@ export function ReportsTable() {
             </Select>
           </Field>
           <Pagination className="mx-0 w-auto">
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                onClick={handlePreviousClick}
-                disabled={!table.getCanPreviousPage()}
-              />
-            </PaginationItem>
-            {(() => {
-              let ellipsisCount = 0;
-              return paginationItems.map((item) => {
-                if (item === "ellipsis") {
-                  ellipsisCount += 1;
-                  const ellipsisKey = ellipsisCount === 1 ? "ellipsis-left" : "ellipsis-right";
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious onClick={handlePreviousClick} disabled={!table.getCanPreviousPage()} />
+              </PaginationItem>
+              {(() => {
+                let ellipsisCount = 0;
+                return paginationItems.map((item) => {
+                  if (item === "ellipsis") {
+                    ellipsisCount += 1;
+                    const ellipsisKey = ellipsisCount === 1 ? "ellipsis-left" : "ellipsis-right";
+                    return (
+                      <PaginationItem key={ellipsisKey}>
+                        <PaginationEllipsis />
+                      </PaginationItem>
+                    );
+                  }
+
                   return (
-                    <PaginationItem key={ellipsisKey}>
-                      <PaginationEllipsis />
+                    <PaginationItem key={item}>
+                      <PaginationLink isActive={item === currentPage} onClick={createPageClickHandler(item)}>
+                        {item}
+                      </PaginationLink>
                     </PaginationItem>
                   );
-                }
-
-                return (
-                  <PaginationItem key={item}>
-                    <PaginationLink isActive={item === currentPage} onClick={createPageClickHandler(item)}>
-                      {item}
-                    </PaginationLink>
-                  </PaginationItem>
-                );
-              });
-            })()}
-            <PaginationItem>
-              <PaginationNext
-                onClick={handleNextClick}
-                disabled={!table.getCanNextPage()}
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+                });
+              })()}
+              <PaginationItem>
+                <PaginationNext onClick={handleNextClick} disabled={!table.getCanNextPage()} />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       </div>
     </div>

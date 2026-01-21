@@ -28,6 +28,13 @@ const config = defineConfig({
       },
     }),
   ],
+  optimizeDeps: {
+    exclude: [
+      "@tanstack/start-server-core",
+      "@tanstack/start-client-core",
+      "@tanstack/react-start",
+    ],
+  },
 });
 
 export default config;

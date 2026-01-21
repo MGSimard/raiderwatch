@@ -6,8 +6,6 @@ dist-ssr
 .env
 .nitro
 .tanstack
-.wrangler
 .output
 .vinxi
-# Local Netlify folder
 .netlify

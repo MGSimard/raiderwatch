@@ -15,19 +15,37 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+interface ReportsChartData {
+  totalReports: number;
+  daily: Array<{ date: string; reports: number }>;
+  asOfUtc?: string;
+}
+
+const formatDateKey = (date: Date) => date.toISOString().slice(0, 10);
+
 export function ChartTotalReports() {
   const [timeRange, setTimeRange] = useState("90d");
-  const { data } = useQuery({
+  const { data } = useQuery<ReportsChartData>({
     queryKey: ["reportsChartData"],
     queryFn: () => getReportsChartData(),
   });
 
-  const { totalReports, daily } = data ?? {};
+  const totalReports = data?.totalReports;
 
   const filteredData = useMemo(() => {
+    const daily = data?.daily;
+    const asOfUtc = data?.asOfUtc;
     if (!daily) return [];
 
-    const now = new Date();
+    const now = (() => {
+      if (typeof asOfUtc === "string") {
+        const parsed = new Date(asOfUtc);
+        if (!Number.isNaN(parsed.getTime())) {
+          return parsed;
+        }
+      }
+      return new Date();
+    })();
     let daysToSubtract = 90;
     if (timeRange === "30d") {
       daysToSubtract = 30;
@@ -35,11 +53,30 @@ export function ChartTotalReports() {
       daysToSubtract = 7;
     }
 
-    const startDate = new Date(now);
-    startDate.setDate(startDate.getDate() - daysToSubtract);
+    const endDate = new Date(now);
+    endDate.setUTCHours(0, 0, 0, 0);
 
-    return daily.filter((item) => new Date(item.date) >= startDate);
-  }, [daily, timeRange]);
+    const startDate = new Date(endDate);
+    startDate.setUTCDate(startDate.getUTCDate() - daysToSubtract);
+
+    const reportsByDate = new Map<string, number>();
+    daily.forEach((item) => {
+      reportsByDate.set(item.date, item.reports);
+    });
+
+    const rangeData: Array<{ date: string; reports: number }> = [];
+    const cursor = new Date(startDate);
+    while (cursor <= endDate) {
+      const dateKey = formatDateKey(cursor);
+      rangeData.push({
+        date: dateKey,
+        reports: reportsByDate.get(dateKey) ?? 0,
+      });
+      cursor.setUTCDate(cursor.getUTCDate() + 1);
+    }
+
+    return rangeData;
+  }, [data, timeRange]);
 
   return (
     <Card className="@container/card">
@@ -102,6 +139,7 @@ export function ChartTotalReports() {
                 return date.toLocaleDateString("en-US", {
                   month: "short",
                   day: "numeric",
+                  timeZone: "UTC",
                 });
               }}
             />
@@ -115,6 +153,7 @@ export function ChartTotalReports() {
                     return new Date(value as string).toLocaleDateString("en-US", {
                       month: "short",
                       day: "numeric",
+                      timeZone: "UTC",
                     });
                   }}
                   indicator="dot"

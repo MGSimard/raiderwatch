@@ -172,8 +172,11 @@ export const getReportsChartData = createServerFn({ method: "GET" })
     if (!hasPermission) throw new Error("Unauthorized");
 
     try {
-      const ninetyDaysAgo = new Date();
-      ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
+      const asOfUtc = new Date();
+      asOfUtc.setUTCHours(0, 0, 0, 0);
+
+      const ninetyDaysAgo = new Date(asOfUtc);
+      ninetyDaysAgo.setUTCDate(ninetyDaysAgo.getUTCDate() - 90);
 
       const [[totals], daily] = await Promise.all([
         // Total reports count (all-time)
@@ -186,18 +189,19 @@ export const getReportsChartData = createServerFn({ method: "GET" })
         // Daily reports for last 90 days
         db
           .select({
-            date: sql<string>`to_char(${reports.createdAt}, 'YYYY-MM-DD')`,
+            date: sql<string>`to_char(${reports.createdAt} AT TIME ZONE 'UTC', 'YYYY-MM-DD')`,
             reports: sql<number>`cast(count(*) as int)`,
           })
           .from(reports)
           .where(gte(reports.createdAt, ninetyDaysAgo))
-          .groupBy(sql`to_char(${reports.createdAt}, 'YYYY-MM-DD')`)
-          .orderBy(sql`to_char(${reports.createdAt}, 'YYYY-MM-DD')`),
+          .groupBy(sql`to_char(${reports.createdAt} AT TIME ZONE 'UTC', 'YYYY-MM-DD')`)
+          .orderBy(sql`to_char(${reports.createdAt} AT TIME ZONE 'UTC', 'YYYY-MM-DD')`),
       ]);
 
       return {
         totalReports: totals?.totalReports ?? 0,
         daily,
+        asOfUtc: asOfUtc.toISOString(),
       };
     } catch (err: unknown) {
       const error = err instanceof Error ? err : new Error("Unknown error");

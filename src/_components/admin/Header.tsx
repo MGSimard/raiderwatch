@@ -1,4 +1,5 @@
 import { useLocation } from "@tanstack/react-router";
+import { UtcClock } from "./UtcClock";
 import { SidebarTrigger } from "@/_components/admin/ui/sidebar";
 import { Separator } from "@/_components/admin/ui/separator";
 
@@ -14,6 +15,7 @@ export function Header() {
         className="data-[orientation=vertical]:h-4 data-[orientation=vertical]:self-auto mr-1"
       />
       <h1 className="text-base font-medium capitalize">{pageName}</h1>
+      <UtcClock className="ml-auto" />
     </header>
   );
 }

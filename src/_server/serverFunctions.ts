@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 // import { notFound } from "@tanstack/react-router"; // Available for 404 handling
-import { and, eq, gte, sql } from "drizzle-orm";
+import { and, desc, eq, gte, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "./db";
 import { raiders, reports } from "./db/schema";
@@ -207,5 +207,44 @@ export const getReportsChartData = createServerFn({ method: "GET" })
       const error = err instanceof Error ? err : new Error("Unknown error");
       console.error("Error fetching reports chart data:", error);
       throw new Error("Failed to fetch reports chart data.");
+    }
+  });
+
+export const getReportsTableData = createServerFn({ method: "GET" })
+  .middleware([authMiddleware])
+  .handler(async ({ context }) => {
+    const user = context.session?.user;
+    if (!user) throw new Error("Unauthenticated");
+
+    const { success: hasPermission } = await auth.api.userHasPermission({
+      body: {
+        userId: user.id,
+        permissions: {
+          report: ["assess"],
+        },
+      },
+    });
+    if (!hasPermission) throw new Error("Unauthorized");
+
+    try {
+      const results = await db
+        .select({
+          id: reports.id,
+          embarkId: reports.embarkId,
+          reason: reports.reason,
+          status: reports.status,
+          createdAt: reports.createdAt,
+        })
+        .from(reports)
+        .orderBy(desc(reports.createdAt));
+
+      return results.map((report) => ({
+        ...report,
+        createdAt: report.createdAt.toISOString(),
+      }));
+    } catch (err: unknown) {
+      const error = err instanceof Error ? err : new Error("Unknown error");
+      console.error("Error fetching reports table data:", error);
+      throw new Error("Failed to fetch reports.");
     }
   });

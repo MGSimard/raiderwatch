@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { cn } from "@/_lib/utils";
 
 function Table({ className, ...props }: React.ComponentProps<"table">) {
@@ -55,7 +54,7 @@ function TableCell({ className, ...props }: React.ComponentProps<"td">) {
   return (
     <td
       data-slot="table-cell"
-      className={cn("p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0", className)}
+      className={cn("px-2 py-1 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0", className)}
       {...props}
     />
   );

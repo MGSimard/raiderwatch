@@ -30,11 +30,7 @@ const config = defineConfig({
   ],
   // Todo: Remove when Better Auth gets their shit together
   optimizeDeps: {
-    exclude: [
-      "@tanstack/start-server-core",
-      "@tanstack/start-client-core",
-      "@tanstack/react-start",
-    ],
+    exclude: ["@tanstack/start-server-core", "@tanstack/start-client-core", "@tanstack/react-start"],
   },
 });
 

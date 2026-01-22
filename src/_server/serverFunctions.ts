@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { db } from "./db";
-import { raiders, reports } from "./db/schema";
+import { reports } from "./db/schema";
 import { and, desc, eq, gte, sql } from "drizzle-orm";
 import { auth } from "@/_auth";
 import { authMiddleware } from "@/_auth/authMiddleware";
@@ -15,6 +15,7 @@ export const getRaiderApprovedReports = createServerFn()
   .inputValidator(z.object({ embarkId: z.string() }))
   .handler(async ({ data }) => {
     const { embarkId } = data;
+    const normalizedEmbarkId = embarkId.toLowerCase();
 
     try {
       const results = await db
@@ -26,7 +27,7 @@ export const getRaiderApprovedReports = createServerFn()
           reviewedAt: reports.reviewedAt,
         })
         .from(reports)
-        .where(and(eq(reports.embarkId, embarkId), eq(reports.status, "approved")));
+        .where(and(eq(reports.embarkId, normalizedEmbarkId), eq(reports.status, "approved")));
 
       return results;
     } catch (err: unknown) {
@@ -47,14 +48,10 @@ export const fileReport = createServerFn()
   .inputValidator(reportSchema)
   .handler(async ({ data }) => {
     const { embarkId, reason, description, videoUrl } = data;
+    const normalizedEmbarkId = embarkId.toLowerCase();
 
     try {
-      await db.transaction(async (tx) => {
-        // If raider doesn't exist, create it
-        await tx.insert(raiders).values({ embarkId }).onConflictDoNothing();
-        // Add report
-        await tx.insert(reports).values({ embarkId, reason, description, videoUrl });
-      });
+      await db.insert(reports).values({ embarkId: normalizedEmbarkId, reason, description, videoUrl });
     } catch (err: unknown) {
       const error = err instanceof Error ? err : new Error("Unknown error");
       console.error("Error filing report:", error);
@@ -136,20 +133,19 @@ export const getDashboardOverview = createServerFn({ method: "GET" })
     if (!hasPermission) throw new Error("Unauthorized");
 
     try {
-      const oneWeekAgo = new Date();
-      oneWeekAgo.setUTCDate(oneWeekAgo.getUTCDate() - 7);
-      const oneWeekAgoStr = sql.raw(`'${oneWeekAgo.toISOString()}'`);
+      const weekStartUtc = sql.raw("date_trunc('week', now() at time zone 'utc')");
+      const weekEndUtc = sql.raw("(date_trunc('week', now() at time zone 'utc') + interval '7 days')");
 
       const [result] = await db
         .select({
-          totalRaiders: sql<number>`(select cast(count(*) as int) from ${raiders})`,
+          totalRaiders: sql<number>`(select cast(count(distinct ${reports.embarkId}) as int) from ${reports})`,
           approved: sql<number>`cast(count(case when ${reports.status} = 'approved' then 1 end) as int)`,
           rejected: sql<number>`cast(count(case when ${reports.status} = 'rejected' then 1 end) as int)`,
           pending: sql<number>`cast(count(case when ${reports.status} = 'pending' then 1 end) as int)`,
-          weeklyRaiders: sql<number>`(select cast(count(*) as int) from ${raiders} where ${raiders.createdAt} >= ${oneWeekAgoStr})`,
-          weeklyApproved: sql<number>`cast(count(case when ${reports.status} = 'approved' and ${reports.reviewedAt} >= ${oneWeekAgoStr} then 1 end) as int)`,
-          weeklyRejected: sql<number>`cast(count(case when ${reports.status} = 'rejected' and ${reports.reviewedAt} >= ${oneWeekAgoStr} then 1 end) as int)`,
-          weeklyPending: sql<number>`cast(count(case when ${reports.status} = 'pending' and ${reports.createdAt} >= ${oneWeekAgoStr} then 1 end) as int)`,
+          weeklyRaiders: sql<number>`(select cast(count(*) as int) from (select ${reports.embarkId} from ${reports} group by ${reports.embarkId} having min(${reports.createdAt}) >= ${weekStartUtc} and min(${reports.createdAt}) < ${weekEndUtc}) as weekly_raiders)`,
+          weeklyApproved: sql<number>`cast(count(case when ${reports.status} = 'approved' and ${reports.reviewedAt} >= ${weekStartUtc} and ${reports.reviewedAt} < ${weekEndUtc} then 1 end) as int)`,
+          weeklyRejected: sql<number>`cast(count(case when ${reports.status} = 'rejected' and ${reports.reviewedAt} >= ${weekStartUtc} and ${reports.reviewedAt} < ${weekEndUtc} then 1 end) as int)`,
+          weeklyPending: sql<number>`cast(count(case when ${reports.status} = 'pending' and ${reports.createdAt} >= ${weekStartUtc} and ${reports.createdAt} < ${weekEndUtc} then 1 end) as int)`,
         })
         .from(reports);
 

@@ -29,9 +29,10 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
 
 function CardTitle({
   className,
+  disableGlow = false,
   gradientPosition = "center",
   ...props
-}: React.ComponentProps<"div"> & { gradientPosition?: "left" | "center" | "right" }) {
+}: React.ComponentProps<"div"> & { gradientPosition?: "left" | "center" | "right"; disableGlow?: boolean }) {
   const gradientClasses = {
     left: "bg-linear-to-r from-primary-derived/50 to-transparent border-t-2 border-l-0 border-r-0 border-b-2 [border-image:linear-gradient(to_right,var(--primary),transparent)1] [border-image-slice:1_0]",
     center:
@@ -44,8 +45,10 @@ function CardTitle({
     <div
       data-slot="card-title"
       className={cn(
-        "text-2xl py-2 dark:text-shadow-[0_0_0.2em_oklch(from_var(--primary)_calc(l-0.2)_c_h)] dark:shadow-lg font-medium text-primary group-data-[size=sm]/card:text-sm border-2",
-        gradientClasses[gradientPosition],
+        "text-2xl py-2 font-medium text-primary group-data-[size=sm]/card:text-sm",
+        !disableGlow &&
+          "dark:text-shadow-[0_0_0.2em_oklch(from_var(--primary)_calc(l-0.2)_c_h)] dark:shadow-lg border-2",
+        !disableGlow && gradientClasses[gradientPosition],
         className
       )}
       {...props}

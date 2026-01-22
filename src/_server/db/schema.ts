@@ -78,16 +78,6 @@ export const verifications = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)]
 );
 
-export const raiders = pgTable("raiders", {
-  id: serial("id").primaryKey(),
-  embarkId: text("embark_id").notNull().unique(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at")
-    .defaultNow()
-    .$onUpdate(() => /* @__PURE__ */ new Date())
-    .notNull(),
-});
-
 export const reportReasonEnum = pgEnum("report_reason", REPORT_REASON_ENUMS);
 export const reportStatusEnum = pgEnum("report_status", REPORT_STATUS_ENUMS);
 
@@ -95,9 +85,7 @@ export const reports = pgTable(
   "reports",
   {
     id: serial("id").primaryKey(),
-    embarkId: text("embark_id")
-      .notNull()
-      .references(() => raiders.embarkId, { onDelete: "cascade" }),
+    embarkId: text("embark_id").notNull(),
     reason: reportReasonEnum("reason").notNull(),
     description: text("description").notNull(),
     videoUrl: text("video_url").notNull(),

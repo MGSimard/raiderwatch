@@ -7,7 +7,7 @@ export const Route = createFileRoute("/unauthorized")({
 
 function RouteComponent() {
   return (
-    <main className="relative grow grid place-items-center text-center min-h-dvh">
+    <main className="relative p-8 grow grid place-items-center text-center min-h-dvh">
       <div>
         <h1 className="text-2xl font-bold">401 - UNAUTHORIZED</h1>
         <p className="text-sm text-muted-foreground">You are not authorized to access this page.</p>

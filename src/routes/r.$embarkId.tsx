@@ -9,7 +9,7 @@ import { HasReports } from "@/_components/HasReports";
 export const Route = createFileRoute("/r/$embarkId")({
   component: PageRaiderProfile,
   loader: ({ context, params }) => {
-    const embarkId = params.embarkId.replace("~", "#");
+    const embarkId = params.embarkId.replace("~", "#").toLowerCase();
     void context.queryClient.ensureQueryData(approvedReportsQuery(embarkId));
     return { embarkId };
   },
@@ -19,7 +19,7 @@ function PageRaiderProfile() {
   const { embarkId } = Route.useLoaderData();
 
   return (
-    <main className="flex flex-col max-w-3xl w-full mx-auto min-h-dvh px-8 raider-page">
+    <main className="flex flex-col max-w-3xl w-full mx-auto min-h-dvh p-8 raider-page">
       <Suspense
         fallback={
           <div className="grow grid place-items-center">

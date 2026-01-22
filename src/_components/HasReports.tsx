@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/_components/ui/button";
 import { Separator } from "@/_components/ui/separator";
 import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
-import { ArrowLeftIcon, WarningIcon } from "@phosphor-icons/react";
+import { ArrowLeftIcon, WarningIcon, UserSquareIcon } from "@phosphor-icons/react";
 
 export function HasReports({
   embarkId,
@@ -14,12 +14,13 @@ export function HasReports({
   approvedReports: Awaited<ReturnType<typeof getRaiderApprovedReports>>;
 }) {
   return (
-    <section className="grow grid place-items-center">
-      <Card className="w-full max-w-sm relative corner-brackets animated-height">
+    <section>
+      <Card className="w-full relative corner-brackets">
         <div className="grid gap-4 expander">
           <CardHeader>
-            <CardTitle>
-              <h2>{embarkId}</h2>
+            <CardTitle disableGlow>
+              <h1 className="uppercase">{embarkId}</h1>
+              <p className="text-sm uppercase tracking-wider">FLAGGED</p>
             </CardTitle>
           </CardHeader>
           <Separator />

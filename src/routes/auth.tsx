@@ -14,7 +14,7 @@ export const Route = createFileRoute("/auth")({
 
 function RouteComponent() {
   return (
-    <main className="relative grow grid place-items-center text-center min-h-dvh">
+    <main className="relative p-8 grow grid place-items-center text-center min-h-dvh">
       <SignInForm />
     </main>
   );

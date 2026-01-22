@@ -28,17 +28,7 @@ export const relations = defineRelations(schema, (r) => ({
       to: r.users.id,
     }),
   },
-  raiders: {
-    reports: r.many.reports({
-      from: r.raiders.embarkId,
-      to: r.reports.embarkId,
-    }),
-  },
   reports: {
-    raider: r.one.raiders({
-      from: r.reports.embarkId,
-      to: r.raiders.embarkId,
-    }),
     reviewer: r.one.users({
       from: r.reports.reviewedBy,
       to: r.users.id,

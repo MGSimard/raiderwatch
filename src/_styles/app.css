@@ -238,6 +238,9 @@
   .animate-recording-pulse {
     animation: recording-pulse 2s ease-in-out infinite;
   }
+  .corner-brackets {
+    z-index: 1;
+  }
   .corner-brackets::before {
     content: "";
     position: absolute;
@@ -263,6 +266,7 @@
       bottom 0 right 0,
       bottom 0 right 0;
     background-repeat: no-repeat;
+    filter: drop-shadow(0 0 8px oklch(from var(--primary) calc(l - 0.2) c h)) drop-shadow(0 0 2px var(--primary));
   }
   .animated-height {
     position: relative;

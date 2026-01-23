@@ -11,24 +11,7 @@ export function HasReports({
   approvedReports: Awaited<ReturnType<typeof getRaiderApprovedReports>>;
 }) {
   type Report = Awaited<ReturnType<typeof getRaiderApprovedReports>>[number];
-  const minVisibleReports = 13;
-  const baseReport: Report = approvedReports[0] ?? {
-    id: 0,
-    reason: "other",
-    videoUrl: "",
-    videoStoragePath: null,
-    createdAt: new Date(0).toISOString(),
-  };
-  const visibleReports =
-    approvedReports.length >= minVisibleReports
-      ? approvedReports
-      : [
-          ...approvedReports,
-          ...Array.from({ length: minVisibleReports - approvedReports.length }, (_, index) => ({
-            ...baseReport,
-            id: baseReport.id * -1000 - (index + 1),
-          })),
-        ];
+
   return (
     <>
       <section>
@@ -55,11 +38,11 @@ export function HasReports({
         </Card>
       </section>
       <section className="mt-4">
-        <ul className="flex flex-col gap-2">
-          {visibleReports.map((report, index) => (
+        <ul className="grid sm:grid-cols-2 gap-2">
+          {approvedReports.map((report, index) => (
             <li
               key={report.id}
-              className="report-stagger-item backdrop-blur-[2px]"
+              className="report-stagger-item backdrop-blur-[2px] last:odd:sm:col-span-2"
               style={{ "--stagger": index } as CSSProperties}>
               <ReportDrawer embarkId={embarkId} report={report} />
             </li>

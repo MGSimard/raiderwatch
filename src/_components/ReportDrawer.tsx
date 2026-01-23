@@ -31,7 +31,7 @@ export function ReportDrawer({ embarkId, report }: { embarkId: string; report: R
           </div>
           <CaretDoubleRightIcon
             weight="thin"
-            className="size-8 text-primary/20 group-hover:text-primary group-focus-visible:text-primary group-hover:translate-x-1 group-focus-visible:translate-x-1 transition-all duration-50 ease-out"
+            className="size-8 shrink-0 text-primary/20 group-hover:text-primary group-focus-visible:text-primary group-hover:translate-x-1 group-focus-visible:translate-x-1 transition-all duration-50 ease-out"
           />
         </button>
       </DrawerTrigger>

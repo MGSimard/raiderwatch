@@ -310,7 +310,6 @@
     animation-delay: calc(var(--stagger) * 60ms);
     will-change: transform, opacity;
   }
-
   @media (prefers-reduced-motion: reduce) {
     .animated-height {
       animation: none;

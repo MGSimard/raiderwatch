@@ -18,11 +18,13 @@ import { REPORT_REASON_ENUMS, REPORT_REASON_LABELS } from "@/_lib/enums";
 import { cn } from "@/_lib/utils";
 import { fileReport } from "@/_server/serverFunctions";
 import { useForm } from "@tanstack/react-form";
+import { useState } from "react";
 import { toast } from "sonner";
 /* oxlint-disable no-children-prop */
 import { z } from "zod";
 
 export function ReportDialog({ embarkId, children }: { embarkId: string; children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
   const form = useForm({
     defaultValues: {
       embarkId: embarkId,
@@ -39,6 +41,7 @@ export function ReportDialog({ embarkId, children }: { embarkId: string; childre
         await fileReport({ data: validated });
         toast.success("Report submitted successfully. A curator will review it shortly.");
         form.reset();
+        setOpen(false);
       } catch (err) {
         console.error("Error submitting report:", err);
         toast.error("Failed to submit report, view console for more details.");
@@ -47,7 +50,7 @@ export function ReportDialog({ embarkId, children }: { embarkId: string; childre
   });
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={children as React.ReactElement} />
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader className="shrink-0">
@@ -80,6 +83,7 @@ export function ReportDialog({ embarkId, children }: { embarkId: string; childre
                       className="text-muted-foreground cursor-not-allowed"
                       aria-invalid={isInvalid}
                       autoComplete="off"
+                      required
                       readOnly
                     />
                     {isInvalid && <FieldError errors={field.state.meta.errors} />}
@@ -97,6 +101,7 @@ export function ReportDialog({ embarkId, children }: { embarkId: string; childre
                     <Select
                       name={field.name}
                       value={field.state.value}
+                      required
                       onValueChange={(value) => field.handleChange(value ?? "")}>
                       <SelectTrigger id={field.name} aria-invalid={isInvalid}>
                         <SelectValue placeholder="...">
@@ -132,6 +137,7 @@ export function ReportDialog({ embarkId, children }: { embarkId: string; childre
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
                       aria-invalid={isInvalid}
+                      required
                       placeholder="(e.g. https://youtube.com/watch?v=xxx)..."
                     />
                     {isInvalid && <FieldError errors={field.state.meta.errors} />}
@@ -154,6 +160,7 @@ export function ReportDialog({ embarkId, children }: { embarkId: string; childre
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         placeholder="Briefly describe the situation..."
+                        required
                         rows={6}
                         className="min-h-24 resize-none wrap-break-word"
                         aria-invalid={isInvalid}

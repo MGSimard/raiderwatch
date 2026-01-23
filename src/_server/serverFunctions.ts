@@ -27,7 +27,8 @@ export const getRaiderApprovedReports = createServerFn()
           createdAt: reports.createdAt,
         })
         .from(reports)
-        .where(and(eq(reports.embarkId, normalizedEmbarkId), eq(reports.status, "approved")));
+        .where(and(eq(reports.embarkId, normalizedEmbarkId), eq(reports.status, "approved")))
+        .orderBy(desc(reports.createdAt));
 
       return results.map((report) => ({
         ...report,

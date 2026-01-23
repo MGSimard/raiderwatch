@@ -48,6 +48,7 @@ export function NavMain() {
                     className="group-data-[state=expanded]:border-l-2"
                     activeProps={{ className: "border-primary group-data-[state=collapsed]:bg-primary" }}
                     activeOptions={{ exact: item.activeExact, includeSearch: false }}
+                    viewTransition={false}
                   />
                 }>
                 <item.icon className="size-4" aria-hidden />

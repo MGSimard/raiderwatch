@@ -21,7 +21,7 @@ export function HasReports({
           variant="ghost"
           nativeButton={false}
           render={
-            <Link to="/" aria-label="Return to search" className="text-foreground/60">
+            <Link to="/" aria-label="Return to search" className="text-foreground/60" viewTransition>
               <ArrowLeftIcon weight="bold" aria-hidden /> RETURN
             </Link>
           }

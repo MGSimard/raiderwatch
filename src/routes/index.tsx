@@ -19,7 +19,7 @@ function PageHome() {
         aria-hidden
         tabIndex={-1}
         render={
-          <Link to="/dashboard">
+          <Link to="/dashboard" viewTransition={false}>
             <EyeIcon aria-hidden />
           </Link>
         }

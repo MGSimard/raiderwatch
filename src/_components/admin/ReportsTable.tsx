@@ -10,6 +10,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import type { ColumnDef, ColumnFiltersState, SortingState } from "@tanstack/react-table";
+import { cn } from "@/_lib/utils";
 import { Button } from "@/_components/admin/ui/button";
 import {
   DropdownMenu,
@@ -31,6 +32,9 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/_components/admin/ui/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/_components/ui/tooltip";
 import { Field, FieldLabel } from "@/_components/admin/ui/field";
+import { ReportSearchInput } from "@/_components/admin/ReportSearchInput";
+import { detectSearchType, filterByEmbarkId, filterByReportId } from "@/_lib/search";
+import type { SearchType } from "@/_lib/search";
 import {
   Select,
   SelectContent,
@@ -39,7 +43,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/_components/admin/ui/select";
-import { ToggleGroup, ToggleGroupItem } from "@/_components/admin/ui/toggle-group";
+import { StatusFilterDropdown, statusLabelMap, statusDotClassMap } from "@/_components/admin/StatusFilterDropdown";
 import { getReportsTableData } from "@/_server/serverFunctions";
 import { REPORT_REASON_LABELS, REPORT_STATUS_ENUMS } from "@/_lib/enums";
 import { formatUtcDateTime } from "@/_lib/utils";
@@ -56,18 +60,6 @@ export interface ReportRow {
 }
 
 const defaultStatusFilters: Array<ReportStatus> = ["pending", "under_review"];
-const statusLabelMap: Record<ReportStatus, string> = {
-  pending: "Pending Review",
-  under_review: "Under Review",
-  approved: "Approved",
-  rejected: "Denied",
-};
-const statusDotClassMap: Record<ReportStatus, string> = {
-  pending: "bg-muted-foreground",
-  under_review: "bg-yellow-500",
-  approved: "bg-green-500",
-  rejected: "bg-red-500",
-};
 
 const buildPaginationRange = (
   currentPage: number,
@@ -128,7 +120,7 @@ export const columns: Array<ColumnDef<ReportRow>> = [
                 <button
                   type="button"
                   aria-label={label}
-                  className={`inline-flex size-2.5 rounded-full ${statusDotClassMap[status]}`}
+                  className={cn("inline-flex size-2.5 rounded-full", statusDotClassMap[status])}
                 />
               }
             />
@@ -213,6 +205,27 @@ export function ReportsTable() {
     { id: "status", value: defaultStatusFilters },
   ]);
   const [statusFilters, setStatusFilters] = React.useState<Array<ReportStatus>>(defaultStatusFilters);
+  const [searchQuery, setSearchQuery] = React.useState<string>("");
+
+  // Derive search type from query
+  const searchType: SearchType = React.useMemo(() => detectSearchType(searchQuery), [searchQuery]);
+
+  // Global filter function for search
+  const globalFilterFn = React.useCallback(
+    (row: { original: ReportRow }): boolean => {
+      const trimmedQuery = searchQuery.trim();
+      if (trimmedQuery === "") {
+        return true;
+      }
+
+      if (searchType === "reportId") {
+        return filterByReportId(row.original.id, trimmedQuery);
+      }
+
+      return filterByEmbarkId(row.original.embarkId, trimmedQuery);
+    },
+    [searchQuery, searchType]
+  );
 
   const table = useReactTable({
     data: data ?? [],
@@ -223,9 +236,11 @@ export function ReportsTable() {
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    globalFilterFn: globalFilterFn,
     state: {
       sorting,
       columnFilters,
+      globalFilter: searchQuery,
     },
     initialState: {
       pagination: {
@@ -233,6 +248,11 @@ export function ReportsTable() {
       },
     },
   });
+
+  // Reset pagination to page 1 when search changes (Requirements: 5.5)
+  React.useEffect(() => {
+    table.setPageIndex(0);
+  }, [searchQuery, table]);
 
   const totalRows = table.getFilteredRowModel().rows.length;
   const { pageIndex, pageSize } = table.getState().pagination;
@@ -261,27 +281,26 @@ export function ReportsTable() {
     }
   };
 
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+  };
+
+  const handleSearchClear = () => {
+    setSearchQuery("");
+  };
+
   return (
     <div className="w-full">
       <div className="flex flex-col gap-3 pb-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap items-center gap-2">
-          <ToggleGroup
-            multiple
+          <ReportSearchInput value={searchQuery} onChange={handleSearchChange} onClear={handleSearchClear} />
+          <StatusFilterDropdown
             value={statusFilters}
             onValueChange={(value) => {
-              const next = value as Array<ReportStatus>;
-              setStatusFilters(next);
-              table.getColumn("status")?.setFilterValue(next);
-            }}>
-            {REPORT_STATUS_ENUMS.map((status) => (
-              <ToggleGroupItem key={status} value={status} variant="outline" size="sm">
-                <span className="flex items-center gap-2">
-                  <span className={`size-2 rounded-full ${statusDotClassMap[status]}`} aria-hidden />
-                  {statusLabelMap[status]}
-                </span>
-              </ToggleGroupItem>
-            ))}
-          </ToggleGroup>
+              setStatusFilters(value);
+              table.getColumn("status")?.setFilterValue(value);
+            }}
+          />
         </div>
       </div>
       <div className="overflow-hidden rounded-md border">
@@ -334,7 +353,7 @@ export function ReportsTable() {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  {data && data.length > 0 ? "No matching reports" : "No reports"}
                 </TableCell>
               </TableRow>
             )}

@@ -22,7 +22,7 @@ import { toast } from "sonner";
 /* oxlint-disable no-children-prop */
 import { z } from "zod";
 
-export function ReportDialog({ embarkId }: { embarkId: string }) {
+export function ReportDialog({ embarkId, children }: { embarkId: string; children: React.ReactNode }) {
   const form = useForm({
     defaultValues: {
       embarkId: embarkId,
@@ -48,7 +48,7 @@ export function ReportDialog({ embarkId }: { embarkId: string }) {
 
   return (
     <Dialog>
-      <DialogTrigger render={<Button type="button">FILE REPORT</Button>} />
+      <DialogTrigger render={children as React.ReactElement} />
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader className="shrink-0">
           <DialogTitle>FILE REPORT</DialogTitle>

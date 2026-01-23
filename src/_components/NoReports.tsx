@@ -34,7 +34,9 @@ export function NoReports({ embarkId }: { embarkId: string }) {
                 </Link>
               }
             />
-            <ReportDialog embarkId={embarkId} />
+            <ReportDialog embarkId={embarkId}>
+              <Button type="button">FILE REPORT</Button>
+            </ReportDialog>
           </CardFooter>
         </div>
       </Card>

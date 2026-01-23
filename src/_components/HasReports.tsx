@@ -1,6 +1,10 @@
 import type { CSSProperties } from "react";
+import { Link } from "@tanstack/react-router";
+import { Button } from "@/_components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/_components/ui/card";
 import { ReportDrawer } from "@/_components/ReportDrawer";
+import { ReportDialog } from "@/_components/ReportDialog";
+import { ArrowLeftIcon, PlusIcon } from "@phosphor-icons/react";
 import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
 
 export function HasReports({
@@ -10,10 +14,24 @@ export function HasReports({
   embarkId: string;
   approvedReports: Awaited<ReturnType<typeof getRaiderApprovedReports>>;
 }) {
-  type Report = Awaited<ReturnType<typeof getRaiderApprovedReports>>[number];
-
   return (
     <>
+      <nav className="flex gap-2 justify-between items-center mb-4">
+        <Button
+          variant="ghost"
+          nativeButton={false}
+          render={
+            <Link to="/" aria-label="Return to search" className="text-foreground/60">
+              <ArrowLeftIcon weight="bold" aria-hidden /> RETURN
+            </Link>
+          }
+        />
+        <ReportDialog embarkId={embarkId}>
+          <Button type="button" variant="ghost" className="text-foreground/60">
+            FILE REPORT
+          </Button>
+        </ReportDialog>
+      </nav>
       <section>
         <Card className="w-full relative corner-brackets animated-height py-0">
           <div className="grid gap-4 expander overflow-hidden py-4">

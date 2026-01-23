@@ -18,7 +18,6 @@ import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as REmbarkIdRouteImport } from './routes/r.$embarkId'
 import { Route as DashboardTeamRouteImport } from './routes/dashboard/team'
 import { Route as DashboardReportsRouteImport } from './routes/dashboard/reports'
-import { Route as DashboardLookupRouteImport } from './routes/dashboard/lookup'
 import { Route as DashboardAuditLogsRouteImport } from './routes/dashboard/audit-logs'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
@@ -67,11 +66,6 @@ const DashboardReportsRoute = DashboardReportsRouteImport.update({
   path: '/reports',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const DashboardLookupRoute = DashboardLookupRouteImport.update({
-  id: '/lookup',
-  path: '/lookup',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
 const DashboardAuditLogsRoute = DashboardAuditLogsRouteImport.update({
   id: '/audit-logs',
   path: '/audit-logs',
@@ -90,7 +84,6 @@ export interface FileRoutesByFullPath {
   '/unauthorized': typeof UnauthorizedRoute
   '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
-  '/dashboard/lookup': typeof DashboardLookupRoute
   '/dashboard/reports': typeof DashboardReportsRoute
   '/dashboard/team': typeof DashboardTeamRoute
   '/r/$embarkId': typeof REmbarkIdRoute
@@ -103,7 +96,6 @@ export interface FileRoutesByTo {
   '/unauthorized': typeof UnauthorizedRoute
   '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
-  '/dashboard/lookup': typeof DashboardLookupRoute
   '/dashboard/reports': typeof DashboardReportsRoute
   '/dashboard/team': typeof DashboardTeamRoute
   '/r/$embarkId': typeof REmbarkIdRoute
@@ -118,7 +110,6 @@ export interface FileRoutesById {
   '/unauthorized': typeof UnauthorizedRoute
   '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
-  '/dashboard/lookup': typeof DashboardLookupRoute
   '/dashboard/reports': typeof DashboardReportsRoute
   '/dashboard/team': typeof DashboardTeamRoute
   '/r/$embarkId': typeof REmbarkIdRoute
@@ -134,7 +125,6 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/wp-admin'
     | '/dashboard/audit-logs'
-    | '/dashboard/lookup'
     | '/dashboard/reports'
     | '/dashboard/team'
     | '/r/$embarkId'
@@ -147,7 +137,6 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/wp-admin'
     | '/dashboard/audit-logs'
-    | '/dashboard/lookup'
     | '/dashboard/reports'
     | '/dashboard/team'
     | '/r/$embarkId'
@@ -161,7 +150,6 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/wp-admin'
     | '/dashboard/audit-logs'
-    | '/dashboard/lookup'
     | '/dashboard/reports'
     | '/dashboard/team'
     | '/r/$embarkId'
@@ -244,13 +232,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardReportsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/lookup': {
-      id: '/dashboard/lookup'
-      path: '/lookup'
-      fullPath: '/dashboard/lookup'
-      preLoaderRoute: typeof DashboardLookupRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
     '/dashboard/audit-logs': {
       id: '/dashboard/audit-logs'
       path: '/audit-logs'
@@ -270,7 +251,6 @@ declare module '@tanstack/react-router' {
 
 interface DashboardRouteRouteChildren {
   DashboardAuditLogsRoute: typeof DashboardAuditLogsRoute
-  DashboardLookupRoute: typeof DashboardLookupRoute
   DashboardReportsRoute: typeof DashboardReportsRoute
   DashboardTeamRoute: typeof DashboardTeamRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
@@ -278,7 +258,6 @@ interface DashboardRouteRouteChildren {
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardAuditLogsRoute: DashboardAuditLogsRoute,
-  DashboardLookupRoute: DashboardLookupRoute,
   DashboardReportsRoute: DashboardReportsRoute,
   DashboardTeamRoute: DashboardTeamRoute,
   DashboardIndexRoute: DashboardIndexRoute,

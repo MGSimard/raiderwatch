@@ -25,11 +25,6 @@ export function NavMain() {
       url: "/dashboard/reports",
       icon: WarningIcon,
     },
-    {
-      title: "Lookup",
-      url: "/dashboard/lookup",
-      icon: MagnifyingGlassIcon,
-    },
   ];
 
   return (

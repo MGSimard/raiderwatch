@@ -42,6 +42,7 @@ import {
 import { ToggleGroup, ToggleGroupItem } from "@/_components/admin/ui/toggle-group";
 import { getReportsTableData } from "@/_server/serverFunctions";
 import { REPORT_REASON_LABELS, REPORT_STATUS_ENUMS } from "@/_lib/enums";
+import { formatUtcDateTime } from "@/_lib/utils";
 
 type ReportStatus = (typeof REPORT_STATUS_ENUMS)[number];
 type ReportReason = keyof typeof REPORT_REASON_LABELS;
@@ -109,21 +110,6 @@ const buildPaginationRange = (
   }
 
   return [];
-};
-
-const formatUtcDateTime = (value: string | Date) => {
-  const date = value instanceof Date ? value : new Date(value);
-  if (Number.isNaN(date.getTime())) return "—";
-  const formatted = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-    timeZone: "UTC",
-  }).format(date);
-  return `${formatted} UTC`;
 };
 
 export const columns: Array<ColumnDef<ReportRow>> = [

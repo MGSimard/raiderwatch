@@ -149,6 +149,7 @@ export function ChartTotalReports() {
               content={(props) => {
                 const { active, payload, label } = props;
                 return (
+                  // @ts-expect-error - TODO: Look into this type error from recharts v2 to v3 migration
                   <ChartTooltipContent
                     active={active}
                     payload={payload}

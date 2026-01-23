@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import type { ChartConfig } from "@/_components/admin/ui/chart";
@@ -32,11 +32,11 @@ export function ChartTotalReports() {
 
   const totalReports = data?.totalReports;
 
-  const filteredData = useMemo(() => {
-    const daily = data?.daily;
-    const asOfUtc = data?.asOfUtc;
-    if (!daily) return [];
+  const daily = data?.daily;
+  const asOfUtc = data?.asOfUtc;
+  let filteredData: Array<{ date: string; reports: number }> = [];
 
+  if (daily) {
     const now = (() => {
       if (typeof asOfUtc === "string") {
         const parsed = new Date(asOfUtc);
@@ -75,8 +75,8 @@ export function ChartTotalReports() {
       cursor.setUTCDate(cursor.getUTCDate() + 1);
     }
 
-    return rangeData;
-  }, [data, timeRange]);
+    filteredData = rangeData;
+  }
 
   return (
     <Card className="@container/card">

@@ -66,7 +66,7 @@ export function DataTablePagination<TData>({ table, itemLabel = "rows" }: DataTa
   const start = totalRows === 0 ? 0 : pageIndex * pageSize + 1;
   const end = totalRows === 0 ? 0 : Math.min(totalRows, (pageIndex + 1) * pageSize);
 
-  const paginationItems = React.useMemo(() => buildPaginationRange(currentPage, pageCount), [currentPage, pageCount]);
+  const paginationItems = buildPaginationRange(currentPage, pageCount);
 
   const canPreviousPage = table.getCanPreviousPage();
   const canNextPage = table.getCanNextPage();

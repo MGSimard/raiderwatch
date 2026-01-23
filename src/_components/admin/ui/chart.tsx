@@ -148,44 +148,30 @@ function ChartTooltipContent({
 }: CustomTooltipProps) {
   const { config } = useChart();
 
-  const tooltipLabel = React.useMemo(() => {
-    if (hideLabel || !payload) {
-      return null;
-    }
-
-    if (payload.length === 0) {
-      return null;
-    }
-    const item = payload[0];
-    if (!item) return null;
-
-    const itemDataKey = item.dataKey as string | undefined;
-    const itemName = item.name as string | undefined;
-    const key = labelKey ?? itemDataKey ?? itemName ?? "value";
-    const itemConfig = getPayloadConfigFromPayload(config, item, key);
-    const value = (() => {
-      const v = !labelKey && typeof label === "string" ? (config[label]?.label ?? label) : itemConfig?.label;
-
-      return typeof v === "string" || typeof v === "number" ? v : undefined;
-    })();
-
-    if (labelFormatter) {
-      return <div className={cn("font-medium", labelClassName)}>{labelFormatter(value, payload)}</div>;
-    }
-
-    if (!value) {
-      return null;
-    }
-
-    return <div className={cn("font-medium", labelClassName)}>{value}</div>;
-  }, [label, labelFormatter, payload, hideLabel, labelClassName, config, labelKey]);
-
-  if (!active || !payload) {
+  if (!active || !payload || payload.length === 0) {
     return null;
   }
 
-  if (payload.length === 0) {
-    return null;
+  let tooltipLabel = null;
+  if (!hideLabel) {
+    const item = payload[0];
+    if (item) {
+      const itemDataKey = item.dataKey as string | undefined;
+      const itemName = item.name as string | undefined;
+      const key = labelKey ?? itemDataKey ?? itemName ?? "value";
+      const itemConfig = getPayloadConfigFromPayload(config, item, key);
+      const value = (() => {
+        const v = !labelKey && typeof label === "string" ? (config[label]?.label ?? label) : itemConfig?.label;
+
+        return typeof v === "string" || typeof v === "number" ? v : undefined;
+      })();
+
+      if (labelFormatter) {
+        tooltipLabel = <div className={cn("font-medium", labelClassName)}>{labelFormatter(value, payload)}</div>;
+      } else if (value) {
+        tooltipLabel = <div className={cn("font-medium", labelClassName)}>{value}</div>;
+      }
+    }
   }
 
   const nestLabel = payload.length === 1 && indicator !== "dot";

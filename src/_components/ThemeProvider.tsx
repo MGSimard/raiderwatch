@@ -10,7 +10,7 @@
  * - Remove system related functionalities for portfolio version as
  * communicated branding default is more important than user's system preferences
  */
-import { createContext, use, useCallback, useEffect, useMemo, useState } from "react";
+import { createContext, use, useEffect, useState } from "react";
 import { ScriptOnce } from "@tanstack/react-router";
 
 type Theme = "light" | "dark";
@@ -43,26 +43,23 @@ export function ThemeProvider({ children, defaultTheme = "dark", storageKey = ST
     }
   });
 
-  const updateTheme = useCallback(
-    (newTheme: Theme) => {
-      if (isBrowser) {
-        const enableTransitions = disableTransitions();
-        setTheme(newTheme);
-        try {
-          localStorage.setItem(storageKey, newTheme);
-        } catch (error) {
-          console.error("ERROR: Failed to save theme preference:", error);
-        }
-        // Double RAF ensures transitions re-enable after paint
-        requestAnimationFrame(() => {
-          requestAnimationFrame(enableTransitions);
-        });
-      } else {
-        setTheme(newTheme);
+  const updateTheme = (newTheme: Theme) => {
+    if (isBrowser) {
+      const enableTransitions = disableTransitions();
+      setTheme(newTheme);
+      try {
+        localStorage.setItem(storageKey, newTheme);
+      } catch (error) {
+        console.error("ERROR: Failed to save theme preference:", error);
       }
-    },
-    [storageKey]
-  );
+      // Double RAF ensures transitions re-enable after paint
+      requestAnimationFrame(() => {
+        requestAnimationFrame(enableTransitions);
+      });
+    } else {
+      setTheme(newTheme);
+    }
+  };
 
   useEffect(() => {
     if (!isBrowser) return;
@@ -87,7 +84,7 @@ export function ThemeProvider({ children, defaultTheme = "dark", storageKey = ST
     return () => window.removeEventListener("storage", handleStorageChange);
   }, [storageKey]);
 
-  const contextValue = useMemo(() => ({ theme, setTheme: updateTheme }), [theme, updateTheme]);
+  const contextValue = { theme, setTheme: updateTheme };
 
   return (
     <ThemeContext value={contextValue}>

@@ -47,6 +47,7 @@ import { StatusFilterDropdown, statusLabelMap, statusDotClassMap } from "@/_comp
 import { getReportsTableData } from "@/_server/serverFunctions";
 import { REPORT_REASON_LABELS, REPORT_STATUS_ENUMS } from "@/_lib/enums";
 import { formatUtcDateTime } from "@/_lib/utils";
+import { toast } from "sonner";
 
 type ReportStatus = (typeof REPORT_STATUS_ENUMS)[number];
 type ReportReason = keyof typeof REPORT_REASON_LABELS;
@@ -102,6 +103,26 @@ const buildPaginationRange = (
   }
 
   return [];
+};
+
+const handleCopyReportData = async (report: ReportRow) => {
+  try {
+    await navigator.clipboard.writeText(JSON.stringify(report, null, 2));
+    toast.success("Report data copied to clipboard.");
+  } catch (err: unknown) {
+    console.error("Failed to copy report data: ", err instanceof Error ? err : "Unknown error");
+    toast.error("Failed to copy report data, view console for more details.");
+  }
+};
+
+const handleCopyEmbarkId = async (embarkId: string) => {
+  try {
+    await navigator.clipboard.writeText(embarkId);
+    toast.success("Embark ID copied to clipboard.");
+  } catch (err: unknown) {
+    console.error("Failed to copy Embark ID: ", err instanceof Error ? err : "Unknown error");
+    toast.error("Failed to copy Embark ID, view console for more details.");
+  }
 };
 
 export const columns: Array<ColumnDef<ReportRow>> = [
@@ -164,7 +185,7 @@ export const columns: Array<ColumnDef<ReportRow>> = [
   {
     id: "actions",
     enableSorting: false,
-    cell: () => {
+    cell: ({ row }) => {
       return (
         <div className="flex justify-end">
           <DropdownMenu>
@@ -182,8 +203,10 @@ export const columns: Array<ColumnDef<ReportRow>> = [
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem>Review</DropdownMenuItem>
                 <DropdownMenuItem>Raider</DropdownMenuItem>
-                <DropdownMenuItem>Copy report ID</DropdownMenuItem>
-                <DropdownMenuItem>Copy Embark ID</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleCopyReportData(row.original)}>Copy report data</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleCopyEmbarkId(row.original.embarkId)}>
+                  Copy Embark ID
+                </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -206,26 +229,20 @@ export function ReportsTable() {
   ]);
   const [statusFilters, setStatusFilters] = React.useState<Array<ReportStatus>>(defaultStatusFilters);
   const [searchQuery, setSearchQuery] = React.useState<string>("");
+  const searchType: SearchType = detectSearchType(searchQuery);
 
-  // Derive search type from query
-  const searchType: SearchType = React.useMemo(() => detectSearchType(searchQuery), [searchQuery]);
+  const globalFilterFn = (row: { original: ReportRow }): boolean => {
+    const trimmedQuery = searchQuery.trim();
+    if (trimmedQuery === "") {
+      return true;
+    }
 
-  // Global filter function for search
-  const globalFilterFn = React.useCallback(
-    (row: { original: ReportRow }): boolean => {
-      const trimmedQuery = searchQuery.trim();
-      if (trimmedQuery === "") {
-        return true;
-      }
+    if (searchType === "reportId") {
+      return filterByReportId(row.original.id, trimmedQuery);
+    }
 
-      if (searchType === "reportId") {
-        return filterByReportId(row.original.id, trimmedQuery);
-      }
-
-      return filterByEmbarkId(row.original.embarkId, trimmedQuery);
-    },
-    [searchQuery, searchType]
-  );
+    return filterByEmbarkId(row.original.embarkId, trimmedQuery);
+  };
 
   const table = useReactTable({
     data: data ?? [],
@@ -261,7 +278,7 @@ export function ReportsTable() {
   const start = totalRows === 0 ? 0 : pageIndex * pageSize + 1;
   const end = totalRows === 0 ? 0 : Math.min(totalRows, (pageIndex + 1) * pageSize);
 
-  const paginationItems = React.useMemo(() => buildPaginationRange(currentPage, pageCount), [currentPage, pageCount]);
+  const paginationItems = buildPaginationRange(currentPage, pageCount);
 
   const handlePreviousClick = () => {
     if (table.getCanPreviousPage()) {

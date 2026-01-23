@@ -24,7 +24,7 @@ export function ReportDrawer({ embarkId, report }: { embarkId: string; report: R
         <button
           type="button"
           aria-label="View Report"
-          className="group flex gap-4 items-center justify-between w-full p-4 ring-foreground/10 bg-card/30 dark:bg-[radial-gradient(at_center_-5rem,oklch(from_var(--foreground)_l_c_h/0.15)_20%,transparent_80%),radial-gradient(at_center_bottom,oklch(from_var(--primary)l_c_h/0.1),transparent_80%)] bg-size-[cover,100%_1rem] bg-position-[center,center_bottom] [background-repeat:no-repeat,no-repeat] backdrop-blur-[2px] text-card-foreground text-xs/relaxed ring-1">
+          className="group flex gap-4 items-center justify-between w-full p-4 ring-foreground/10 hover:ring-primary focus-visible:ring-primary bg-card/30 dark:bg-[radial-gradient(at_center_-5rem,oklch(from_var(--foreground)_l_c_h/0.15)_20%,transparent_80%),radial-gradient(at_center_bottom,oklch(from_var(--primary)l_c_h/0.1),transparent_80%)] bg-size-[cover,100%_1rem] bg-position-[center,center_bottom] [background-repeat:no-repeat,no-repeat] text-card-foreground text-xs/relaxed ring-1">
           <div className="text-start">
             <h2 className="uppercase text-base text-primary">{REPORT_REASON_LABELS[report.reason]}</h2>
             <p className="text-muted-foreground text-xs/relaxed">{formatUtcDate(report.createdAt)}</p>

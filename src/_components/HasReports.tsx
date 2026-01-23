@@ -57,7 +57,10 @@ export function HasReports({
       <section className="mt-4">
         <ul className="flex flex-col gap-2">
           {visibleReports.map((report, index) => (
-            <li key={report.id} className="report-stagger-item" style={{ "--stagger": index } as CSSProperties}>
+            <li
+              key={report.id}
+              className="report-stagger-item backdrop-blur-[2px]"
+              style={{ "--stagger": index } as CSSProperties}>
               <ReportDrawer embarkId={embarkId} report={report} />
             </li>
           ))}

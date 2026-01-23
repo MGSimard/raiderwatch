@@ -56,9 +56,7 @@ export function StatusFilterDropdown({ value, onValueChange }: StatusFilterDropd
                     className={cn(
                       "size-2 rounded-full border",
                       index > 0 && "-ml-1",
-                      isSelected
-                        ? ["border-background", statusDotClassMap[status]]
-                        : "border-muted bg-background"
+                      isSelected ? ["border-background", statusDotClassMap[status]] : "border-muted bg-background"
                     )}
                     aria-hidden
                   />

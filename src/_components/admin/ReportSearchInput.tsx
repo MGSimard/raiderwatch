@@ -13,10 +13,7 @@ export function ReportSearchInput({ value, onChange, onClear }: ReportSearchInpu
 
   return (
     <div className="relative flex items-center">
-      <MagnifyingGlassIcon
-        className="pointer-events-none absolute left-2 size-4 text-muted-foreground"
-        aria-hidden
-      />
+      <MagnifyingGlassIcon className="pointer-events-none absolute left-2 size-4 text-muted-foreground" aria-hidden />
       <Input
         type="text"
         value={value}
@@ -26,12 +23,7 @@ export function ReportSearchInput({ value, onChange, onClear }: ReportSearchInpu
         aria-label="Search reports"
       />
       {hasValue && (
-        <Button
-          variant="ghost"
-          size="icon-xs"
-          onClick={onClear}
-          className="absolute right-1"
-          aria-label="Clear search">
+        <Button variant="ghost" size="icon-xs" onClick={onClear} className="absolute right-1" aria-label="Clear search">
           <XIcon aria-hidden />
         </Button>
       )}

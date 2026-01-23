@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { GaugeIcon, MagnifyingGlassIcon, WarningIcon } from "@phosphor-icons/react";
+import { GaugeIcon, WarningIcon } from "@phosphor-icons/react";
 import {
   SidebarGroup,
   SidebarGroupContent,

@@ -1,10 +1,7 @@
-import { Link } from "@tanstack/react-router";
-import { ReportDialog } from "@/_components/ReportDialog";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/_components/ui/card";
-import { Button } from "@/_components/ui/button";
-import { Separator } from "@/_components/ui/separator";
+import type { CSSProperties } from "react";
+import { Card, CardHeader, CardTitle } from "@/_components/ui/card";
+import { ReportDrawer } from "@/_components/ReportDrawer";
 import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
-import { ArrowLeftIcon, WarningIcon } from "@phosphor-icons/react";
 
 export function HasReports({
   embarkId,
@@ -13,6 +10,25 @@ export function HasReports({
   embarkId: string;
   approvedReports: Awaited<ReturnType<typeof getRaiderApprovedReports>>;
 }) {
+  type Report = Awaited<ReturnType<typeof getRaiderApprovedReports>>[number];
+  const minVisibleReports = 13;
+  const baseReport: Report = approvedReports[0] ?? {
+    id: 0,
+    reason: "other",
+    videoUrl: "",
+    videoStoragePath: null,
+    createdAt: new Date(0).toISOString(),
+  };
+  const visibleReports =
+    approvedReports.length >= minVisibleReports
+      ? approvedReports
+      : [
+          ...approvedReports,
+          ...Array.from({ length: minVisibleReports - approvedReports.length }, (_, index) => ({
+            ...baseReport,
+            id: baseReport.id * -1000 - (index + 1),
+          })),
+        ];
   return (
     <>
       <section>
@@ -20,7 +36,7 @@ export function HasReports({
           <div className="grid gap-4 expander overflow-hidden py-4">
             <CardHeader className="relative">
               <svg
-                className="absolute -translate-y-1/2 top-1/2 right-0 h-[250%] text-primary/10"
+                className="absolute -translate-y-1/2 top-1/2 right-0 h-[250%] text-primary/10 pointer-events-none"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
                 viewBox="0 0 117.34 107.22"
@@ -30,18 +46,22 @@ export function HasReports({
               </svg>
               <CardTitle disableGlow>
                 <h1 className="uppercase text-foreground truncate">{embarkId}</h1>
-                <p className="text-sm uppercase text-primary">FLAGGED</p>
+                <p className="text-sm uppercase text-primary">
+                  FLAGGED {approvedReports.length} TIME{approvedReports.length > 1 && "S"}
+                </p>
               </CardTitle>
             </CardHeader>
           </div>
         </Card>
       </section>
-      <section>
-        <Card className="w-full relative">
-          <CardHeader className="relative">
-            <CardDescription>Test</CardDescription>
-          </CardHeader>
-        </Card>
+      <section className="mt-4">
+        <ul className="flex flex-col gap-2">
+          {visibleReports.map((report, index) => (
+            <li key={report.id} className="report-stagger-item" style={{ "--stagger": index } as CSSProperties}>
+              <ReportDrawer embarkId={embarkId} report={report} />
+            </li>
+          ))}
+        </ul>
       </section>
     </>
   );

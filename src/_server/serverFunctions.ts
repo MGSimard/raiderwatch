@@ -24,12 +24,15 @@ export const getRaiderApprovedReports = createServerFn()
           reason: reports.reason,
           videoUrl: reports.videoUrl,
           videoStoragePath: reports.videoStoragePath,
-          reviewedAt: reports.reviewedAt,
+          createdAt: reports.createdAt,
         })
         .from(reports)
         .where(and(eq(reports.embarkId, normalizedEmbarkId), eq(reports.status, "approved")));
 
-      return results;
+      return results.map((report) => ({
+        ...report,
+        createdAt: report.createdAt.toISOString(),
+      }));
     } catch (err: unknown) {
       const error = err instanceof Error ? err : new Error("Unknown error");
       console.error("Error fetching raider reports:", error);

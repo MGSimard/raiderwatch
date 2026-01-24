@@ -185,14 +185,8 @@ export const getReportsChartData = createServerFn({ method: "GET" })
       ninetyDaysAgo.setUTCDate(ninetyDaysAgo.getUTCDate() - 90);
 
       const [[totals], daily] = await Promise.all([
-        // Total reports count (all-time)
-        db
-          .select({
-            totalReports: sql<number>`cast(count(*) as int)`,
-          })
-          .from(reports),
+        db.select({ totalReports: sql<number>`cast(count(*) as int)` }).from(reports),
 
-        // Daily reports for last 90 days
         db
           .select({
             date: sql<string>`to_char(${reports.createdAt} AT TIME ZONE 'UTC', 'YYYY-MM-DD')`,
@@ -233,16 +227,7 @@ export const getReportsTableData = createServerFn({ method: "GET" })
     if (!hasPermission) throw new Error("Unauthorized");
 
     try {
-      const results = await db
-        .select({
-          id: reports.id,
-          embarkId: reports.embarkId,
-          reason: reports.reason,
-          status: reports.status,
-          createdAt: reports.createdAt,
-        })
-        .from(reports)
-        .orderBy(desc(reports.createdAt));
+      const results = await db.select().from(reports).orderBy(desc(reports.createdAt));
 
       return results.map((report) => ({
         ...report,

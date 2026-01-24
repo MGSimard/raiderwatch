@@ -276,6 +276,7 @@ export function ReportsTable() {
   });
 
   // Reset pagination to page 1 when search changes (Requirements: 5.5)
+  // Todo bruh
   React.useEffect(() => {
     table.setPageIndex(0);
   }, [searchQuery, table]);

@@ -125,7 +125,7 @@ const handleCopyEmbarkId = async (embarkId: string) => {
   }
 };
 
-export const columns: Array<ColumnDef<ReportRow>> = [
+const createColumns = (handleIsolateRaider: (embarkId: string) => void): Array<ColumnDef<ReportRow>> => [
   {
     accessorKey: "status",
     header: "Status",
@@ -201,9 +201,11 @@ export const columns: Array<ColumnDef<ReportRow>> = [
             <DropdownMenuContent align="end">
               <DropdownMenuGroup>
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                <DropdownMenuItem>Review</DropdownMenuItem>
-                <DropdownMenuItem>Raider</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleCopyReportData(row.original)}>Copy report data</DropdownMenuItem>
+                <DropdownMenuItem>Review Report</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleIsolateRaider(row.original.embarkId)}>
+                  Isolate Raider
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleCopyReportData(row.original)}>Copy Report</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => handleCopyEmbarkId(row.original.embarkId)}>
                   Copy Embark ID
                 </DropdownMenuItem>
@@ -230,6 +232,15 @@ export function ReportsTable() {
   const [statusFilters, setStatusFilters] = React.useState<Array<ReportStatus>>(defaultStatusFilters);
   const [searchQuery, setSearchQuery] = React.useState<string>("");
   const searchType: SearchType = detectSearchType(searchQuery);
+
+  const handleIsolateRaider = (embarkId: string) => {
+    setSearchQuery(embarkId);
+    const allStatuses: Array<ReportStatus> = [...REPORT_STATUS_ENUMS];
+    setStatusFilters(allStatuses);
+    table.getColumn("status")?.setFilterValue(allStatuses);
+  };
+
+  const columns = createColumns(handleIsolateRaider);
 
   const globalFilterFn = (row: { original: ReportRow }): boolean => {
     const trimmedQuery = searchQuery.trim();

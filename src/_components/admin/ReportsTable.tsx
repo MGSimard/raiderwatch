@@ -217,12 +217,10 @@ const createColumns = (handleIsolateRaider: (embarkId: string) => void): Array<C
     },
   },
 ];
-
 export function ReportsTable() {
-  const fetchReportsTableData = getReportsTableData as () => Promise<Array<ReportRow>>;
   const { data, isLoading, isError } = useQuery<Array<ReportRow>>({
     queryKey: ["reportsTable"],
-    queryFn: fetchReportsTableData,
+    queryFn: getReportsTableData,
   });
 
   const [sorting, setSorting] = React.useState<SortingState>([{ id: "createdAt", desc: true }]);

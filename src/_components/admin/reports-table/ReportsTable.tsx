@@ -12,12 +12,16 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { getReportsTableData } from "@/_server/serverFunctions";
+import { useReactTable } from "@tanstack/react-table";
+import { columns } from "./ReportsColumns";
 
 export function ReportsTable() {
   const { data, isPending, isError } = useQuery({
     queryKey: ["reportsTable"],
     queryFn: getReportsTableData,
   });
+
+  const table = useReactTable({ columns, data });
 
   return <div></div>;
 }

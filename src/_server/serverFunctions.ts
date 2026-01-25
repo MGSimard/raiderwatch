@@ -227,12 +227,7 @@ export const getReportsTableData = createServerFn({ method: "GET" })
     if (!hasPermission) throw new Error("Unauthorized");
 
     try {
-      const results = await db.select().from(reports).orderBy(desc(reports.createdAt));
-
-      return results.map((report) => ({
-        ...report,
-        createdAt: report.createdAt.toISOString(),
-      }));
+      return await db.select().from(reports).orderBy(desc(reports.createdAt));
     } catch (err: unknown) {
       const error = err instanceof Error ? err : new Error("Unknown error");
       console.error("Error fetching reports table data:", error);

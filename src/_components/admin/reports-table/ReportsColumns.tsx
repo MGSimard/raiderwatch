@@ -1,15 +1,22 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { getReportsTableData } from "@/_server/serverFunctions";
-import { formatUtcDateTime } from "@/_lib/utils";
+import { REPORT_STATUS_META } from "@/_lib/enums";
+import { cn, formatUtcDateTime } from "@/_lib/utils";
 
 // HEADERS: STATUS, ID, EMBARK ID, REASON, FILED AT (UTC), UPDATED AT (UTC), ROW ACTIONS
 
-const columnHelper = createColumnHelper<Awaited<ReturnType<typeof getReportsTableData>>>();
+type ReportRow = Awaited<ReturnType<typeof getReportsTableData>>[number];
+
+const columnHelper = createColumnHelper<ReportRow>();
 
 export const columns = [
   columnHelper.accessor("status", {
     header: "Status",
-    cell: (info) => info.getValue(),
+    cell: (info) => {
+      const status = info.getValue();
+      const { label, dotClass } = REPORT_STATUS_META[status];
+      return <div aria-label={label} className={cn("size-2.5 rounded-full", dotClass)}></div>;
+    },
   }),
   columnHelper.accessor("id", {
     header: "ID",
@@ -25,11 +32,11 @@ export const columns = [
   }),
   columnHelper.accessor("createdAt", {
     header: "Filed At (UTC)",
-    cell: (info) => formatUtcDateTime(info.getValue<Date>()),
+    cell: (info) => formatUtcDateTime(info.getValue()),
   }),
   columnHelper.accessor("updatedAt", {
     header: "Updated At (UTC)",
-    cell: (info) => formatUtcDateTime(info.getValue<Date>()),
+    cell: (info) => formatUtcDateTime(info.getValue()),
   }),
   columnHelper.display({
     id: "actions",

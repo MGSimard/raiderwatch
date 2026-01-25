@@ -30,6 +30,7 @@ const DEFAULT_SEARCH_QUERY = "";
 const DEFAULT_STATUS: Array<ReportStatus> = ["pending", "under_review"];
 const DEFAULT_PAGE = 1;
 const DEFAULT_PAGE_SIZE = 20;
+const AUTO_WIDTH_COLUMNS = new Set(["status", "actions"]);
 
 export function ReportsTable() {
   // TODO: Can ensureQueryData for empty filter at route preload
@@ -45,7 +46,7 @@ export function ReportsTable() {
 
   const { data, isPending, isError, isPlaceholderData } = useQuery({
     queryKey: ["reportsTable", { ...filters }],
-    queryFn: getReportsTableData,
+    queryFn: getReportsTableData, // TODO: Feed filters to queryFn, then edit queryFn to accept filters
     placeholderData: keepPreviousData,
   });
 
@@ -80,9 +81,13 @@ export function ReportsTable() {
         ) : data.length > 0 ? (
           table.getRowModel().rows.map((row) => (
             <TableRow key={row.id} className={cn(isPlaceholderData && "opacity-50")}>
-              {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-              ))}
+              {row.getVisibleCells().map((cell) => {
+                return (
+                  <TableCell key={cell.id} className={cn(AUTO_WIDTH_COLUMNS.has(cell.column.id) && "w-0")}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                );
+              })}
             </TableRow>
           ))
         ) : (

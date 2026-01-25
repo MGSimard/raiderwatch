@@ -20,7 +20,7 @@ const columns = [
   }),
   columnHelper.accessor("reason", {
     header: "Reason",
-    cell: (info) => info.getValue(),
+    cell: (info) => info.getValue(), // TODO: Normalize report reason using our existing enum mapping
   }),
   columnHelper.accessor("createdAt", {
     header: "Filed At (UTC)",
@@ -29,5 +29,10 @@ const columns = [
   columnHelper.accessor("updatedAt", {
     header: "Updated At (UTC)",
     cell: (info) => info.getValue(),
+  }),
+  columnHelper.display({
+    id: "actions",
+    header: "Actions",
+    cell: () => "...",
   }),
 ];

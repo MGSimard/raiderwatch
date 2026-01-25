@@ -51,7 +51,7 @@ export function ReportsTable() {
   });
 
   const table = useReactTable({
-    data,
+    data: data ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     // getFilteredRowModel: getFilteredRowModel(), todo

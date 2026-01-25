@@ -66,9 +66,8 @@ export function ReportsTable() {
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
-                const autoWidth = AUTO_WIDTH_COLUMNS.has(header.id);
                 return (
-                  <TableHead key={header.id} className={cn(autoWidth && "text-center")}>
+                  <TableHead key={header.id} className={cn(AUTO_WIDTH_COLUMNS.has(header.id) && "text-center")}>
                     {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 );

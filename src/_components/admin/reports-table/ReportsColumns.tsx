@@ -17,7 +17,7 @@ export const columns = [
       const { label, dotClass } = REPORT_STATUS_META[status];
       return (
         <div className="flex justify-center">
-          <div aria-label={label} className={cn("size-2.5 rounded-full", dotClass)}></div>
+          <div aria-label={label} className={cn("size-2.5 rounded-full", dotClass)} />
         </div>
       );
     },

@@ -12,7 +12,6 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { getReportsTableData } from "@/_server/serverFunctions";
-import { createColumnHelper } from "@tanstack/react-table";
 
 export function ReportsTable() {
   const { data, isPending, isError } = useQuery({

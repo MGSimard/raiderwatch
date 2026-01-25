@@ -218,7 +218,7 @@ const createColumns = (handleIsolateRaider: (embarkId: string) => void): Array<C
   },
 ];
 export function ReportsTable() {
-  const { data, isLoading, isError } = useQuery<Array<ReportRow>>({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["reportsTable"],
     queryFn: getReportsTableData,
   });

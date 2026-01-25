@@ -11,7 +11,7 @@ import { z } from "zod";
 // https://tanstack.com/start/latest/docs/framework/react/guide/server-functions
 // https://www.better-auth.com/docs/plugins/admin#access-control-usage
 
-export const getRaiderApprovedReports = createServerFn()
+export const getRaiderApprovedReports = createServerFn({ method: "GET" })
   .inputValidator(z.object({ embarkId: z.string() }))
   .handler(async ({ data }) => {
     const { embarkId } = data;
@@ -48,7 +48,7 @@ const reportSchema = z.object({
   description: z.string(),
   videoUrl: z.url(),
 });
-export const fileReport = createServerFn()
+export const fileReport = createServerFn({ method: "POST" })
   .inputValidator(reportSchema)
   .handler(async ({ data }) => {
     const { embarkId, reason, description, videoUrl } = data;

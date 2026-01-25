@@ -10,7 +10,8 @@
 // - PAGINATION (SHOWING N-N of N REPORTS), ROWS PER PAGE SELECT, ARROWS, NO PAGE NUMBERS OR ELLIPSIS IT SERVES NO PURPOSE
 // - OTHER THAN TRYING TO HIT SPECIFIC DATE RANGES, WHICH WOULD BE BETTER DONE WITH A DATE PICKER (SINGLE OR RANGED)
 
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getReportsTableData } from "@/_server/serverFunctions";
 import {
   flexRender,
@@ -22,11 +23,30 @@ import {
 } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/_components/admin/ui/table";
 import { columns } from "./ReportsColumns";
+import type { ReportStatus } from "@/_lib/enums";
+import { cn } from "@/_lib/utils";
+
+const DEFAULT_SEARCH_QUERY = "";
+const DEFAULT_STATUS: Array<ReportStatus> = ["pending", "under_review"];
+const DEFAULT_PAGE = 1;
+const DEFAULT_PAGE_SIZE = 20;
 
 export function ReportsTable() {
-  const { data, isPending, isError } = useQuery({
-    queryKey: ["reportsTable"],
+  // TODO: Can ensureQueryData for empty filter at route preload
+  // TODO: Debounce
+
+  // SERVER-SIDE FILTERING - Modifies the query key which fires new fetches unless cached
+  const [filters, setFilters] = useState({
+    searchQuery: DEFAULT_SEARCH_QUERY,
+    status: DEFAULT_STATUS,
+    page: DEFAULT_PAGE,
+    pageSize: DEFAULT_PAGE_SIZE,
+  });
+
+  const { data, isPending, isError, isPlaceholderData } = useQuery({
+    queryKey: ["reportsTable", { ...filters }],
     queryFn: getReportsTableData,
+    placeholderData: keepPreviousData,
   });
 
   const table = useReactTable({
@@ -51,30 +71,49 @@ export function ReportsTable() {
           </TableRow>
         ))}
       </TableHeader>
+
       <TableBody>
-        {isPending ? (
-          <TableRow>
-            {/* TODO: Add loading skeleton */}
-            <TableCell colSpan={columns.length}>Loading...</TableCell>
-          </TableRow>
-        ) : isError ? (
-          <TableRow>
-            <TableCell colSpan={columns.length}>Failed to load reports.</TableCell>
-          </TableRow>
-        ) : table.getRowModel().rows.length > 0 ? (
+        {isError ? (
+          <ErrorResult />
+        ) : isPending ? (
+          <PendingResults />
+        ) : data.length > 0 ? (
           table.getRowModel().rows.map((row) => (
-            <TableRow key={row.id}>
+            <TableRow key={row.id} className={cn(isPlaceholderData && "opacity-50")}>
               {row.getVisibleCells().map((cell) => (
                 <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
               ))}
             </TableRow>
           ))
         ) : (
-          <TableRow>
-            <TableCell colSpan={columns.length}>No reports found.</TableCell>
-          </TableRow>
+          <NoResults />
         )}
       </TableBody>
     </Table>
+  );
+}
+
+function PendingResults() {
+  // TODO: Skeleton instead of loading text
+  return (
+    <TableRow>
+      <TableCell colSpan={columns.length}>Loading...</TableCell>
+    </TableRow>
+  );
+}
+
+function ErrorResult() {
+  return (
+    <TableRow>
+      <TableCell colSpan={columns.length}>Failed to load reports.</TableCell>
+    </TableRow>
+  );
+}
+
+function NoResults() {
+  return (
+    <TableRow>
+      <TableCell colSpan={columns.length}>No reports found.</TableCell>
+    </TableRow>
   );
 }

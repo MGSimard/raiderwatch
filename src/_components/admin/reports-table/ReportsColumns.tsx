@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { getReportsTableData } from "@/_server/serverFunctions";
-import { REPORT_STATUS_META } from "@/_lib/enums";
+import { REPORT_STATUS_META, REPORT_REASON_LABELS } from "@/_lib/enums";
 import { cn, formatUtcDateTime } from "@/_lib/utils";
 
 // HEADERS: STATUS, ID, EMBARK ID, REASON, FILED AT (UTC), UPDATED AT (UTC), ROW ACTIONS
@@ -32,7 +32,7 @@ export const columns = [
   }),
   columnHelper.accessor("reason", {
     header: "Reason",
-    cell: (info) => info.getValue(), // TODO: Normalize report reason using our existing enum mapping
+    cell: (info) => REPORT_REASON_LABELS[info.getValue()],
   }),
   columnHelper.accessor("createdAt", {
     header: "Filed At (UTC)",

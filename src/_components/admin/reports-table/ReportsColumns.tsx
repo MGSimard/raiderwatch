@@ -1,11 +1,12 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { getReportsTableData } from "@/_server/serverFunctions";
+import { formatUtcDateTime } from "@/_lib/utils";
 
 // HEADERS: STATUS, ID, EMBARK ID, REASON, FILED AT (UTC), UPDATED AT (UTC), ROW ACTIONS
 
 const columnHelper = createColumnHelper<Awaited<ReturnType<typeof getReportsTableData>>>();
 
-const columns = [
+export const columns = [
   columnHelper.accessor("status", {
     header: "Status",
     cell: (info) => info.getValue(),
@@ -24,11 +25,11 @@ const columns = [
   }),
   columnHelper.accessor("createdAt", {
     header: "Filed At (UTC)",
-    cell: (info) => info.getValue(),
+    cell: (info) => formatUtcDateTime(info.getValue<Date>()),
   }),
   columnHelper.accessor("updatedAt", {
     header: "Updated At (UTC)",
-    cell: (info) => info.getValue(),
+    cell: (info) => formatUtcDateTime(info.getValue<Date>()),
   }),
   columnHelper.display({
     id: "actions",

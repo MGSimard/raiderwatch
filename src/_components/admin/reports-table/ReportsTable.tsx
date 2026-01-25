@@ -19,9 +19,5 @@ export function ReportsTable() {
     queryFn: getReportsTableData,
   });
 
-  return (
-    <div>
-      <h1>Reports Table</h1>
-    </div>
-  );
+  return <div></div>;
 }

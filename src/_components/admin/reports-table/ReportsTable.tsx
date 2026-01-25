@@ -60,41 +60,46 @@ export function ReportsTable() {
   });
 
   return (
-    <Table>
-      <TableHeader>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <TableRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <TableHead key={header.id}>
-                {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-              </TableHead>
-            ))}
-          </TableRow>
-        ))}
-      </TableHeader>
-
-      <TableBody>
-        {isError ? (
-          <ErrorResult />
-        ) : isPending ? (
-          <PendingResults />
-        ) : data.length > 0 ? (
-          table.getRowModel().rows.map((row) => (
-            <TableRow key={row.id} className={cn(isPlaceholderData && "opacity-50")}>
-              {row.getVisibleCells().map((cell) => {
+    <div className="overflow-hidden rounded-md border">
+      <Table>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                const autoWidth = AUTO_WIDTH_COLUMNS.has(header.id);
                 return (
-                  <TableCell key={cell.id} className={cn(AUTO_WIDTH_COLUMNS.has(cell.column.id) && "w-0")}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
+                  <TableHead key={header.id} className={cn(autoWidth && "text-center")}>
+                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                  </TableHead>
                 );
               })}
             </TableRow>
-          ))
-        ) : (
-          <NoResults />
-        )}
-      </TableBody>
-    </Table>
+          ))}
+        </TableHeader>
+
+        <TableBody>
+          {isError ? (
+            <ErrorResult />
+          ) : isPending ? (
+            <PendingResults />
+          ) : data.length > 0 ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow key={row.id} className={cn(isPlaceholderData && "opacity-50")}>
+                {row.getVisibleCells().map((cell) => {
+                  return (
+                    <TableCell key={cell.id} className={cn(AUTO_WIDTH_COLUMNS.has(cell.column.id) && "w-0")}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            ))
+          ) : (
+            <NoResults />
+          )}
+        </TableBody>
+      </Table>
+    </div>
   );
 }
 

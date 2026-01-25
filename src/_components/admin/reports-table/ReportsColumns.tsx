@@ -15,7 +15,11 @@ export const columns = [
     cell: (info) => {
       const status = info.getValue();
       const { label, dotClass } = REPORT_STATUS_META[status];
-      return <div aria-label={label} className={cn("size-2.5 rounded-full", dotClass)}></div>;
+      return (
+        <div className="flex justify-center">
+          <div aria-label={label} className={cn("size-2.5 rounded-full", dotClass)}></div>
+        </div>
+      );
     },
   }),
   columnHelper.accessor("id", {

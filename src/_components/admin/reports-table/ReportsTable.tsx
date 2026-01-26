@@ -18,14 +18,21 @@ import { ReportsSearch } from "@/_components/admin/reports-table/ReportsSearch";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/_components/admin/ui/table";
 import { columns } from "@/_components/admin/reports-table/ReportsColumns";
 import { cn } from "@/_lib/utils";
-import type { ReportStatus } from "@/_lib/enums";
-import type { SearchFilters } from "@/_lib/types";
 import { ReportsStatusSelect } from "./ReportsStatusSelect";
+import { Button } from "@/_components/admin/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/_components/admin/ui/select";
+import { Field, FieldLabel } from "@/_components/admin/ui/field";
+import { CaretDoubleLeftIcon, CaretDoubleRightIcon, CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
+import { DEFAULT_REPORTS_FILTERS } from "@/_lib/constants";
+import type { SearchFilters } from "@/_lib/types";
 
-const DEFAULT_SEARCH_QUERY = "";
-const DEFAULT_STATUSES: Array<ReportStatus> = ["pending", "under_review"];
-const DEFAULT_PAGE = 1;
-const DEFAULT_PAGE_SIZE = 20;
 const AUTO_WIDTH_COLUMNS = new Set(["status", "actions"]);
 
 export function ReportsTable() {
@@ -33,12 +40,7 @@ export function ReportsTable() {
   // TODO: Debounce
 
   // SERVER-SIDE FILTERING - Modifies the query key which fires new fetches unless cached
-  const [filters, setFilters] = useState<SearchFilters>({
-    searchQuery: DEFAULT_SEARCH_QUERY,
-    statuses: DEFAULT_STATUSES,
-    page: DEFAULT_PAGE,
-    pageSize: DEFAULT_PAGE_SIZE,
-  });
+  const [filters, setFilters] = useState<SearchFilters>({ ...DEFAULT_REPORTS_FILTERS });
 
   const { data, isPending, isError, isPlaceholderData } = useQuery({
     queryKey: ["reportsTable", { ...filters }],
@@ -46,8 +48,14 @@ export function ReportsTable() {
     placeholderData: keepPreviousData,
   });
 
+  const { reports = [], totalCount = 0 } = data ?? {};
+  const { page, pageSize } = filters;
+  const totalPages = Math.ceil(totalCount / pageSize);
+  const start = totalCount === 0 ? 0 : (page - 1) * pageSize + 1;
+  const end = Math.min(page * pageSize, totalCount);
+
   const table = useReactTable({
-    data: data ?? [],
+    data: reports,
     columns,
     getCoreRowModel: getCoreRowModel(),
     // getFilteredRowModel: getFilteredRowModel(), // Handled by useQuery + server function, can use later if need filtering Fns
@@ -56,6 +64,8 @@ export function ReportsTable() {
     manualFiltering: true, // Handled by useQuery + server function
     manualSorting: true, // Handled by useQuery + server function
     manualPagination: true, // Handled by useQuery + server function
+    rowCount: totalCount, // Not needed but good for future context if needed
+    pageCount: totalPages, // Not needed but good for future context if needed
   });
 
   return (
@@ -68,13 +78,6 @@ export function ReportsTable() {
               setFilters((prev) => ({
                 ...prev,
                 searchQuery: value,
-                page: 1,
-              }))
-            }
-            onClear={() =>
-              setFilters((prev) => ({
-                ...prev,
-                searchQuery: "",
                 page: 1,
               }))
             }
@@ -92,7 +95,7 @@ export function ReportsTable() {
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className={cn(AUTO_WIDTH_COLUMNS.has(header.id) && "text-center")}>
+                    <TableHead key={header.id} className={cn(AUTO_WIDTH_COLUMNS.has(header.id) && "w-0 text-center")}>
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
@@ -105,7 +108,7 @@ export function ReportsTable() {
               <ErrorResult />
             ) : isPending ? (
               <PendingResults />
-            ) : data.length > 0 ? (
+            ) : reports.length > 0 ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} className={cn(isPlaceholderData && "opacity-50")}>
                   {row.getVisibleCells().map((cell) => {
@@ -122,6 +125,67 @@ export function ReportsTable() {
             )}
           </TableBody>
         </Table>
+      </div>
+      <div className="flex items-center gap-3 py-4 sticky bottom-0 bg-background">
+        <div className="text-muted-foreground flex-1 text-sm">
+          Showing {start}-{end} of {totalCount} reports
+        </div>
+        <div className="flex items-center gap-4">
+          <Field orientation="horizontal" className="w-fit">
+            <FieldLabel htmlFor="select-rows-per-page">Rows per page</FieldLabel>
+            <Select
+              value={pageSize.toString()}
+              onValueChange={(value) => {
+                setFilters((prev) => ({ ...prev, pageSize: Number(value), page: 1 }));
+              }}>
+              <SelectTrigger className="w-20" id="select-rows-per-page">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent align="start">
+                <SelectGroup>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="20">20</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                  <SelectItem value="100">100</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </Field>
+          <div className="flex items-center gap-1">
+            <Button
+              variant="outline"
+              size="icon-sm"
+              onClick={() => setFilters((prev) => ({ ...prev, page: 1 }))}
+              disabled={page === 1}
+              aria-label="First page">
+              <CaretDoubleLeftIcon />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon-sm"
+              onClick={() => setFilters((prev) => ({ ...prev, page: prev.page - 1 }))}
+              disabled={page === 1}
+              aria-label="Previous page">
+              <CaretLeftIcon />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon-sm"
+              onClick={() => setFilters((prev) => ({ ...prev, page: prev.page + 1 }))}
+              disabled={page >= totalPages}
+              aria-label="Next page">
+              <CaretRightIcon />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon-sm"
+              onClick={() => setFilters((prev) => ({ ...prev, page: totalPages }))}
+              disabled={page >= totalPages}
+              aria-label="Last page">
+              <CaretDoubleRightIcon />
+            </Button>
+          </div>
+        </div>
       </div>
     </>
   );

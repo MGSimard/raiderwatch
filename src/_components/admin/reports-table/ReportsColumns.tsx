@@ -1,12 +1,9 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { getReportsTableData } from "@/_server/serverFunctions";
-import { REPORT_STATUS_META, REPORT_REASON_LABELS } from "@/_lib/enums";
+import { REPORT_STATUS_META, REPORT_REASON_LABELS } from "@/_lib/constants";
 import { cn, formatUtcDateTime } from "@/_lib/utils";
 
-// HEADERS: STATUS, ID, EMBARK ID, REASON, FILED AT (UTC), UPDATED AT (UTC), ROW ACTIONS
-
-type ReportRow = Awaited<ReturnType<typeof getReportsTableData>>[number];
-
+type ReportRow = Awaited<ReturnType<typeof getReportsTableData>>["reports"][number];
 const columnHelper = createColumnHelper<ReportRow>();
 
 export const columns = [

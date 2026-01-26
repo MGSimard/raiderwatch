@@ -6,7 +6,8 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/_components/admin/ui/dropdown-menu";
-import { REPORT_STATUS_ENUMS, REPORT_STATUS_META } from "@/_lib/enums";
+import { REPORT_STATUS_ENUMS } from "@/_lib/enums";
+import { REPORT_STATUS_META } from "@/_lib/constants";
 import type { ReportStatus } from "@/_lib/enums";
 import { cn } from "@/_lib/utils";
 

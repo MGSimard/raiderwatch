@@ -2,13 +2,11 @@ import { createServerFn } from "@tanstack/react-start";
 import { db } from "./db";
 import { reports } from "./db/schema";
 import { and, desc, eq, gte, inArray, sql } from "drizzle-orm";
-import type { PgSelect } from "drizzle-orm/pg-core";
 import { auth } from "@/_auth";
 import { authMiddleware } from "@/_auth/authMiddleware";
 import { searchFilterSchema } from "@/_lib/schemas";
 import { REPORT_REASON_ENUMS } from "@/_lib/enums";
 import { z } from "zod";
-import { queryObjects } from "node:v8";
 // import { notFound } from "@tanstack/react-router"; // Available for 404 handling
 
 // https://tanstack.com/start/latest/docs/framework/react/guide/server-functions
@@ -235,9 +233,6 @@ export const getReportsTableData = createServerFn({ method: "GET" })
     const { searchQuery, statuses, page, pageSize } = data;
     const trimmed = searchQuery.trim();
 
-    // https://orm.drizzle.team/docs/rqb-v2
-    // https://orm.drizzle.team/docs/guides/conditional-filters-in-query
-
     const whereClause = !trimmed
       ? undefined
       : trimmed.includes("#")
@@ -249,10 +244,29 @@ export const getReportsTableData = createServerFn({ method: "GET" })
     const statusClause = statuses.length > 0 ? inArray(reports.status, statuses) : undefined;
 
     try {
-      return await db.select().from(reports).where(and(whereClause, statusClause));
+      const [reportResults, [countResult]] = await Promise.all([
+        db
+          .select()
+          .from(reports)
+          .where(and(whereClause, statusClause))
+          .limit(pageSize)
+          .offset((page - 1) * pageSize)
+          .orderBy(desc(reports.createdAt)),
+        db
+          .select({ count: sql<number>`cast(count(*) as int)` })
+          .from(reports)
+          .where(and(whereClause, statusClause)),
+      ]);
+
+      return {
+        reports: reportResults,
+        totalCount: countResult?.count ?? 0,
+      };
     } catch (err: unknown) {
       const error = err instanceof Error ? err : new Error("Unknown error");
       console.error("Error fetching reports table data:", error);
       throw new Error("Failed to fetch reports.");
     }
   });
+
+// TODO: Consider just removing try/catches and letting original errors bubble up to useQuery

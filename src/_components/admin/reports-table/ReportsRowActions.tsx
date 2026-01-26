@@ -13,6 +13,8 @@ import {
 import { toast } from "sonner";
 import { CopySimpleIcon, DotsThreeVerticalIcon, GavelIcon, UserFocusIcon } from "@phosphor-icons/react";
 import type { ReportRow, SearchFilters } from "@/_lib/types";
+import { AssessmentDrawer } from "../AssessmentDrawer";
+import { Drawer, DrawerTrigger } from "@/_components/admin/ui/drawer";
 
 interface ReportsRowActionsProps {
   reportData: ReportRow;
@@ -42,32 +44,37 @@ export function ReportsRowActions({ reportData, setFilters }: ReportsRowActionsP
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger
-        render={
-          <Button variant="ghost" size="icon-sm">
-            <DotsThreeVerticalIcon aria-hidden />
-          </Button>
-        }
-      />
-      <DropdownMenuContent>
-        <DropdownMenuItem>
-          <GavelIcon aria-hidden />
-          Review Report
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleIsolateRaider}>
-          <UserFocusIcon aria-hidden />
-          Isolate Raider
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => copyToClipboard(JSON.stringify(reportData, null, 2), "Report")}>
-          <CopySimpleIcon aria-hidden />
-          Copy Report
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => copyToClipboard(reportData.embarkId, "Embark ID")}>
-          <CopySimpleIcon aria-hidden />
-          Copy Embark ID
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Drawer direction="right">
+      <AssessmentDrawer />
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          render={
+            <Button variant="ghost" size="icon-sm">
+              <DotsThreeVerticalIcon aria-hidden />
+            </Button>
+          }
+        />
+        <DropdownMenuContent>
+          <DrawerTrigger asChild>
+            <DropdownMenuItem>
+              <GavelIcon aria-hidden />
+              Review Report
+            </DropdownMenuItem>
+          </DrawerTrigger>
+          <DropdownMenuItem onClick={handleIsolateRaider}>
+            <UserFocusIcon aria-hidden />
+            Isolate Raider
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => copyToClipboard(JSON.stringify(reportData, null, 2), "Report")}>
+            <CopySimpleIcon aria-hidden />
+            Copy Report
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => copyToClipboard(reportData.embarkId, "Embark ID")}>
+            <CopySimpleIcon aria-hidden />
+            Copy Embark ID
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </Drawer>
   );
 }

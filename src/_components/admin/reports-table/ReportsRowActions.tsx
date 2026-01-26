@@ -10,10 +10,23 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/_components/admin/ui/dropdown-menu";
+import { toast } from "sonner";
 import { CopySimpleIcon, DotsThreeVerticalIcon, GavelIcon, UserFocusIcon } from "@phosphor-icons/react";
 
-export function ReportsRowActions() {
+export function ReportsRowActions({ reportData }) {
   // TODO: Long hover tooltip on trigger maybe?
+
+  const handleIsolateRaider = () => {};
+
+  const copyToClipboard = async (text: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success(`${label} copied to clipboard.`);
+    } catch (err: unknown) {
+      toast.error(`Failed to copy ${label}, view console for more details.`);
+      console.error(`Error copying ${label}:`, err instanceof Error ? err : "Unknown error.");
+    }
+  };
 
   return (
     <DropdownMenu>
@@ -29,15 +42,15 @@ export function ReportsRowActions() {
           <GavelIcon aria-hidden />
           Review Report
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleIsolateRaider}>
           <UserFocusIcon aria-hidden />
           Isolate Raider
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => copyToClipboard(JSON.stringify(reportData), "Report")}>
           <CopySimpleIcon aria-hidden />
           Copy Report
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => copyToClipboard(reportData.embarkId, "Embark ID")}>
           <CopySimpleIcon aria-hidden />
           Copy Embark ID
         </DropdownMenuItem>

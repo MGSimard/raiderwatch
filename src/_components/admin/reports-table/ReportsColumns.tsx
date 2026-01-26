@@ -42,9 +42,9 @@ export const columns = [
   }),
   columnHelper.display({
     id: "actions",
-    cell: () => (
+    cell: ({ row }) => (
       <div className="grid place-items-center">
-        <ReportsRowActions />
+        <ReportsRowActions reportData={row.original} />
       </div>
     ),
   }),

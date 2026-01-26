@@ -36,7 +36,6 @@ import type { SearchFilters } from "@/_lib/types";
 const AUTO_WIDTH_COLUMNS = new Set(["status", "actions"]);
 
 export function ReportsTable() {
-  // TODO: Can ensureQueryData for empty filter at route preload
   // TODO: Debounce
 
   // SERVER-SIDE FILTERING - Modifies the query key which fires new fetches unless cached

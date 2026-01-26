@@ -12,7 +12,7 @@ export const getRouter = () => {
     routeTree,
     context: { queryClient },
     defaultPreload: "intent",
-    defaultPreloadStaleTime: 0,
+    defaultPreloadStaleTime: 30_000, // 30 seconds
     defaultViewTransition: true,
     scrollRestoration: true,
     defaultErrorComponent: (props) => <GlobalError error={props.error} />,

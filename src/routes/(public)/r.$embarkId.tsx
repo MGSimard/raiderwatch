@@ -6,7 +6,7 @@ import { LoaderBlocks } from "@/_components/LoaderBlocks";
 import { NoReports } from "@/_components/NoReports";
 import { HasReports } from "@/_components/HasReports";
 
-export const Route = createFileRoute("/r/$embarkId")({
+export const Route = createFileRoute("/(public)/r/$embarkId")({
   component: PageRaiderProfile,
   loader: ({ context, params }) => {
     const embarkId = params.embarkId.replace("~", "#").toLowerCase();

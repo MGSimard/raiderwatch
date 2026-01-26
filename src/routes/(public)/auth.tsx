@@ -2,7 +2,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { SignInForm } from "@/_components/SignInForm";
 import { getCurrentUser } from "@/_server/serverFunctions";
 
-export const Route = createFileRoute("/auth")({
+export const Route = createFileRoute("/(public)/auth")({
   component: RouteComponent,
   beforeLoad: async () => {
     const user = await getCurrentUser();

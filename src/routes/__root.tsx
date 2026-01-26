@@ -53,10 +53,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <ThemeProvider>
           <TooltipProvider>
-            <div id="root">
-              {children}
-              <ThemeToggle className="fixed right-4 bottom-4 z-10" />
-            </div>
+            <div id="root">{children}</div>
             <Toaster className="z-9999" />
           </TooltipProvider>
         </ThemeProvider>

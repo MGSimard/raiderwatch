@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/wp-admin")({
+export const Route = createFileRoute("/(public)/wp-admin")({
   component: RouteComponent,
 });
 

@@ -9,41 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WpAdminRouteImport } from './routes/wp-admin'
-import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as publicRouteRouteImport } from './routes/(public)/route'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
-import { Route as REmbarkIdRouteImport } from './routes/r.$embarkId'
+import { Route as publicIndexRouteImport } from './routes/(public)/index'
 import { Route as DashboardTeamRouteImport } from './routes/dashboard/team'
 import { Route as DashboardReportsRouteImport } from './routes/dashboard/reports'
 import { Route as DashboardAuditLogsRouteImport } from './routes/dashboard/audit-logs'
+import { Route as publicWpAdminRouteImport } from './routes/(public)/wp-admin'
+import { Route as publicUnauthorizedRouteImport } from './routes/(public)/unauthorized'
+import { Route as publicAuthRouteImport } from './routes/(public)/auth'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as publicREmbarkIdRouteImport } from './routes/(public)/r.$embarkId'
 
-const WpAdminRoute = WpAdminRouteImport.update({
-  id: '/wp-admin',
-  path: '/wp-admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UnauthorizedRoute = UnauthorizedRouteImport.update({
-  id: '/unauthorized',
-  path: '/unauthorized',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const publicRouteRoute = publicRouteRouteImport.update({
+  id: '/(public)',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -51,10 +36,10 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const REmbarkIdRoute = REmbarkIdRouteImport.update({
-  id: '/r/$embarkId',
-  path: '/r/$embarkId',
-  getParentRoute: () => rootRouteImport,
+const publicIndexRoute = publicIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => publicRouteRoute,
 } as any)
 const DashboardTeamRoute = DashboardTeamRouteImport.update({
   id: '/team',
@@ -71,55 +56,75 @@ const DashboardAuditLogsRoute = DashboardAuditLogsRouteImport.update({
   path: '/audit-logs',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
+const publicWpAdminRoute = publicWpAdminRouteImport.update({
+  id: '/wp-admin',
+  path: '/wp-admin',
+  getParentRoute: () => publicRouteRoute,
+} as any)
+const publicUnauthorizedRoute = publicUnauthorizedRouteImport.update({
+  id: '/unauthorized',
+  path: '/unauthorized',
+  getParentRoute: () => publicRouteRoute,
+} as any)
+const publicAuthRoute = publicAuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => publicRouteRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const publicREmbarkIdRoute = publicREmbarkIdRouteImport.update({
+  id: '/r/$embarkId',
+  path: '/r/$embarkId',
+  getParentRoute: () => publicRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/auth': typeof AuthRoute
-  '/unauthorized': typeof UnauthorizedRoute
-  '/wp-admin': typeof WpAdminRoute
+  '/auth': typeof publicAuthRoute
+  '/unauthorized': typeof publicUnauthorizedRoute
+  '/wp-admin': typeof publicWpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
   '/dashboard/reports': typeof DashboardReportsRoute
   '/dashboard/team': typeof DashboardTeamRoute
-  '/r/$embarkId': typeof REmbarkIdRoute
+  '/': typeof publicIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/r/$embarkId': typeof publicREmbarkIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
-  '/unauthorized': typeof UnauthorizedRoute
-  '/wp-admin': typeof WpAdminRoute
+  '/auth': typeof publicAuthRoute
+  '/unauthorized': typeof publicUnauthorizedRoute
+  '/wp-admin': typeof publicWpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
   '/dashboard/reports': typeof DashboardReportsRoute
   '/dashboard/team': typeof DashboardTeamRoute
-  '/r/$embarkId': typeof REmbarkIdRoute
+  '/': typeof publicIndexRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/r/$embarkId': typeof publicREmbarkIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/(public)': typeof publicRouteRouteWithChildren
   '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/auth': typeof AuthRoute
-  '/unauthorized': typeof UnauthorizedRoute
-  '/wp-admin': typeof WpAdminRoute
+  '/(public)/auth': typeof publicAuthRoute
+  '/(public)/unauthorized': typeof publicUnauthorizedRoute
+  '/(public)/wp-admin': typeof publicWpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
   '/dashboard/reports': typeof DashboardReportsRoute
   '/dashboard/team': typeof DashboardTeamRoute
-  '/r/$embarkId': typeof REmbarkIdRoute
+  '/(public)/': typeof publicIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/(public)/r/$embarkId': typeof publicREmbarkIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/dashboard'
     | '/auth'
     | '/unauthorized'
@@ -127,69 +132,46 @@ export interface FileRouteTypes {
     | '/dashboard/audit-logs'
     | '/dashboard/reports'
     | '/dashboard/team'
-    | '/r/$embarkId'
+    | '/'
     | '/dashboard/'
+    | '/r/$embarkId'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/auth'
     | '/unauthorized'
     | '/wp-admin'
     | '/dashboard/audit-logs'
     | '/dashboard/reports'
     | '/dashboard/team'
-    | '/r/$embarkId'
+    | '/'
     | '/dashboard'
+    | '/r/$embarkId'
     | '/api/auth/$'
   id:
     | '__root__'
-    | '/'
+    | '/(public)'
     | '/dashboard'
-    | '/auth'
-    | '/unauthorized'
-    | '/wp-admin'
+    | '/(public)/auth'
+    | '/(public)/unauthorized'
+    | '/(public)/wp-admin'
     | '/dashboard/audit-logs'
     | '/dashboard/reports'
     | '/dashboard/team'
-    | '/r/$embarkId'
+    | '/(public)/'
     | '/dashboard/'
+    | '/(public)/r/$embarkId'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  publicRouteRoute: typeof publicRouteRouteWithChildren
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
-  AuthRoute: typeof AuthRoute
-  UnauthorizedRoute: typeof UnauthorizedRoute
-  WpAdminRoute: typeof WpAdminRoute
-  REmbarkIdRoute: typeof REmbarkIdRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/wp-admin': {
-      id: '/wp-admin'
-      path: '/wp-admin'
-      fullPath: '/wp-admin'
-      preLoaderRoute: typeof WpAdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/unauthorized': {
-      id: '/unauthorized'
-      path: '/unauthorized'
-      fullPath: '/unauthorized'
-      preLoaderRoute: typeof UnauthorizedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -197,11 +179,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/(public)': {
+      id: '/(public)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof publicRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/': {
@@ -211,12 +193,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/r/$embarkId': {
-      id: '/r/$embarkId'
-      path: '/r/$embarkId'
-      fullPath: '/r/$embarkId'
-      preLoaderRoute: typeof REmbarkIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/(public)/': {
+      id: '/(public)/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof publicIndexRouteImport
+      parentRoute: typeof publicRouteRoute
     }
     '/dashboard/team': {
       id: '/dashboard/team'
@@ -239,6 +221,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardAuditLogsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
+    '/(public)/wp-admin': {
+      id: '/(public)/wp-admin'
+      path: '/wp-admin'
+      fullPath: '/wp-admin'
+      preLoaderRoute: typeof publicWpAdminRouteImport
+      parentRoute: typeof publicRouteRoute
+    }
+    '/(public)/unauthorized': {
+      id: '/(public)/unauthorized'
+      path: '/unauthorized'
+      fullPath: '/unauthorized'
+      preLoaderRoute: typeof publicUnauthorizedRouteImport
+      parentRoute: typeof publicRouteRoute
+    }
+    '/(public)/auth': {
+      id: '/(public)/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof publicAuthRouteImport
+      parentRoute: typeof publicRouteRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -246,8 +249,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(public)/r/$embarkId': {
+      id: '/(public)/r/$embarkId'
+      path: '/r/$embarkId'
+      fullPath: '/r/$embarkId'
+      preLoaderRoute: typeof publicREmbarkIdRouteImport
+      parentRoute: typeof publicRouteRoute
+    }
   }
 }
+
+interface publicRouteRouteChildren {
+  publicAuthRoute: typeof publicAuthRoute
+  publicUnauthorizedRoute: typeof publicUnauthorizedRoute
+  publicWpAdminRoute: typeof publicWpAdminRoute
+  publicIndexRoute: typeof publicIndexRoute
+  publicREmbarkIdRoute: typeof publicREmbarkIdRoute
+}
+
+const publicRouteRouteChildren: publicRouteRouteChildren = {
+  publicAuthRoute: publicAuthRoute,
+  publicUnauthorizedRoute: publicUnauthorizedRoute,
+  publicWpAdminRoute: publicWpAdminRoute,
+  publicIndexRoute: publicIndexRoute,
+  publicREmbarkIdRoute: publicREmbarkIdRoute,
+}
+
+const publicRouteRouteWithChildren = publicRouteRoute._addFileChildren(
+  publicRouteRouteChildren,
+)
 
 interface DashboardRouteRouteChildren {
   DashboardAuditLogsRoute: typeof DashboardAuditLogsRoute
@@ -268,12 +298,8 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  publicRouteRoute: publicRouteRouteWithChildren,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
-  AuthRoute: AuthRoute,
-  UnauthorizedRoute: UnauthorizedRoute,
-  WpAdminRoute: WpAdminRoute,
-  REmbarkIdRoute: REmbarkIdRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

@@ -4,7 +4,7 @@ import { Button } from "@/_components/ui/button";
 import { Separator } from "@/_components/ui/separator";
 import { EyeIcon } from "@phosphor-icons/react";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/(public)/")({
   component: PageHome,
 });
 

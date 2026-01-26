@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { Button } from "@/_components/ui/button";
 
-export const Route = createFileRoute("/unauthorized")({
+export const Route = createFileRoute("/(public)/unauthorized")({
   component: RouteComponent,
 });
 

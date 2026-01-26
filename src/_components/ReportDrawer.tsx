@@ -9,7 +9,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/_components/ui/drawer";
-import { REPORT_REASON_LABELS } from "@/_lib/enums";
+import { REPORT_REASON_LABELS } from "@/_lib/constants";
 import { formatUtcDate } from "@/_lib/utils";
 import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
 import { ScrollArea } from "@base-ui/react/scroll-area";

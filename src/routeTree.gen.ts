@@ -17,7 +17,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as REmbarkIdRouteImport } from './routes/r.$embarkId'
 import { Route as DashboardTeamRouteImport } from './routes/dashboard/team'
-import { Route as DashboardReportsRewriteRouteImport } from './routes/dashboard/reports-rewrite'
 import { Route as DashboardReportsRouteImport } from './routes/dashboard/reports'
 import { Route as DashboardAuditLogsRouteImport } from './routes/dashboard/audit-logs'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
@@ -62,11 +61,6 @@ const DashboardTeamRoute = DashboardTeamRouteImport.update({
   path: '/team',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const DashboardReportsRewriteRoute = DashboardReportsRewriteRouteImport.update({
-  id: '/reports-rewrite',
-  path: '/reports-rewrite',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
 const DashboardReportsRoute = DashboardReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
@@ -91,7 +85,6 @@ export interface FileRoutesByFullPath {
   '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
   '/dashboard/reports': typeof DashboardReportsRoute
-  '/dashboard/reports-rewrite': typeof DashboardReportsRewriteRoute
   '/dashboard/team': typeof DashboardTeamRoute
   '/r/$embarkId': typeof REmbarkIdRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -104,7 +97,6 @@ export interface FileRoutesByTo {
   '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
   '/dashboard/reports': typeof DashboardReportsRoute
-  '/dashboard/reports-rewrite': typeof DashboardReportsRewriteRoute
   '/dashboard/team': typeof DashboardTeamRoute
   '/r/$embarkId': typeof REmbarkIdRoute
   '/dashboard': typeof DashboardIndexRoute
@@ -119,7 +111,6 @@ export interface FileRoutesById {
   '/wp-admin': typeof WpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
   '/dashboard/reports': typeof DashboardReportsRoute
-  '/dashboard/reports-rewrite': typeof DashboardReportsRewriteRoute
   '/dashboard/team': typeof DashboardTeamRoute
   '/r/$embarkId': typeof REmbarkIdRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -135,7 +126,6 @@ export interface FileRouteTypes {
     | '/wp-admin'
     | '/dashboard/audit-logs'
     | '/dashboard/reports'
-    | '/dashboard/reports-rewrite'
     | '/dashboard/team'
     | '/r/$embarkId'
     | '/dashboard/'
@@ -148,7 +138,6 @@ export interface FileRouteTypes {
     | '/wp-admin'
     | '/dashboard/audit-logs'
     | '/dashboard/reports'
-    | '/dashboard/reports-rewrite'
     | '/dashboard/team'
     | '/r/$embarkId'
     | '/dashboard'
@@ -162,7 +151,6 @@ export interface FileRouteTypes {
     | '/wp-admin'
     | '/dashboard/audit-logs'
     | '/dashboard/reports'
-    | '/dashboard/reports-rewrite'
     | '/dashboard/team'
     | '/r/$embarkId'
     | '/dashboard/'
@@ -237,13 +225,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardTeamRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/reports-rewrite': {
-      id: '/dashboard/reports-rewrite'
-      path: '/reports-rewrite'
-      fullPath: '/dashboard/reports-rewrite'
-      preLoaderRoute: typeof DashboardReportsRewriteRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
     '/dashboard/reports': {
       id: '/dashboard/reports'
       path: '/reports'
@@ -271,7 +252,6 @@ declare module '@tanstack/react-router' {
 interface DashboardRouteRouteChildren {
   DashboardAuditLogsRoute: typeof DashboardAuditLogsRoute
   DashboardReportsRoute: typeof DashboardReportsRoute
-  DashboardReportsRewriteRoute: typeof DashboardReportsRewriteRoute
   DashboardTeamRoute: typeof DashboardTeamRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
@@ -279,7 +259,6 @@ interface DashboardRouteRouteChildren {
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardAuditLogsRoute: DashboardAuditLogsRoute,
   DashboardReportsRoute: DashboardReportsRoute,
-  DashboardReportsRewriteRoute: DashboardReportsRewriteRoute,
   DashboardTeamRoute: DashboardTeamRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }

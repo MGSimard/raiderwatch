@@ -25,11 +25,6 @@ export function NavMain() {
       url: "/dashboard/reports",
       icon: WarningIcon,
     },
-    {
-      title: "Reports (Rewrite)",
-      url: "/dashboard/reports-rewrite",
-      icon: WarningIcon,
-    },
   ];
 
   return (

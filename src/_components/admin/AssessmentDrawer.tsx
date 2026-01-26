@@ -1,13 +1,11 @@
 import { Button } from "@/_components/ui/button";
 import {
-  Drawer,
   DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from "@/_components/ui/drawer";
 import { ScrollArea } from "@base-ui/react/scroll-area";
 

@@ -78,7 +78,7 @@ export function UtcClock({ className }: UtcClockProps) {
   const utcNow = useUtcNow();
 
   return (
-    <span className={cn("text-sm text-muted-foreground tabular-nums", className)}>
+    <span className={cn("text-muted-foreground text-sm tabular-nums", className)}>
       {utcNow ? `UTC ${utcNow}` : "UTC --"}
     </span>
   );

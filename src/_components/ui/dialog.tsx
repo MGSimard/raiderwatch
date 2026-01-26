@@ -25,7 +25,7 @@ function DialogOverlay({ className, ...props }: DialogPrimitive.Backdrop.Props) 
     <DialogPrimitive.Backdrop
       data-slot="dialog-overlay"
       className={cn(
-        "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/70 duration-100 supports-backdrop-filter:backdrop-blur-xs fixed inset-0 isolate z-50",
+        "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 fixed inset-0 isolate z-50 bg-black/70 duration-100 supports-backdrop-filter:backdrop-blur-xs",
         className
       )}
       {...props}
@@ -47,7 +47,7 @@ function DialogContent({
       <DialogPrimitive.Popup
         data-slot="dialog-content"
         className={cn(
-          "bg-card data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 flex flex-col max-w-[calc(100%-2rem)] max-h-[calc(100dvh-2rem)] gap-4 rounded-none py-4 text-xs/relaxed ring-1 duration-100 sm:max-w-sm fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
+          "bg-card data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 fixed top-1/2 left-1/2 z-50 flex max-h-[calc(100dvh-2rem)] w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-none py-4 text-xs/relaxed ring-1 duration-100 outline-none sm:max-w-sm",
           className
         )}
         {...props}>
@@ -67,7 +67,7 @@ function DialogContent({
 
 function DialogBody({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
-    <div data-slot="dialog-body" className={cn("flex-1 min-h-0 flex flex-col overflow-hidden", className)} {...props}>
+    <div data-slot="dialog-body" className={cn("flex min-h-0 flex-1 flex-col overflow-hidden", className)} {...props}>
       <div className="flex min-h-0 flex-1">
         <ScrollArea.Root className="min-h-0 min-w-0 flex-1">
           <ScrollArea.Viewport className="h-full overscroll-contain outline-none before:pointer-events-none before:absolute before:top-0 before:left-0 before:block before:h-[min(40px,var(--scroll-area-overflow-y-start))] before:w-full before:bg-[linear-gradient(to_bottom,var(--card),transparent)] before:transition-[height] before:duration-100 before:ease-out before:content-[''] before:[--scroll-area-overflow-y-start:inherit] after:pointer-events-none after:absolute after:bottom-0 after:left-0 after:block after:h-[min(40px,var(--scroll-area-overflow-y-end,40px))] after:w-full after:bg-[linear-gradient(to_top,var(--card),transparent)] after:transition-[height] after:duration-100 after:ease-out after:content-[''] after:[--scroll-area-overflow-y-end:inherit]">
@@ -83,7 +83,7 @@ function DialogBody({ className, children, ...props }: React.ComponentProps<"div
 }
 
 function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="dialog-header" className={cn("gap-1 text-left flex flex-col px-4", className)} {...props} />;
+  return <div data-slot="dialog-header" className={cn("flex flex-col gap-1 px-4 text-left", className)} {...props} />;
 }
 
 function DialogFooter({
@@ -97,7 +97,7 @@ function DialogFooter({
   return (
     <div
       data-slot="dialog-footer"
-      className={cn("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-4", className)}
+      className={cn("flex flex-col-reverse gap-2 px-4 sm:flex-row sm:justify-end", className)}
       {...props}>
       {children}
       {showCloseButton && <DialogPrimitive.Close render={<Button variant="outline" />}>Close</DialogPrimitive.Close>}

@@ -15,5 +15,7 @@
   "singleQuote": false,
   "trailingComma": "es5",
   "bracketSameLine": true,
-  "experimentalTailwindcss": {}
+  "experimentalTailwindcss": {
+    "functions": ["clsx", "cn", "cva", "tw"]
+  }
 }

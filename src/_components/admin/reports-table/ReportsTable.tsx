@@ -13,18 +13,13 @@
 import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getReportsTableData } from "@/_server/serverFunctions";
-import {
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { ReportsSearch } from "@/_components/admin/reports-table/ReportsSearch";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/_components/admin/ui/table";
-import { columns } from "./ReportsColumns";
-import type { ReportStatus } from "@/_lib/enums";
+import { columns } from "@/_components/admin/reports-table/ReportsColumns";
 import { cn } from "@/_lib/utils";
+import type { ReportStatus } from "@/_lib/enums";
+import type { SearchFilters } from "@/_lib/types";
 
 const DEFAULT_SEARCH_QUERY = "";
 const DEFAULT_STATUS: Array<ReportStatus> = ["pending", "under_review"];
@@ -37,7 +32,7 @@ export function ReportsTable() {
   // TODO: Debounce
 
   // SERVER-SIDE FILTERING - Modifies the query key which fires new fetches unless cached
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<SearchFilters>({
     searchQuery: DEFAULT_SEARCH_QUERY,
     status: DEFAULT_STATUS,
     page: DEFAULT_PAGE,
@@ -46,7 +41,7 @@ export function ReportsTable() {
 
   const { data, isPending, isError, isPlaceholderData } = useQuery({
     queryKey: ["reportsTable", { ...filters }],
-    queryFn: getReportsTableData, // TODO: Feed filters to queryFn, then edit queryFn to accept filters
+    queryFn: () => getReportsTableData({ data: filters }),
     placeholderData: keepPreviousData,
   });
 
@@ -54,51 +49,76 @@ export function ReportsTable() {
     data: data ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
-    // getFilteredRowModel: getFilteredRowModel(), todo
+    // getFilteredRowModel: getFilteredRowModel(), // Handled by useQuery + server function, can use later if need filtering Fns
     // getSortedRowModel: getSortedRowModel(), todo
     // getPaginationRowModel: getPaginationRowModel(), todo
+    manualFiltering: true, // Handled by useQuery + server function
+    manualSorting: true, // Handled by useQuery + server function
+    manualPagination: true, // Handled by useQuery + server function
   });
 
   return (
-    <div className="overflow-hidden rounded-md border">
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id} className={cn(AUTO_WIDTH_COLUMNS.has(header.id) && "text-center")}>
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-
-        <TableBody>
-          {isError ? (
-            <ErrorResult />
-          ) : isPending ? (
-            <PendingResults />
-          ) : data.length > 0 ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} className={cn(isPlaceholderData && "opacity-50")}>
-                {row.getVisibleCells().map((cell) => {
+    <>
+      <div className="flex flex-col gap-3 pb-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-wrap items-center gap-2">
+          <ReportsSearch
+            value={filters.searchQuery}
+            onChange={(value) =>
+              setFilters((prev) => ({
+                ...prev,
+                searchQuery: value,
+                page: 1, // usually reset page on search
+              }))
+            }
+            onClear={() =>
+              setFilters((prev) => ({
+                ...prev,
+                searchQuery: "",
+                page: 1,
+              }))
+            }
+          />
+        </div>
+      </div>
+      <div className="overflow-hidden rounded-md border">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
                   return (
-                    <TableCell key={cell.id} className={cn(AUTO_WIDTH_COLUMNS.has(cell.column.id) && "w-0")}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+                    <TableHead key={header.id} className={cn(AUTO_WIDTH_COLUMNS.has(header.id) && "text-center")}>
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                    </TableHead>
                   );
                 })}
               </TableRow>
-            ))
-          ) : (
-            <NoResults />
-          )}
-        </TableBody>
-      </Table>
-    </div>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {isError ? (
+              <ErrorResult />
+            ) : isPending ? (
+              <PendingResults />
+            ) : data.length > 0 ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id} className={cn(isPlaceholderData && "opacity-50")}>
+                  {row.getVisibleCells().map((cell) => {
+                    return (
+                      <TableCell key={cell.id} className={cn(AUTO_WIDTH_COLUMNS.has(cell.column.id) && "w-0")}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              ))
+            ) : (
+              <NoResults />
+            )}
+          </TableBody>
+        </Table>
+      </div>
+    </>
   );
 }
 

@@ -2,10 +2,13 @@ import { createServerFn } from "@tanstack/react-start";
 import { db } from "./db";
 import { reports } from "./db/schema";
 import { and, desc, eq, gte, sql } from "drizzle-orm";
+import type { PgSelect } from "drizzle-orm/pg-core";
 import { auth } from "@/_auth";
 import { authMiddleware } from "@/_auth/authMiddleware";
+import { searchFilterSchema } from "@/_lib/schemas";
 import { REPORT_REASON_ENUMS } from "@/_lib/enums";
 import { z } from "zod";
+import { queryObjects } from "node:v8";
 // import { notFound } from "@tanstack/react-router"; // Available for 404 handling
 
 // https://tanstack.com/start/latest/docs/framework/react/guide/server-functions
@@ -210,9 +213,12 @@ export const getReportsChartData = createServerFn({ method: "GET" })
     }
   });
 
+// ACCEPT FILTERS
+
 export const getReportsTableData = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
-  .handler(async ({ context }) => {
+  .inputValidator(searchFilterSchema)
+  .handler(async ({ context, data }) => {
     const user = context.session?.user;
     if (!user) throw new Error("Unauthenticated");
 
@@ -226,8 +232,22 @@ export const getReportsTableData = createServerFn({ method: "GET" })
     });
     if (!hasPermission) throw new Error("Unauthorized");
 
+    const { searchQuery, status, page, pageSize } = data;
+    const trimmed = searchQuery.trim();
+
+    // https://orm.drizzle.team/docs/rqb-v2
+    // https://orm.drizzle.team/docs/guides/conditional-filters-in-query
+
+    const whereClause = !trimmed
+      ? undefined
+      : trimmed.includes("#")
+        ? eq(reports.embarkId, trimmed)
+        : /^\d+$/.test(trimmed)
+          ? eq(reports.id, Number(trimmed))
+          : eq(reports.embarkId, trimmed);
+
     try {
-      return await db.select().from(reports).orderBy(desc(reports.createdAt));
+      return await db.select().from(reports).where(whereClause);
     } catch (err: unknown) {
       const error = err instanceof Error ? err : new Error("Unknown error");
       console.error("Error fetching reports table data:", error);

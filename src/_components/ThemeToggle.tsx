@@ -1,14 +1,18 @@
 import { Button } from "@/_components/ui/button";
 import { useTheme } from "@/_components/ThemeProvider";
+import { cn } from "@/_lib/utils";
 
-export function ThemeToggle() {
+export function ThemeToggle({ className }: { className?: string }) {
   const { theme: activeTheme, setTheme } = useTheme();
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      className="fixed right-4 bottom-4 z-10 bg-transparent text-primary/50 hover:bg-transparent hover:text-primary focus-visible:text-primary"
+      className={cn(
+        "bg-transparent text-primary/50 hover:bg-transparent hover:text-primary focus-visible:text-primary",
+        className
+      )}
       onClick={() => setTheme(activeTheme === "light" ? "dark" : "light")}>
       {activeTheme === "light" ? (
         <IconBolt className="size-5" aria-hidden />

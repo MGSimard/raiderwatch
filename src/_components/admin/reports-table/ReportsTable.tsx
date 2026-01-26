@@ -69,7 +69,7 @@ export function ReportsTable() {
 
   return (
     <>
-      <div className="flex flex-col gap-3 pb-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="align-center flex">
         <div className="flex flex-wrap items-center gap-2">
           <ReportsSearch
             value={filters.searchQuery}

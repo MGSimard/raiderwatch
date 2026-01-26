@@ -2,6 +2,7 @@ import { useLocation } from "@tanstack/react-router";
 import { UtcClock } from "./UtcClock";
 import { SidebarTrigger } from "@/_components/admin/ui/sidebar";
 import { Separator } from "@/_components/admin/ui/separator";
+import { ThemeToggle } from "../ThemeToggle";
 
 export function Header() {
   const location = useLocation();
@@ -15,7 +16,10 @@ export function Header() {
         className="mr-1 data-[orientation=vertical]:h-4 data-[orientation=vertical]:self-auto"
       />
       <h1 className="text-base font-medium capitalize">{pageName}</h1>
-      <UtcClock className="ml-auto" />
+      <div className="ml-auto flex items-center gap-2">
+        <UtcClock />
+        <ThemeToggle />
+      </div>
     </header>
   );
 }

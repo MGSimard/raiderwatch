@@ -36,7 +36,7 @@ function PageHome() {
       </video>
       <div className="z-1 flex flex-col items-center gap-4 px-4">
         <h1 className="font-logo text-7xl font-bold select-none">
-          Raider<span className="text-destructive animate-recording-pulse inline-block">.</span>Watch
+          Raider<span className="animate-recording-pulse inline-block text-destructive">.</span>Watch
         </h1>
         <Separator orientation="horizontal" className="-mt-1" />
         <SearchUser />

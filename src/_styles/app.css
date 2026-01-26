@@ -127,10 +127,10 @@
     @apply border-border outline-ring/50;
   }
   html {
-    @apply font-body bg-background text-foreground;
+    @apply bg-background font-body text-foreground;
   }
   body {
-    @apply font-body bg-background text-foreground;
+    @apply bg-background font-body text-foreground;
     position: relative;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

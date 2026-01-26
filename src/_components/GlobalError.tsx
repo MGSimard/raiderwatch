@@ -8,7 +8,7 @@ export function GlobalError({ error }: { error: Error }) {
     <main className="relative grid min-h-dvh grow place-items-center text-center">
       <div>
         <h1 className="text-2xl font-bold">500 - Internal Server Error</h1>
-        <p className="text-muted-foreground text-sm">An error occurred while processing your request.</p>
+        <p className="text-sm text-muted-foreground">An error occurred while processing your request.</p>
         <Button
           variant="outline"
           className="mx-auto mt-4"

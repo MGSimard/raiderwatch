@@ -24,14 +24,14 @@ export function ReportDrawer({ embarkId, report }: { embarkId: string; report: R
         <button
           type="button"
           aria-label="View Report"
-          className="group ring-foreground/10 hover:ring-primary focus-visible:ring-primary bg-card/30 text-card-foreground flex w-full items-center justify-between gap-4 bg-size-[cover,100%_1rem] bg-position-[center,center_bottom] [background-repeat:no-repeat,no-repeat] p-4 text-xs/relaxed ring-1 dark:bg-[radial-gradient(at_center_-5rem,oklch(from_var(--foreground)_l_c_h/0.15)_20%,transparent_80%),radial-gradient(at_center_bottom,oklch(from_var(--primary)l_c_h/0.1),transparent_80%)]">
+          className="group flex w-full items-center justify-between gap-4 bg-card/30 bg-size-[cover,100%_1rem] bg-position-[center,center_bottom] [background-repeat:no-repeat,no-repeat] p-4 text-xs/relaxed text-card-foreground ring-1 ring-foreground/10 hover:ring-primary focus-visible:ring-primary dark:bg-[radial-gradient(at_center_-5rem,oklch(from_var(--foreground)_l_c_h/0.15)_20%,transparent_80%),radial-gradient(at_center_bottom,oklch(from_var(--primary)l_c_h/0.1),transparent_80%)]">
           <div className="text-start">
-            <h2 className="text-primary text-base uppercase">{REPORT_REASON_LABELS[report.reason]}</h2>
-            <p className="text-muted-foreground text-xs/relaxed">{formatUtcDate(report.createdAt)}</p>
+            <h2 className="text-base text-primary uppercase">{REPORT_REASON_LABELS[report.reason]}</h2>
+            <p className="text-xs/relaxed text-muted-foreground">{formatUtcDate(report.createdAt)}</p>
           </div>
           <CaretDoubleRightIcon
             weight="thin"
-            className="text-primary/20 group-hover:text-primary group-focus-visible:text-primary size-8 shrink-0 transition-all duration-50 ease-out group-hover:translate-x-1 group-focus-visible:translate-x-1"
+            className="size-8 shrink-0 text-primary/20 transition-all duration-50 ease-out group-hover:translate-x-1 group-hover:text-primary group-focus-visible:translate-x-1 group-focus-visible:text-primary"
           />
         </button>
       </DrawerTrigger>
@@ -52,7 +52,7 @@ export function ReportDrawer({ embarkId, report }: { embarkId: string; report: R
               </div>
             </ScrollArea.Viewport>
             <ScrollArea.Scrollbar className="m-1 flex w-1 justify-center transition-opacity data-hovering:delay-0 data-scrolling:duration-0">
-              <ScrollArea.Thumb className="bg-border w-full rounded-full" />
+              <ScrollArea.Thumb className="w-full rounded-full bg-border" />
             </ScrollArea.Scrollbar>
           </ScrollArea.Root>
         </div>

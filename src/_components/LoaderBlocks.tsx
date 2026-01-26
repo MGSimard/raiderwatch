@@ -5,7 +5,7 @@ export function LoaderBlocks({ className, ...props }: React.ComponentProps<"div"
     <div
       data-slot="loader-blocks"
       className={cn(
-        "*:bg-card/30 *:animation-duration-[1.5s] grid size-48 grid-cols-3 gap-4 *:animate-pulse *:border *:backdrop-blur-sm *:[animation-delay:calc(var(--i)*0.15s+sin(var(--i)*1rad)*0.3s)]",
+        "grid size-48 grid-cols-3 gap-4 *:animate-pulse *:border *:bg-card/30 *:backdrop-blur-sm *:animation-duration-[1.5s] *:[animation-delay:calc(var(--i)*0.15s+sin(var(--i)*1rad)*0.3s)]",
         className
       )}
       {...props}>

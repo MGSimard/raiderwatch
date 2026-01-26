@@ -37,7 +37,7 @@ export function HasReports({
           <div className="expander grid gap-4 overflow-hidden py-4">
             <CardHeader className="relative">
               <svg
-                className="text-primary/10 pointer-events-none absolute top-1/2 right-0 h-[250%] -translate-y-1/2"
+                className="pointer-events-none absolute top-1/2 right-0 h-[250%] -translate-y-1/2 text-primary/10"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
                 viewBox="0 0 117.34 107.22"
@@ -46,8 +46,8 @@ export function HasReports({
                 <path d="m116.89,101.98l-16.84-30.58-2.63,1.45-21.41-38.9,2.65-1.45L61.77,1.83c-1.35-2.43-4.86-2.43-6.2,0l-16.91,30.73,2.64,1.45-21.41,38.9-2.64-1.45L.44,101.98c-1.3,2.36.4,5.24,3.1,5.24h33.88v-2.75h42.5v2.75h33.86c2.7,0,4.4-2.88,3.1-5.24Zm-106.71-4.65l33.86-61.5,12.25-22.43c1.01-1.85,3.66-1.85,4.67,0l46.16,83.85c.98,1.77-.31,3.95-2.33,3.95l-92.27.08c-2.03,0-3.31-2.17-2.34-3.95Zm51.9-63.93v21.2c0,10.38-.73,19.97-.73,19.97h-5.41s-.73-9.59-.73-19.97v-21.2h6.86Zm-9.25,52.76c0-3.37,2.61-6.11,5.82-6.11s5.82,2.73,5.82,6.11-2.61,6.11-5.82,6.11-5.82-2.73-5.82-6.11Z" />
               </svg>
               <CardTitle disableGlow>
-                <h1 className="text-foreground truncate uppercase">{embarkId}</h1>
-                <p className="text-primary text-sm uppercase">
+                <h1 className="truncate text-foreground uppercase">{embarkId}</h1>
+                <p className="text-sm text-primary uppercase">
                   FLAGGED {approvedReports.length} TIME{approvedReports.length > 1 && "S"}
                 </p>
               </CardTitle>

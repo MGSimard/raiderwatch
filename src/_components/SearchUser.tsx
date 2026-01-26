@@ -46,7 +46,7 @@ export function SearchUser() {
     <form onSubmit={handleSubmit} className="flex w-full flex-row">
       <Field className="flex-1" data-invalid={!!error}>
         <FieldLabel htmlFor="search-embark-id" className="sr-only">
-          Embark ID <span className="text-muted-foreground text-xs italic">(username#1234)</span>
+          Embark ID <span className="text-xs text-muted-foreground italic">(username#1234)</span>
         </FieldLabel>
         <Input
           id="search-embark-id"

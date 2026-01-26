@@ -13,7 +13,7 @@ export function ReportsSearch({ value, onChange }: ReportsSearchProps) {
 
   return (
     <div className="relative flex items-center">
-      <MagnifyingGlassIcon className="text-muted-foreground pointer-events-none absolute left-2 size-4" aria-hidden />
+      <MagnifyingGlassIcon className="pointer-events-none absolute left-2 size-4 text-muted-foreground" aria-hidden />
       <Input
         type="text"
         value={value}

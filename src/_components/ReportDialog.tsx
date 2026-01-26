@@ -81,7 +81,7 @@ export function ReportDialog({ embarkId, children }: { embarkId: string; childre
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="text-muted-foreground cursor-not-allowed"
+                      className="cursor-not-allowed text-muted-foreground"
                       aria-invalid={isInvalid}
                       autoComplete="off"
                       required

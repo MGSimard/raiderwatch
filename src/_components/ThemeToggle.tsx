@@ -8,7 +8,7 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
-      className="text-primary/50 hover:text-primary focus-visible:text-primary fixed right-4 bottom-4 z-10 bg-transparent hover:bg-transparent"
+      className="fixed right-4 bottom-4 z-10 bg-transparent text-primary/50 hover:bg-transparent hover:text-primary focus-visible:text-primary"
       onClick={() => setTheme(activeTheme === "light" ? "dark" : "light")}>
       {activeTheme === "light" ? (
         <IconBolt className="size-5" aria-hidden />

@@ -6,7 +6,7 @@ function Card({ className, size = "default", ...props }: React.ComponentProps<"d
       data-slot="card"
       data-size={size}
       className={cn(
-        "ring-foreground/10 bg-card/30 text-card-foreground group/card grid gap-4 rounded-none bg-size-[cover,100%_1rem] bg-position-[center,center_bottom] [background-repeat:no-repeat,no-repeat] py-4 text-xs/relaxed ring-1 backdrop-blur-[2px] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-2 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 dark:bg-[radial-gradient(at_center_-5rem,oklch(from_var(--foreground)_l_c_h/0.15)_20%,transparent_80%),radial-gradient(at_center_bottom,oklch(from_var(--primary)l_c_h/0.1),transparent_80%)] *:[img:first-child]:rounded-none *:[img:last-child]:rounded-none",
+        "group/card grid gap-4 rounded-none bg-card/30 bg-size-[cover,100%_1rem] bg-position-[center,center_bottom] [background-repeat:no-repeat,no-repeat] py-4 text-xs/relaxed text-card-foreground ring-1 ring-foreground/10 backdrop-blur-[2px] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-2 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 dark:bg-[radial-gradient(at_center_-5rem,oklch(from_var(--foreground)_l_c_h/0.15)_20%,transparent_80%),radial-gradient(at_center_bottom,oklch(from_var(--primary)l_c_h/0.1),transparent_80%)] *:[img:first-child]:rounded-none *:[img:last-child]:rounded-none",
         className
       )}
       {...props}
@@ -45,7 +45,7 @@ function CardTitle({
     <div
       data-slot="card-title"
       className={cn(
-        "text-primary py-2 text-2xl font-medium group-data-[size=sm]/card:text-sm",
+        "py-2 text-2xl font-medium text-primary group-data-[size=sm]/card:text-sm",
         !disableGlow &&
           "border-2 dark:shadow-lg dark:text-shadow-[0_0_0.2em_oklch(from_var(--primary)_calc(l-0.2)_c_h)]",
         !disableGlow && gradientClasses[gradientPosition],
@@ -58,7 +58,7 @@ function CardTitle({
 
 function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div data-slot="card-description" className={cn("text-muted-foreground text-xs/relaxed", className)} {...props} />
+    <div data-slot="card-description" className={cn("text-xs/relaxed text-muted-foreground", className)} {...props} />
   );
 }
 

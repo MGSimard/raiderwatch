@@ -12,15 +12,9 @@ import {
 } from "@/_components/admin/ui/dropdown-menu";
 import { toast } from "sonner";
 import { CopySimpleIcon, DotsThreeVerticalIcon, GavelIcon, UserFocusIcon } from "@phosphor-icons/react";
-import type { getReportsTableData } from "@/_server/serverFunctions";
+import type { ReportRow } from "@/_lib/types";
 
-type ReportRow = Awaited<ReturnType<typeof getReportsTableData>>["reports"][number];
-
-interface ReportsRowActionsProps {
-  reportData: ReportRow;
-}
-
-export function ReportsRowActions({ reportData }: ReportsRowActionsProps) {
+export function ReportsRowActions({ reportData }: { reportData: ReportRow }) {
   // TODO: Long hover tooltip on trigger maybe?
 
   const handleIsolateRaider = () => {};

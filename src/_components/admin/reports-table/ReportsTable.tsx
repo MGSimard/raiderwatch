@@ -12,6 +12,7 @@
 
 import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useDebouncedValue } from "@tanstack/react-pacer";
 import { getReportsTableData } from "@/_server/serverFunctions";
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { ReportsSearch } from "@/_components/admin/reports-table/ReportsSearch";
@@ -36,14 +37,13 @@ import type { SearchFilters } from "@/_lib/types";
 const AUTO_WIDTH_COLUMNS = new Set(["status", "actions"]);
 
 export function ReportsTable() {
-  // TODO: Debounce
-
   // SERVER-SIDE FILTERING - Modifies the query key which fires new fetches unless cached
   const [filters, setFilters] = useState<SearchFilters>({ ...DEFAULT_REPORTS_FILTERS });
+  const [debouncedSearchQuery] = useDebouncedValue(filters.searchQuery, { wait: 500 });
 
   const { data, isPending, isError, isPlaceholderData } = useQuery({
-    queryKey: ["reportsTable", { ...filters }],
-    queryFn: () => getReportsTableData({ data: filters }),
+    queryKey: ["reportsTable", { ...filters, searchQuery: debouncedSearchQuery }],
+    queryFn: () => getReportsTableData({ data: { ...filters, searchQuery: debouncedSearchQuery } }),
     placeholderData: keepPreviousData,
   });
 

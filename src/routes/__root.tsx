@@ -3,8 +3,8 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 // import { FormDevtoolsPanel } from "@tanstack/react-form-devtools";
+import { PacerDevtoolsPanel } from "@tanstack/react-pacer-devtools";
 import { ThemeProvider } from "@/_components/ThemeProvider";
-import { ThemeToggle } from "@/_components/ThemeToggle";
 import { Toaster } from "@/_components/ui/sonner";
 import { TooltipProvider } from "@/_components/ui/tooltip";
 import type { QueryClient } from "@tanstack/react-query";
@@ -69,6 +69,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             {
               name: "TanStack Query",
               render: <ReactQueryDevtoolsPanel />,
+            },
+            {
+              name: "TanStack Pacer",
+              render: <PacerDevtoolsPanel />,
             },
             // Not using FormDevtoolsPanel because it invokes
             // some random ass solidjs garbage that crashes the app

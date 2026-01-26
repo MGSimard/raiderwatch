@@ -57,9 +57,6 @@ export function ReportsTable() {
     data: reports,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    // getFilteredRowModel: getFilteredRowModel(), // Handled by useQuery + server function, can use later if need filtering Fns
-    // getSortedRowModel: getSortedRowModel(), todo
-    // getPaginationRowModel: getPaginationRowModel(), todo
     manualFiltering: true, // Handled by useQuery + server function
     manualSorting: true, // Handled by useQuery + server function
     manualPagination: true, // Handled by useQuery + server function

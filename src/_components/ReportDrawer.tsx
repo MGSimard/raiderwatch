@@ -11,13 +11,11 @@ import {
 } from "@/_components/ui/drawer";
 import { REPORT_REASON_LABELS } from "@/_lib/constants";
 import { formatUtcDate } from "@/_lib/utils";
-import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
 import { ScrollArea } from "@base-ui/react/scroll-area";
 import { CaretDoubleRightIcon } from "@phosphor-icons/react";
+import type { ApprovedReport } from "@/_lib/types";
 
-type Report = Awaited<ReturnType<typeof getRaiderApprovedReports>>[number];
-
-export function ReportDrawer({ embarkId, report }: { embarkId: string; report: Report }) {
+export function ReportDrawer({ embarkId, report }: { embarkId: string; report: ApprovedReport }) {
   return (
     <Drawer direction="right">
       <DrawerTrigger asChild>

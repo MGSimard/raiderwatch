@@ -12,12 +12,24 @@ import {
 } from "@/_components/admin/ui/dropdown-menu";
 import { toast } from "sonner";
 import { CopySimpleIcon, DotsThreeVerticalIcon, GavelIcon, UserFocusIcon } from "@phosphor-icons/react";
-import type { ReportRow } from "@/_lib/types";
+import type { ReportRow, SearchFilters } from "@/_lib/types";
 
-export function ReportsRowActions({ reportData }: { reportData: ReportRow }) {
+interface ReportsRowActionsProps {
+  reportData: ReportRow;
+  setFilters?: React.Dispatch<React.SetStateAction<SearchFilters>>;
+}
+
+export function ReportsRowActions({ reportData, setFilters }: ReportsRowActionsProps) {
   // TODO: Long hover tooltip on trigger maybe?
 
-  const handleIsolateRaider = () => {};
+  const handleIsolateRaider = () => {
+    if (!setFilters) return;
+    setFilters((prev) => ({
+      ...prev,
+      searchQuery: reportData.embarkId,
+      page: 1,
+    }));
+  };
 
   const copyToClipboard = async (text: string, label: string) => {
     try {

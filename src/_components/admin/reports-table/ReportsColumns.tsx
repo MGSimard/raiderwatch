@@ -41,9 +41,9 @@ export const columns = [
   }),
   columnHelper.display({
     id: "actions",
-    cell: ({ row }) => (
+    cell: ({ row, table }) => (
       <div className="grid place-items-center">
-        <ReportsRowActions reportData={row.original} />
+        <ReportsRowActions reportData={row.original} setFilters={table.options.meta?.setFilters} />
       </div>
     ),
   }),

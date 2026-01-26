@@ -14,7 +14,7 @@ import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebouncedValue } from "@tanstack/react-pacer";
 import { getReportsTableData } from "@/_server/serverFunctions";
-import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { flexRender, getCoreRowModel, RowData, useReactTable } from "@tanstack/react-table";
 import { ReportsSearch } from "@/_components/admin/reports-table/ReportsSearch";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/_components/admin/ui/table";
 import { columns } from "@/_components/admin/reports-table/ReportsColumns";
@@ -35,6 +35,13 @@ import { DEFAULT_REPORTS_FILTERS } from "@/_lib/constants";
 import type { SearchFilters } from "@/_lib/types";
 
 const AUTO_WIDTH_COLUMNS = new Set(["status", "actions"]);
+
+// Extending table types to include our filter setter
+declare module "@tanstack/react-table" {
+  interface TableMeta<TData extends RowData> {
+    setFilters: React.Dispatch<React.SetStateAction<SearchFilters>>;
+  }
+}
 
 export function ReportsTable() {
   // SERVER-SIDE FILTERING - Modifies the query key which fires new fetches unless cached
@@ -62,6 +69,9 @@ export function ReportsTable() {
     manualPagination: true, // Handled by useQuery + server function
     rowCount: totalCount, // Not needed but good for future context if needed
     pageCount: totalPages, // Not needed but good for future context if needed
+    meta: {
+      setFilters,
+    },
   });
 
   return (

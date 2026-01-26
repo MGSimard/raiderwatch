@@ -12,8 +12,15 @@ import {
 } from "@/_components/admin/ui/dropdown-menu";
 import { toast } from "sonner";
 import { CopySimpleIcon, DotsThreeVerticalIcon, GavelIcon, UserFocusIcon } from "@phosphor-icons/react";
+import type { getReportsTableData } from "@/_server/serverFunctions";
 
-export function ReportsRowActions({ reportData }) {
+type ReportRow = Awaited<ReturnType<typeof getReportsTableData>>["reports"][number];
+
+interface ReportsRowActionsProps {
+  reportData: ReportRow;
+}
+
+export function ReportsRowActions({ reportData }: ReportsRowActionsProps) {
   // TODO: Long hover tooltip on trigger maybe?
 
   const handleIsolateRaider = () => {};
@@ -46,7 +53,7 @@ export function ReportsRowActions({ reportData }) {
           <UserFocusIcon aria-hidden />
           Isolate Raider
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => copyToClipboard(JSON.stringify(reportData), "Report")}>
+        <DropdownMenuItem onClick={() => copyToClipboard(JSON.stringify(reportData, null, 2), "Report")}>
           <CopySimpleIcon aria-hidden />
           Copy Report
         </DropdownMenuItem>

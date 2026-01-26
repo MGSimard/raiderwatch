@@ -42,7 +42,6 @@ export const columns = [
   }),
   columnHelper.display({
     id: "actions",
-    header: "Actions",
     cell: () => (
       <div className="grid place-items-center">
         <ReportsRowActions />

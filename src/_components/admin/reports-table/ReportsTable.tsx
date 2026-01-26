@@ -20,9 +20,10 @@ import { columns } from "@/_components/admin/reports-table/ReportsColumns";
 import { cn } from "@/_lib/utils";
 import type { ReportStatus } from "@/_lib/enums";
 import type { SearchFilters } from "@/_lib/types";
+import { ReportsStatusSelect } from "./ReportsStatusSelect";
 
 const DEFAULT_SEARCH_QUERY = "";
-const DEFAULT_STATUS: Array<ReportStatus> = ["pending", "under_review"];
+const DEFAULT_STATUSES: Array<ReportStatus> = ["pending", "under_review"];
 const DEFAULT_PAGE = 1;
 const DEFAULT_PAGE_SIZE = 20;
 const AUTO_WIDTH_COLUMNS = new Set(["status", "actions"]);
@@ -34,7 +35,7 @@ export function ReportsTable() {
   // SERVER-SIDE FILTERING - Modifies the query key which fires new fetches unless cached
   const [filters, setFilters] = useState<SearchFilters>({
     searchQuery: DEFAULT_SEARCH_QUERY,
-    status: DEFAULT_STATUS,
+    statuses: DEFAULT_STATUSES,
     page: DEFAULT_PAGE,
     pageSize: DEFAULT_PAGE_SIZE,
   });
@@ -67,7 +68,7 @@ export function ReportsTable() {
               setFilters((prev) => ({
                 ...prev,
                 searchQuery: value,
-                page: 1, // usually reset page on search
+                page: 1,
               }))
             }
             onClear={() =>
@@ -77,6 +78,10 @@ export function ReportsTable() {
                 page: 1,
               }))
             }
+          />
+          <ReportsStatusSelect
+            value={filters.statuses}
+            onValueChange={(value) => setFilters((prev) => ({ ...prev, statuses: value, page: 1 }))}
           />
         </div>
       </div>

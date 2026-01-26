@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { db } from "./db";
 import { reports } from "./db/schema";
-import { and, desc, eq, gte, sql } from "drizzle-orm";
+import { and, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import type { PgSelect } from "drizzle-orm/pg-core";
 import { auth } from "@/_auth";
 import { authMiddleware } from "@/_auth/authMiddleware";
@@ -232,7 +232,7 @@ export const getReportsTableData = createServerFn({ method: "GET" })
     });
     if (!hasPermission) throw new Error("Unauthorized");
 
-    const { searchQuery, status, page, pageSize } = data;
+    const { searchQuery, statuses, page, pageSize } = data;
     const trimmed = searchQuery.trim();
 
     // https://orm.drizzle.team/docs/rqb-v2
@@ -246,8 +246,10 @@ export const getReportsTableData = createServerFn({ method: "GET" })
           ? eq(reports.id, Number(trimmed))
           : eq(reports.embarkId, trimmed);
 
+    const statusClause = statuses.length > 0 ? inArray(reports.status, statuses) : undefined;
+
     try {
-      return await db.select().from(reports).where(whereClause);
+      return await db.select().from(reports).where(and(whereClause, statusClause));
     } catch (err: unknown) {
       const error = err instanceof Error ? err : new Error("Unknown error");
       console.error("Error fetching reports table data:", error);

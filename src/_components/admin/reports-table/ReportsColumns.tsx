@@ -1,4 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
+import { ReportsRowActions } from "@/_components/admin/reports-table/ReportsRowActions";
 import { getReportsTableData } from "@/_server/serverFunctions";
 import { REPORT_STATUS_META, REPORT_REASON_LABELS } from "@/_lib/constants";
 import { cn, formatUtcDateTime } from "@/_lib/utils";
@@ -13,7 +14,7 @@ export const columns = [
       const status = info.getValue();
       const { label, dotClass } = REPORT_STATUS_META[status];
       return (
-        <div className="flex justify-center">
+        <div className="grid place-items-center">
           <div aria-label={label} className={cn("size-2.5 rounded-full", dotClass)} />
         </div>
       );
@@ -42,6 +43,10 @@ export const columns = [
   columnHelper.display({
     id: "actions",
     header: "Actions",
-    cell: () => "...",
+    cell: () => (
+      <div className="grid place-items-center">
+        <ReportsRowActions />
+      </div>
+    ),
   }),
 ];

@@ -13,13 +13,13 @@ export function ReportsSearch({ value, onChange }: ReportsSearchProps) {
 
   return (
     <div className="relative flex items-center">
-      <MagnifyingGlassIcon className="pointer-events-none absolute left-2 size-4 text-muted-foreground" aria-hidden />
+      <MagnifyingGlassIcon className="text-muted-foreground pointer-events-none absolute left-2 size-4" aria-hidden />
       <Input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value.trim())}
         placeholder="Search by ID or Embark ID..."
-        className="pl-7 pr-8 w-56"
+        className="w-56 pr-8 pl-7"
         aria-label="Search reports"
       />
       {hasValue && (

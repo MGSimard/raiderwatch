@@ -8,11 +8,11 @@ export function Header() {
   const pageName = location.pathname.split("/").pop();
 
   return (
-    <header className="shrink-0 flex items-center gap-2 px-4 lg:px-6 h-(--header-height) border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b px-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height) lg:px-6">
       <SidebarTrigger className="-ml-1" />
       <Separator
         orientation="vertical"
-        className="data-[orientation=vertical]:h-4 data-[orientation=vertical]:self-auto mr-1"
+        className="mr-1 data-[orientation=vertical]:h-4 data-[orientation=vertical]:self-auto"
       />
       <h1 className="text-base font-medium capitalize">{pageName}</h1>
       <UtcClock className="ml-auto" />

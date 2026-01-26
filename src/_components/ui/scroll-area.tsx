@@ -27,7 +27,7 @@ function ScrollBar({ className, orientation = "vertical", ...props }: ScrollArea
         className
       )}
       {...props}>
-      <ScrollAreaPrimitive.Thumb data-slot="scroll-area-thumb" className="rounded-none bg-border relative flex-1" />
+      <ScrollAreaPrimitive.Thumb data-slot="scroll-area-thumb" className="bg-border relative flex-1 rounded-none" />
     </ScrollAreaPrimitive.Scrollbar>
   );
 }

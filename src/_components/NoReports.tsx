@@ -7,9 +7,9 @@ import { ArrowLeftIcon } from "@phosphor-icons/react";
 
 export function NoReports({ embarkId }: { embarkId: string }) {
   return (
-    <section className="grow grid place-items-center text-center">
-      <Card className="w-full max-w-sm relative corner-brackets animated-height">
-        <div className="grid gap-4 expander">
+    <section className="grid grow place-items-center text-center">
+      <Card className="corner-brackets animated-height relative w-full max-w-sm">
+        <div className="expander grid gap-4">
           <CardHeader>
             <CardTitle>
               <h2>NO REPORTS</h2>
@@ -23,7 +23,7 @@ export function NoReports({ embarkId }: { embarkId: string }) {
             <Separator />
             <p>CODE: 200-CLEAR</p>
           </CardContent>
-          <CardFooter className="flex gap-2 justify-center items-center">
+          <CardFooter className="flex items-center justify-center gap-2">
             <Button
               variant="outline"
               size="default"

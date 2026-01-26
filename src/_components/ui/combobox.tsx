@@ -18,7 +18,7 @@ function ComboboxTrigger({ className, children, ...props }: ComboboxPrimitive.Tr
       className={cn("[&_svg:not([class*='size-'])]:size-4", className)}
       {...props}>
       {children}
-      <CaretDownIcon className="text-muted-foreground size-4 pointer-events-none" aria-hidden />
+      <CaretDownIcon className="text-muted-foreground pointer-events-none size-4" aria-hidden />
     </ComboboxPrimitive.Trigger>
   );
 }

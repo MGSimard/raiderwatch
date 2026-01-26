@@ -3,10 +3,10 @@ import { Button } from "@/_components/ui/button";
 
 export function NotFound() {
   return (
-    <main className="relative grow grid place-items-center text-center min-h-dvh">
+    <main className="relative grid min-h-dvh grow place-items-center text-center">
       <div>
         <h1 className="text-2xl font-bold">404 - Not Found</h1>
-        <p className="text-sm text-muted-foreground">The page you are looking for does not exist.</p>
+        <p className="text-muted-foreground text-sm">The page you are looking for does not exist.</p>
         <Button
           variant="outline"
           className="mx-auto mt-4"

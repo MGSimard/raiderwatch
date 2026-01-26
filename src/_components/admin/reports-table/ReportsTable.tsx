@@ -126,7 +126,7 @@ export function ReportsTable() {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center gap-3 py-4 sticky bottom-0 bg-background">
+      <div className="bg-background sticky bottom-0 flex items-center gap-3 py-4">
         <div className="text-muted-foreground flex-1 text-sm">
           Showing {start}-{end} of {totalCount} reports
         </div>

@@ -10,7 +10,7 @@ export const Route = createFileRoute("/")({
 
 function PageHome() {
   return (
-    <main className="relative grow grid place-items-center text-center min-h-dvh">
+    <main className="relative grid min-h-dvh grow place-items-center text-center">
       <Button
         variant="outline"
         size="icon"
@@ -25,7 +25,7 @@ function PageHome() {
         }
       />
       <video
-        className="absolute inset-0 w-full h-full object-cover opacity-30 blur-sm select-none pointer-events-none"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-30 blur-sm select-none"
         poster="/assets/media/hero.webp"
         autoPlay
         loop
@@ -34,8 +34,8 @@ function PageHome() {
         <source src="/assets/media/hero.webm" type="video/webm" />
         <source src="/assets/media/hero.mp4" type="video/mp4" />
       </video>
-      <div className="flex flex-col items-center gap-4 z-1 px-4">
-        <h1 className="text-7xl font-logo font-bold select-none">
+      <div className="z-1 flex flex-col items-center gap-4 px-4">
+        <h1 className="font-logo text-7xl font-bold select-none">
           Raider<span className="text-destructive animate-recording-pulse inline-block">.</span>Watch
         </h1>
         <Separator orientation="horizontal" className="-mt-1" />

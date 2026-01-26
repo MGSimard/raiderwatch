@@ -64,7 +64,7 @@ export function SignInForm() {
   };
 
   return (
-    <Card className="w-full max-w-sm relative">
+    <Card className="relative w-full max-w-sm">
       <CardHeader>
         <CardTitle>
           <h1>AUTHORIZATION</h1>

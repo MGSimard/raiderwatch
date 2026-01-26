@@ -33,7 +33,7 @@ function SelectTrigger({
       )}
       {...props}>
       {children}
-      <SelectPrimitive.Icon render={<CaretDownIcon className="text-muted-foreground size-4 pointer-events-none" />} />
+      <SelectPrimitive.Icon render={<CaretDownIcon className="text-muted-foreground pointer-events-none size-4" />} />
     </SelectPrimitive.Trigger>
   );
 }
@@ -94,7 +94,7 @@ function SelectItem({ className, children, ...props }: SelectPrimitive.Item.Prop
         className
       )}
       {...props}>
-      <SelectPrimitive.ItemText className="flex flex-1 gap-2 shrink-0 whitespace-nowrap">
+      <SelectPrimitive.ItemText className="flex flex-1 shrink-0 gap-2 whitespace-nowrap">
         {children}
       </SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator

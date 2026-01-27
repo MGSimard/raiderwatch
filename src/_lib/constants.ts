@@ -32,5 +32,5 @@ export const DEFAULT_REPORTS_FILTERS = {
   searchQuery: "",
   statuses: ["pending", "under_review"],
   page: 1,
-  pageSize: 10,
+  pageSize: 20,
 } as const satisfies SearchFilters;

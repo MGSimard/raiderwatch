@@ -45,7 +45,7 @@ export function ReportsRowActions({ reportData, setFilters }: ReportsRowActionsP
 
   return (
     <Drawer direction="right">
-      <AssessmentDrawer />
+      <AssessmentDrawer report={reportData} />
       <DropdownMenu>
         <DropdownMenuTrigger
           render={

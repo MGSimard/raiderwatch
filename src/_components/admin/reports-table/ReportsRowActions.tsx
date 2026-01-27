@@ -10,11 +10,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/_components/admin/ui/dropdown-menu";
-import { toast } from "sonner";
 import { CopySimpleIcon, DotsThreeVerticalIcon, GavelIcon, UserFocusIcon } from "@phosphor-icons/react";
 import type { ReportRow, SearchFilters } from "@/_lib/types";
 import { AssessmentDrawer } from "../AssessmentDrawer";
 import { Dialog, DialogTrigger } from "@/_components/admin/ui/dialog";
+import { copyToClipboard } from "@/_lib/utils";
 
 interface ReportsRowActionsProps {
   reportData: ReportRow;
@@ -31,16 +31,6 @@ export function ReportsRowActions({ reportData, setFilters }: ReportsRowActionsP
       searchQuery: reportData.embarkId,
       page: 1,
     }));
-  };
-
-  const copyToClipboard = async (text: string, label: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      toast.success(`${label} copied to clipboard.`);
-    } catch (err: unknown) {
-      toast.error(`Failed to copy ${label}, view console for more details.`);
-      console.error(`Error copying ${label}:`, err instanceof Error ? err : "Unknown error.");
-    }
   };
 
   return (

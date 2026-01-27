@@ -17,7 +17,7 @@ import { Badge } from "@/_components/admin/ui/badge";
 import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton } from "@/_components/admin/ui/input-group";
 import { AspectRatio } from "@/_components/admin/ui/aspect-ratio";
 import { CopySimpleIcon } from "@phosphor-icons/react";
-import { toast } from "sonner";
+import { copyToClipboard } from "@/_lib/utils";
 import { Separator } from "@/_components/admin/ui/separator";
 import {
   Select,
@@ -39,17 +39,6 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
   // reviewerComment: string | null;
   // createdAt: Date;
   // updatedAt: Date;
-
-  // TODO: Move to utils (we already have one in another place too)
-  const copyToClipboard = async (text: string, label: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      toast.success(`${label} copied to clipboard.`);
-    } catch (err: unknown) {
-      toast.error(`Failed to copy ${label}, view console for more details.`);
-      console.error(`Error copying ${label}:`, err instanceof Error ? err : "Unknown error.");
-    }
-  };
 
   return (
     <DialogContent className="w-full max-w-2xl" showCloseButton={false}>

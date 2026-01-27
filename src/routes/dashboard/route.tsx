@@ -28,9 +28,9 @@ function LayoutDashboard() {
         } as React.CSSProperties
       }>
       <AdminSidebar />
-      <main className="relative flex w-full flex-1 flex-col bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2">
+      <main className="relative flex h-dvh min-h-0 w-full flex-1 flex-col bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2">
         <Header />
-        <div className="@container/main flex flex-1 flex-col gap-4 p-4 md:gap-6 md:p-6">
+        <div className="@container/main flex min-h-0 flex-1 grow flex-col gap-4 md:gap-6">
           <Outlet />
         </div>
       </main>

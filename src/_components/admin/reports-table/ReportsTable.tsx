@@ -63,28 +63,26 @@ export function ReportsTable() {
   });
 
   return (
-    <>
-      <div className="align-center flex">
-        <div className="flex flex-wrap items-center gap-2">
-          <ReportsSearch
-            value={filters.searchQuery}
-            onChange={(value) =>
-              setFilters((prev) => ({
-                ...prev,
-                searchQuery: value,
-                page: 1,
-              }))
-            }
-          />
-          <ReportsStatusSelect
-            value={filters.statuses}
-            onValueChange={(value) => setFilters((prev) => ({ ...prev, statuses: value, page: 1 }))}
-          />
-        </div>
+    <div className="flex h-full min-h-0 grow flex-col">
+      <div className="flex shrink-0 flex-wrap items-center gap-2 p-2">
+        <ReportsSearch
+          value={filters.searchQuery}
+          onChange={(value) =>
+            setFilters((prev) => ({
+              ...prev,
+              searchQuery: value,
+              page: 1,
+            }))
+          }
+        />
+        <ReportsStatusSelect
+          value={filters.statuses}
+          onValueChange={(value) => setFilters((prev) => ({ ...prev, statuses: value, page: 1 }))}
+        />
       </div>
-      <div className="overflow-hidden rounded-md border">
+      <div className="flex min-h-0 grow border">
         <Table>
-          <TableHeader>
+          <TableHeader className="sticky top-0 bg-background">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -97,7 +95,7 @@ export function ReportsTable() {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody className="border-b">
             {isError ? (
               <ErrorResult />
             ) : isPending ? (
@@ -120,7 +118,7 @@ export function ReportsTable() {
           </TableBody>
         </Table>
       </div>
-      <div className="sticky bottom-0 flex items-center gap-3 bg-background py-4">
+      <div className="flex shrink-0 items-center gap-3 bg-background px-4 py-2">
         <div className="flex-1 text-sm text-muted-foreground">
           Showing {start}-{end} of {totalCount} reports
         </div>
@@ -181,7 +179,7 @@ export function ReportsTable() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

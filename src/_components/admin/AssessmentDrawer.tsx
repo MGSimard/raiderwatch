@@ -19,6 +19,15 @@ import { AspectRatio } from "@/_components/admin/ui/aspect-ratio";
 import { CopySimpleIcon } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { Separator } from "@/_components/admin/ui/separator";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+  SelectGroup,
+  SelectLabel,
+} from "@/_components/admin/ui/select";
 
 export function AssessmentDrawer({ report }: { report: ReportRow }) {
   // description: string;
@@ -134,6 +143,21 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
                 </li>
                 <li>- Save button (come up with a good text)</li>
               </ul>
+              <Select>
+                <SelectTrigger className="w-full max-w-48">
+                  <SelectValue placeholder="Select a fruit" />
+                </SelectTrigger>
+                <SelectContent alignItemWithTrigger={false}>
+                  <SelectGroup>
+                    <SelectLabel>Fruits</SelectLabel>
+                    <SelectItem value="apple">Apple</SelectItem>
+                    <SelectItem value="banana">Banana</SelectItem>
+                    <SelectItem value="blueberry">Blueberry</SelectItem>
+                    <SelectItem value="grapes">Grapes</SelectItem>
+                    <SelectItem value="pineapple">Pineapple</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
           </ScrollArea.Viewport>
           <ScrollArea.Scrollbar className="m-1 flex w-1 justify-center transition-opacity data-hovering:delay-0 data-scrolling:duration-0">

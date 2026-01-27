@@ -107,7 +107,11 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
           <InputGroup>
             <InputGroupInput placeholder={report.videoUrl} readOnly />
             <InputGroupAddon align="inline-end">
-              <InputGroupButton aria-label="Copy" title="Copy" size="icon-xs">
+              <InputGroupButton
+                aria-label="Copy"
+                title="Copy"
+                size="icon-xs"
+                onClick={() => copyToClipboard(report.videoUrl, "Video URL")}>
                 <CopySimpleIcon aria-hidden />
               </InputGroupButton>
             </InputGroupAddon>

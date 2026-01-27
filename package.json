@@ -88,7 +88,7 @@
   "packageManager": "pnpm@10.28.2",
   "pnpm": {
     "overrides": {
-      "drizzle-orm": "1.0.0-beta.11-05230d9",
+      "drizzle-orm": "1.0.0-beta.11-05230d9"
     },
     "onlyBuiltDependencies": [
       "@parcel/watcher",

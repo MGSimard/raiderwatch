@@ -30,6 +30,8 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
   // reviewerComment: string | null;
   // createdAt: Date;
   // updatedAt: Date;
+
+  // TODO: Move to utils (we already have one in another place too)
   const copyToClipboard = async (text: string, label: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -84,7 +86,6 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
                   <CopySimpleIcon aria-hidden />
                 </Button>
               </div>
-
               <div>
                 {/* TODO: URL Parsing to morph into embed url */}
                 <AspectRatio ratio={16 / 9}>
@@ -106,7 +107,6 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
                   </InputGroupAddon>
                 </InputGroup>
               </div>
-
               <Field data-disabled>
                 <FieldLabel htmlFor="textarea-disabled">Description</FieldLabel>
                 <Textarea
@@ -117,8 +117,23 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
                   readOnly
                 />
               </Field>
-
               <Separator />
+              {/* TODO */}
+              <ul>
+                <li>
+                  - Ability to add or modify stored video URL which replaces the youtube video embed in the public
+                  report drawer
+                </li>
+                <li>- Add or modify reviewer comment (default value is reviewer comment if exists, otherwise empty)</li>
+                <li>- Ability to modify the report reason if initial is incorrect</li>
+
+                <li>- Ability to change the report status</li>
+                <li>- Report assesment guidelines reminder</li>
+                <li>
+                  - Checkbox of confirmation (tie assessment guidelines to this? Similar to a user agreement checkbox)
+                </li>
+                <li>- Save button (come up with a good text)</li>
+              </ul>
             </div>
           </ScrollArea.Viewport>
           <ScrollArea.Scrollbar className="m-1 flex w-1 justify-center transition-opacity data-hovering:delay-0 data-scrolling:duration-0">

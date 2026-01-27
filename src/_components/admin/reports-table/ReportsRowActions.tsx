@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import { CopySimpleIcon, DotsThreeVerticalIcon, GavelIcon, UserFocusIcon } from "@phosphor-icons/react";
 import type { ReportRow, SearchFilters } from "@/_lib/types";
 import { AssessmentDrawer } from "../AssessmentDrawer";
-import { Drawer, DrawerTrigger } from "@/_components/admin/ui/drawer";
+import { Dialog, DialogTrigger } from "@/_components/admin/ui/dialog";
 
 interface ReportsRowActionsProps {
   reportData: ReportRow;
@@ -44,7 +44,7 @@ export function ReportsRowActions({ reportData, setFilters }: ReportsRowActionsP
   };
 
   return (
-    <Drawer direction="right">
+    <Dialog>
       <AssessmentDrawer report={reportData} />
       <DropdownMenu>
         <DropdownMenuTrigger
@@ -55,12 +55,15 @@ export function ReportsRowActions({ reportData, setFilters }: ReportsRowActionsP
           }
         />
         <DropdownMenuContent>
-          <DrawerTrigger asChild>
-            <DropdownMenuItem>
-              <GavelIcon aria-hidden />
-              Review Report
-            </DropdownMenuItem>
-          </DrawerTrigger>
+          <DialogTrigger
+            nativeButton={false}
+            render={
+              <DropdownMenuItem>
+                <GavelIcon aria-hidden />
+                Review Report
+              </DropdownMenuItem>
+            }
+          />
           <DropdownMenuItem onClick={handleIsolateRaider}>
             <UserFocusIcon aria-hidden />
             Isolate Raider
@@ -75,6 +78,6 @@ export function ReportsRowActions({ reportData, setFilters }: ReportsRowActionsP
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-    </Drawer>
+    </Dialog>
   );
 }

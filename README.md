@@ -2,8 +2,7 @@
 
 ## TASK LIST
 
-- [ ] Currently @ assessment drawer (dealing with shit stacking w/ dropdowns inside radix drawer
-
+- Currently @ assessment drawer (dealing with shit stacking w/ dropdowns inside radix drawer
 - Admin panel
 - Native form validation
 - Server Function return handling for Sonner success & errors

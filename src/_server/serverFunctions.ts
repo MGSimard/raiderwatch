@@ -36,8 +36,7 @@ export const getRaiderApprovedReports = createServerFn({ method: "GET" })
         createdAt: report.createdAt.toISOString(),
       }));
     } catch (err: unknown) {
-      const error = err instanceof Error ? err : new Error("Unknown error");
-      console.error("Error fetching raider reports:", error);
+      console.error("Error fetching raider reports:", err instanceof Error ? err : "Unknown error");
       throw new Error(`Failed to fetch reports for Embark ID: ${embarkId}`);
     }
   });
@@ -58,8 +57,7 @@ export const fileReport = createServerFn({ method: "POST" })
     try {
       await db.insert(reports).values({ embarkId: normalizedEmbarkId, reason, description, videoUrl });
     } catch (err: unknown) {
-      const error = err instanceof Error ? err : new Error("Unknown error");
-      console.error("Error filing report:", error);
+      console.error("Error filing report:", err instanceof Error ? err : "Unknown error");
       throw new Error(`Failed to file report for Embark ID: ${embarkId}`);
     }
   });
@@ -156,8 +154,7 @@ export const getDashboardOverview = createServerFn({ method: "GET" })
 
       return result;
     } catch (err: unknown) {
-      const error = err instanceof Error ? err : new Error("Unknown error");
-      console.error("Error fetching admin stats:", error);
+      console.error("Error fetching admin stats:", err instanceof Error ? err : "Unknown error");
       throw new Error("Failed to fetch admin statistics.");
     }
   });
@@ -205,8 +202,7 @@ export const getReportsChartData = createServerFn({ method: "GET" })
         asOfUtc: asOfUtc.toISOString(),
       };
     } catch (err: unknown) {
-      const error = err instanceof Error ? err : new Error("Unknown error");
-      console.error("Error fetching reports chart data:", error);
+      console.error("Error fetching reports chart data:", err instanceof Error ? err : "Unknown error");
       throw new Error("Failed to fetch reports chart data.");
     }
   });
@@ -263,8 +259,7 @@ export const getReportsTableData = createServerFn({ method: "GET" })
         totalCount: countResult?.count ?? 0,
       };
     } catch (err: unknown) {
-      const error = err instanceof Error ? err : new Error("Unknown error");
-      console.error("Error fetching reports table data:", error);
+      console.error("Error fetching reports table data:", err instanceof Error ? err : "Unknown error");
       throw new Error("Failed to fetch reports.");
     }
   });

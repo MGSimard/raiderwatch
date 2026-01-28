@@ -1,4 +1,5 @@
-import { Button } from "@/_components/ui/button";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
 import {
   DialogContent,
   DialogHeader,
@@ -8,12 +9,10 @@ import {
   DialogFooter,
   DialogBody,
 } from "@/_components/admin/ui/dialog";
-import type { ReportRow } from "@/_lib/types";
-import { REPORT_REASON_LABELS, REPORT_STATUS_META } from "@/_lib/constants";
-import { cn, formatUtcDateTime } from "@/_lib/utils";
-import { Field, FieldLabel, FieldError } from "@/_components/admin/ui/field";
-import { Textarea } from "@/_components/admin/ui/textarea";
 import { Badge } from "@/_components/admin/ui/badge";
+import { Button } from "@/_components/ui/button";
+import { Field, FieldLabel, FieldError } from "@/_components/admin/ui/field";
+import { Input } from "@/_components/admin/ui/input";
 import {
   InputGroup,
   InputGroupInput,
@@ -22,17 +21,15 @@ import {
   InputGroupTextarea,
   InputGroupText,
 } from "@/_components/admin/ui/input-group";
-import { Input } from "@/_components/admin/ui/input";
-import { AspectRatio } from "@/_components/admin/ui/aspect-ratio";
-import { CopySimpleIcon } from "@phosphor-icons/react";
-import { copyToClipboard } from "@/_lib/utils";
-import { Separator } from "@/_components/admin/ui/separator";
+import { Textarea } from "@/_components/admin/ui/textarea";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/_components/admin/ui/select";
-import { useForm } from "@tanstack/react-form";
-import { REPORT_REASON_ENUMS, REPORT_STATUS_ENUMS, ReportReason, ReportStatus } from "@/_lib/enums";
-import { Checkbox } from "@/_components/admin/ui/checkbox";
+import { Separator } from "@/_components/admin/ui/separator";
 import { toast } from "sonner";
-import { z } from "zod";
+import { cn, copyToClipboard, formatUtcDateTime } from "@/_lib/utils";
+import { REPORT_REASON_ENUMS, REPORT_STATUS_ENUMS, ReportReason, ReportStatus } from "@/_lib/enums";
+import { REPORT_REASON_LABELS, REPORT_STATUS_META } from "@/_lib/constants";
+import type { ReportRow } from "@/_lib/types";
+import { CopySimpleIcon } from "@phosphor-icons/react";
 
 const formSchema = z.object({
   reportId: z.number(),
@@ -44,7 +41,6 @@ const formSchema = z.object({
     .trim()
     .min(20, "Description must be at least 20 characters in length")
     .max(300, "Description must be at most 300 characters in length"),
-  agreeGuidelines: z.boolean(),
 });
 
 export function AssessmentDrawer({ report }: { report: ReportRow }) {

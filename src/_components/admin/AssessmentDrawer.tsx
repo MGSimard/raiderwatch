@@ -112,40 +112,43 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
           </Button>
         </div>
         <div>
-          {/* TODO: URL Parsing to morph into embed url */}
-          <AspectRatio ratio={16 / 9}>
+          <div className="grid grid-cols-2 gap-2">
             <iframe
-              className="h-full w-full"
+              className="h-full w-full bg-black"
               src="https://www.youtube.com/embed/If_RqCOtWZ8?si=qfQrkiggPyhgC0Bl"
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen></iframe>
-          </AspectRatio>
-          <InputGroup>
-            <InputGroupInput placeholder={report.videoUrl} readOnly />
-            <InputGroupAddon align="inline-end">
-              <InputGroupButton
-                aria-label="Copy"
-                title="Copy"
-                size="icon-xs"
-                onClick={() => copyToClipboard(report.videoUrl, "Video URL")}>
-                <CopySimpleIcon aria-hidden />
-              </InputGroupButton>
-            </InputGroupAddon>
-          </InputGroup>
+            <div className="flex flex-col justify-between gap-2">
+              <Field data-disabled>
+                <FieldLabel htmlFor="textarea-disabled">Description</FieldLabel>
+                <Textarea
+                  id="textarea-disabled"
+                  placeholder="Type your message here."
+                  disabled
+                  value={report.description}
+                  readOnly
+                />
+              </Field>
+              <InputGroup>
+                <InputGroupInput placeholder={report.videoUrl} readOnly />
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton
+                    aria-label="Copy"
+                    title="Copy"
+                    size="icon-xs"
+                    onClick={() => copyToClipboard(report.videoUrl, "Video URL")}>
+                    <CopySimpleIcon aria-hidden />
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
+            </div>
+          </div>
+          {/* TODO: URL Parsing to morph into embed url */}
         </div>
-        <Field data-disabled>
-          <FieldLabel htmlFor="textarea-disabled">Description</FieldLabel>
-          <Textarea
-            id="textarea-disabled"
-            placeholder="Type your message here."
-            disabled
-            value={report.description}
-            readOnly
-          />
-        </Field>
+
         <Separator />
         <h3>Assessment</h3>
         <form

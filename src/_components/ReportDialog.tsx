@@ -196,7 +196,6 @@ export function ReportDialog({ embarkId, children }: { embarkId: string; childre
   );
 }
 
-// mother of god
 const formSchema = z.object({
   embarkId: z
     .string()

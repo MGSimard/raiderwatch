@@ -4,6 +4,8 @@
 
 ## TASK LIST
 
+- Do a pass on toast messages (Format, if I want periods etc.)
+- htmlFor pass
 - Admin panel
 - Native form validation
 - Server Function return handling for Sonner success & errors

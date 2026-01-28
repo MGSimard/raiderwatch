@@ -11,41 +11,73 @@ import {
 import type { ReportRow } from "@/_lib/types";
 import { REPORT_REASON_LABELS, REPORT_STATUS_META } from "@/_lib/constants";
 import { cn, formatUtcDateTime } from "@/_lib/utils";
-import { Field, FieldLabel } from "@/_components/admin/ui/field";
+import { Field, FieldLabel, FieldError } from "@/_components/admin/ui/field";
 import { Textarea } from "@/_components/admin/ui/textarea";
 import { Badge } from "@/_components/admin/ui/badge";
-import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton } from "@/_components/admin/ui/input-group";
+import {
+  InputGroup,
+  InputGroupInput,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupTextarea,
+  InputGroupText,
+} from "@/_components/admin/ui/input-group";
+import { Input } from "@/_components/admin/ui/input";
 import { AspectRatio } from "@/_components/admin/ui/aspect-ratio";
 import { CopySimpleIcon } from "@phosphor-icons/react";
 import { copyToClipboard } from "@/_lib/utils";
 import { Separator } from "@/_components/admin/ui/separator";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-  SelectGroup,
-  SelectLabel,
-} from "@/_components/admin/ui/select";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/_components/admin/ui/select";
+import { useForm } from "@tanstack/react-form";
+import { REPORT_REASON_ENUMS, REPORT_STATUS_ENUMS, ReportReason, ReportStatus } from "@/_lib/enums";
+import { Checkbox } from "@/_components/admin/ui/checkbox";
+import { toast } from "sonner";
+import { z } from "zod";
+
+const formSchema = z.object({
+  reportId: z.number(),
+  status: z.enum(REPORT_STATUS_ENUMS, "Select a valid report status from the dropdown menu"),
+  reason: z.enum(REPORT_REASON_ENUMS, "Select a valid reason from the dropdown menu"),
+  videoStoragePath: z.url().trim(),
+  reviewerComment: z
+    .string()
+    .trim()
+    .min(20, "Description must be at least 20 characters in length")
+    .max(300, "Description must be at most 300 characters in length"),
+  agreeGuidelines: z.boolean(),
+});
 
 export function AssessmentDrawer({ report }: { report: ReportRow }) {
-  // description: string;
-  // videoUrl: string;
-  // videoStoragePath: string | null;
-  // status: "pending" | "under_review" | "approved" | "rejected";
-  // reviewedAt: Date | null;
-  // reviewedBy: string | null;
-  // reviewerComment: string | null;
-  // createdAt: Date;
-  // updatedAt: Date;
+  const form = useForm({
+    defaultValues: {
+      reportId: report.id,
+      status: report.status,
+      reason: report.reason,
+      videoStoragePath: report.videoStoragePath ?? "",
+      reviewerComment: report.reviewerComment ?? "",
+    },
+    validators: {
+      onSubmit: formSchema,
+    },
+    onSubmit: async ({ value }) => {
+      try {
+        const validated = formSchema.parse(value);
+        console.log(validated);
+        // await updateReport({ data: validated }); TODO
+        toast.success("Report updated successfully.");
+        form.reset();
+      } catch (err) {
+        console.error("Error updating report:", err);
+        toast.error("Failed to update report, view console for more details.");
+      }
+    },
+  });
 
   return (
     <DialogContent className="w-full max-w-lg" showCloseButton={false}>
       <DialogHeader className="flex shrink-0 flex-row justify-between gap-2">
         <div>
           <DialogTitle className="mb-1.5">REPORT ASSESSMENT</DialogTitle>
-          {/* Report status as a badge on the right? */}
           <DialogDescription>Report ID: {report.id}</DialogDescription>
         </div>
         <Badge variant="outline" className="shrink-0">
@@ -115,38 +147,126 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
           />
         </Field>
         <Separator />
-        {/* TODO */}
-        <ul>
-          <li>
-            - Ability to add or modify stored video URL which replaces the youtube video embed in the public report
-            drawer
-          </li>
-          <li>- Add or modify reviewer comment (default value is reviewer comment if exists, otherwise empty)</li>
-          <li>- Ability to modify the report reason if initial is incorrect</li>
-
-          <li>- Ability to change the report status</li>
-          <li>- Report assesment guidelines reminder</li>
-          <li>- Checkbox of confirmation (tie assessment guidelines to this? Similar to a user agreement checkbox)</li>
-          <li>- Save button (come up with a good text)</li>
-        </ul>
-        <Select>
-          <SelectTrigger className="w-full max-w-48">
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent alignItemWithTrigger={false}>
-            <SelectGroup>
-              <SelectLabel>Fruits</SelectLabel>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-              <SelectItem value="blueberry">Blueberry</SelectItem>
-              <SelectItem value="grapes">Grapes</SelectItem>
-              <SelectItem value="pineapple">Pineapple</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <h3>Assessment</h3>
+        <form
+          id="report-assessment-form"
+          className="grid gap-4"
+          onSubmit={(e) => {
+            e.preventDefault();
+            void form.handleSubmit();
+          }}>
+          <form.Field
+            name="reason"
+            children={(field) => {
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>Reason</FieldLabel>
+                  <Select
+                    name={field.name}
+                    value={field.state.value}
+                    onValueChange={(value) => value && field.handleChange(value)}>
+                    <SelectTrigger id={field.name} aria-invalid={isInvalid} className="min-w-[120px]">
+                      <SelectValue>{(value: ReportReason) => REPORT_REASON_LABELS[value as ReportReason]}</SelectValue>
+                    </SelectTrigger>
+                    <SelectContent alignItemWithTrigger={false}>
+                      {REPORT_REASON_ENUMS.map((reason) => (
+                        <SelectItem key={reason} value={reason} className="cursor-pointer">
+                          {REPORT_REASON_LABELS[reason]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </Field>
+              );
+            }}
+          />
+          <form.Field
+            name="videoStoragePath"
+            children={(field) => {
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>Video Storage Path</FieldLabel>
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    aria-invalid={isInvalid}
+                    placeholder="https://example.com/video.mp4"
+                    required
+                  />
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </Field>
+              );
+            }}
+          />
+          <form.Field
+            name="reviewerComment"
+            children={(field) => {
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>Reviewer Comment</FieldLabel>
+                  <InputGroup>
+                    <InputGroupTextarea
+                      id={field.name}
+                      name={field.name}
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      aria-invalid={isInvalid}
+                      rows={6}
+                      className="min-h-24 resize-none wrap-break-word"
+                      placeholder="Enter your comment here..."
+                      required
+                    />
+                    <InputGroupAddon align="block-end">
+                      <InputGroupText className={cn(field.state.value.length > 300 && "text-destructive")}>
+                        {field.state.value.length}/300 characters
+                      </InputGroupText>
+                    </InputGroupAddon>
+                  </InputGroup>
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </Field>
+              );
+            }}
+          />
+          <form.Field
+            name="status"
+            children={(field) => {
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>Status</FieldLabel>
+                  <Select
+                    name={field.name}
+                    value={field.state.value}
+                    onValueChange={(value) => value && field.handleChange(value)}>
+                    <SelectTrigger id={field.name} aria-invalid={isInvalid} className="min-w-[120px]">
+                      <SelectValue>{(value: ReportStatus) => REPORT_STATUS_META[value].label}</SelectValue>
+                    </SelectTrigger>
+                    <SelectContent alignItemWithTrigger={false}>
+                      {REPORT_STATUS_ENUMS.map((status) => (
+                        <SelectItem key={status} value={status} className="cursor-pointer">
+                          {REPORT_STATUS_META[status].label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </Field>
+              );
+            }}
+          />
+        </form>
       </DialogBody>
       <DialogFooter>
         <DialogClose render={<Button variant="outline">Close</Button>} />
+        <Button type="submit" form="report-assessment-form">
+          Save
+        </Button>
       </DialogFooter>
     </DialogContent>
   );

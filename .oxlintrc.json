@@ -39,6 +39,7 @@
     ],
     "constructor-super": "warn",
     "for-direction": "warn",
+    "import/no-duplicates": "warn",
     "no-async-promise-executor": "warn",
     "no-caller": "warn",
     "no-class-assign": "warn",

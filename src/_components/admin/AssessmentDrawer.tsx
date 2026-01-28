@@ -41,7 +41,7 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
   // updatedAt: Date;
 
   return (
-    <DialogContent className="w-full max-w-2xl" showCloseButton={false}>
+    <DialogContent className="w-full max-w-lg" showCloseButton={false}>
       <DialogHeader className="flex shrink-0 flex-row justify-between gap-2">
         <div>
           <DialogTitle className="mb-1.5">REPORT ASSESSMENT</DialogTitle>
@@ -65,8 +65,6 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
               <li>Reason: {REPORT_REASON_LABELS[report.reason]}</li>
               <li>Filed: {formatUtcDateTime(report.createdAt)}</li>
               <li>Last Update: {formatUtcDateTime(report.updatedAt)}</li>
-              <li>-</li>
-              <li>Status: {REPORT_STATUS_META[report.status].label}</li>
               <li>Reviewed At: {report.reviewedAt ? formatUtcDateTime(report.reviewedAt) : "N/A"}</li>
               <li>Reviewed By: {report.reviewedBy ?? "N/A"}</li>
               <li>Reviewer Comment: {report.reviewerComment ?? "N/A"}</li>
@@ -118,32 +116,6 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
         </Field>
         <Separator />
         {/* TODO */}
-        <ul>
-          <li>
-            - Ability to add or modify stored video URL which replaces the youtube video embed in the public report
-            drawer
-          </li>
-          <li>- Add or modify reviewer comment (default value is reviewer comment if exists, otherwise empty)</li>
-          <li>- Ability to modify the report reason if initial is incorrect</li>
-
-          <li>- Ability to change the report status</li>
-          <li>- Report assesment guidelines reminder</li>
-          <li>- Checkbox of confirmation (tie assessment guidelines to this? Similar to a user agreement checkbox)</li>
-          <li>- Save button (come up with a good text)</li>
-        </ul>
-        <ul>
-          <li>
-            - Ability to add or modify stored video URL which replaces the youtube video embed in the public report
-            drawer
-          </li>
-          <li>- Add or modify reviewer comment (default value is reviewer comment if exists, otherwise empty)</li>
-          <li>- Ability to modify the report reason if initial is incorrect</li>
-
-          <li>- Ability to change the report status</li>
-          <li>- Report assesment guidelines reminder</li>
-          <li>- Checkbox of confirmation (tie assessment guidelines to this? Similar to a user agreement checkbox)</li>
-          <li>- Save button (come up with a good text)</li>
-        </ul>
         <ul>
           <li>
             - Ability to add or modify stored video URL which replaces the youtube video embed in the public report

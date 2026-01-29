@@ -95,7 +95,6 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
               <li>Last Update: {formatUtcDateTime(report.updatedAt)}</li>
               <li>Reviewed At: {report.reviewedAt ? formatUtcDateTime(report.reviewedAt) : "N/A"}</li>
               <li>Reviewed By: {report.reviewedBy ?? "N/A"}</li>
-              <li>Reviewer Comment: {report.reviewerComment ?? "N/A"}</li>
             </ul>
           </div>
           <Button

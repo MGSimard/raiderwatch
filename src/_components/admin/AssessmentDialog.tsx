@@ -24,12 +24,14 @@ import {
 import { Textarea } from "@/_components/admin/ui/textarea";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/_components/admin/ui/select";
 import { Separator } from "@/_components/admin/ui/separator";
+import { Spinner } from "@/_components/admin/ui/spinner";
 import { toast } from "sonner";
 import { cn, copyToClipboard, formatUtcDateTime } from "@/_lib/utils";
 import { REPORT_REASON_ENUMS, REPORT_STATUS_ENUMS, ReportReason, ReportStatus } from "@/_lib/enums";
 import { REPORT_REASON_LABELS, REPORT_STATUS_META } from "@/_lib/constants";
 import type { ReportRow } from "@/_lib/types";
 import { CopySimpleIcon } from "@phosphor-icons/react";
+import { updateReport } from "@/_server/serverFunctions";
 
 const formSchema = z.object({
   reportId: z.number(),
@@ -58,11 +60,8 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
     },
     onSubmit: async ({ value }) => {
       try {
-        const validated = formSchema.parse(value);
-        console.log(validated);
-        // await updateReport({ data: validated }); TODO
+        await updateReport({ data: value });
         toast.success("Report updated successfully.");
-        form.reset();
       } catch (err) {
         console.error("Error updating report:", err);
         toast.error("Failed to update report, view console for more details.");
@@ -95,7 +94,7 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
               <li>Filed: {formatUtcDateTime(report.createdAt)}</li>
               <li>Last Update: {formatUtcDateTime(report.updatedAt)}</li>
               <li>Reviewed At: {report.reviewedAt ? formatUtcDateTime(report.reviewedAt) : "N/A"}</li>
-              <li>Reviewed By: {report.reviewedBy ?? "N/A"}</li>
+              <li>Reviewed By: {report.reviewer?.name ?? "N/A"}</li>
             </ul>
           </div>
           <Button
@@ -261,9 +260,20 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
       </DialogBody>
       <DialogFooter>
         <DialogClose render={<Button variant="outline">Close</Button>} />
-        <Button type="submit" form="report-assessment-form">
-          Save
-        </Button>
+        <form.Subscribe
+          selector={(state) => [state.canSubmit, state.isSubmitting]}
+          children={([canSubmit, isSubmitting]) => (
+            <Button
+              type="submit"
+              form="report-assessment-form"
+              disabled={!canSubmit || isSubmitting}
+              aria-busy={isSubmitting}
+              className="grid place-items-center [grid-template-areas:'stack']">
+              <span className={cn("[grid-area:stack]", isSubmitting && "invisible")}>Save</span>
+              <Spinner aria-label="Saving" className={cn("[grid-area:stack]", !isSubmitting && "invisible")} />
+            </Button>
+          )}
+        />
       </DialogFooter>
     </DialogContent>
   );

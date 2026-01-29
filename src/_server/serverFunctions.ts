@@ -1,11 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import { db } from "./db";
-import { reports } from "./db/schema";
+import { reports, users } from "./db/schema";
 import { and, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import { auth } from "@/_auth";
 import { authMiddleware } from "@/_auth/authMiddleware";
 import { searchFilterSchema } from "@/_lib/schemas";
-import { REPORT_REASON_ENUMS } from "@/_lib/enums";
+import { REPORT_REASON_ENUMS, REPORT_STATUS_ENUMS } from "@/_lib/enums";
 import { z } from "zod";
 // import { notFound } from "@tanstack/react-router"; // Available for 404 handling
 
@@ -67,6 +67,7 @@ export const getCurrentUser = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const user = context.session?.user;
     if (!user) return null;
+
     return {
       id: user.id,
       name: user.name,
@@ -82,13 +83,9 @@ export const isAssessor = createServerFn({ method: "GET" })
     const user = context.session?.user;
     if (!user) return false;
     const { success: hasPermission } = await auth.api.userHasPermission({
-      body: {
-        userId: user.id,
-        permissions: {
-          report: ["assess"],
-        },
-      },
+      body: { userId: user.id, permissions: { report: ["assess"] } },
     });
+
     return hasPermission;
   });
 
@@ -99,12 +96,7 @@ export const getUserWithPermissions = createServerFn({ method: "GET" })
     if (!user) return null;
 
     const { success: hasPermission } = await auth.api.userHasPermission({
-      body: {
-        userId: user.id,
-        permissions: {
-          report: ["assess"],
-        },
-      },
+      body: { userId: user.id, permissions: { report: ["assess"] } },
     });
 
     return {
@@ -126,12 +118,7 @@ export const getDashboardOverview = createServerFn({ method: "GET" })
     if (!user) throw new Error("Unauthenticated");
 
     const { success: hasPermission } = await auth.api.userHasPermission({
-      body: {
-        userId: user.id,
-        permissions: {
-          report: ["assess"],
-        },
-      },
+      body: { userId: user.id, permissions: { report: ["assess"] } },
     });
     if (!hasPermission) throw new Error("Unauthorized");
 
@@ -166,12 +153,7 @@ export const getReportsChartData = createServerFn({ method: "GET" })
     if (!user) throw new Error("Unauthenticated");
 
     const { success: hasPermission } = await auth.api.userHasPermission({
-      body: {
-        userId: user.id,
-        permissions: {
-          report: ["assess"],
-        },
-      },
+      body: { userId: user.id, permissions: { report: ["assess"] } },
     });
     if (!hasPermission) throw new Error("Unauthorized");
 
@@ -207,8 +189,6 @@ export const getReportsChartData = createServerFn({ method: "GET" })
     }
   });
 
-// ACCEPT FILTERS
-
 export const getReportsTableData = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
   .inputValidator(searchFilterSchema)
@@ -217,12 +197,7 @@ export const getReportsTableData = createServerFn({ method: "GET" })
     if (!user) throw new Error("Unauthenticated");
 
     const { success: hasPermission } = await auth.api.userHasPermission({
-      body: {
-        userId: user.id,
-        permissions: {
-          report: ["assess"],
-        },
-      },
+      body: { userId: user.id, permissions: { report: ["assess"] } },
     });
     if (!hasPermission) throw new Error("Unauthorized");
 
@@ -242,12 +217,31 @@ export const getReportsTableData = createServerFn({ method: "GET" })
     try {
       const [reportResults, [countResult]] = await Promise.all([
         db
-          .select()
+          .select({
+            id: reports.id,
+            embarkId: reports.embarkId,
+            reason: reports.reason,
+            description: reports.description,
+            videoUrl: reports.videoUrl,
+            videoStoragePath: reports.videoStoragePath,
+            status: reports.status,
+            reviewedAt: reports.reviewedAt,
+            reviewedBy: reports.reviewedBy,
+            reviewerComment: reports.reviewerComment,
+            createdAt: reports.createdAt,
+            updatedAt: reports.updatedAt,
+            reviewer: {
+              id: users.id,
+              name: users.name,
+            },
+          })
           .from(reports)
+          .leftJoin(users, eq(reports.reviewedBy, users.id))
           .where(and(whereClause, statusClause))
+          .orderBy(desc(reports.createdAt))
           .limit(pageSize)
-          .offset((page - 1) * pageSize)
-          .orderBy(desc(reports.createdAt)),
+          .offset((page - 1) * pageSize),
+
         db
           .select({ count: sql<number>`cast(count(*) as int)` })
           .from(reports)
@@ -265,3 +259,39 @@ export const getReportsTableData = createServerFn({ method: "GET" })
   });
 
 // TODO: Consider just removing try/catches and letting original errors bubble up to useQuery
+
+// UPDATE REPORT (Assessment)
+// TODO Match form schema
+const updateReportSchema = z.object({
+  reportId: z.number(),
+  status: z.enum(REPORT_STATUS_ENUMS),
+  reason: z.enum(REPORT_REASON_ENUMS),
+  videoStoragePath: z.string(),
+  reviewerComment: z.string(),
+});
+export const updateReport = createServerFn({ method: "POST" })
+  .middleware([authMiddleware])
+  .inputValidator(updateReportSchema)
+  .handler(async ({ context, data }) => {
+    const user = context.session?.user;
+    if (!user) throw new Error("Unauthenticated");
+    const { success: hasPermission } = await auth.api.userHasPermission({
+      body: { userId: user.id, permissions: { report: ["assess"] } },
+    });
+    if (!hasPermission) throw new Error("Unauthorized");
+
+    const { reportId, status, reason, videoStoragePath, reviewerComment } = data;
+
+    try {
+      const updated = await db
+        .update(reports)
+        .set({ status, reason, videoStoragePath, reviewerComment, reviewedBy: user.id, reviewedAt: new Date() })
+        .where(eq(reports.id, reportId))
+        .returning({ id: reports.id });
+
+      if (updated.length === 0) throw new Error(`Report with ID ${reportId} not found.`);
+    } catch (err: unknown) {
+      console.error("Error updating report:", err instanceof Error ? err : "Unknown error");
+      throw new Error("Failed to update report.");
+    }
+  });

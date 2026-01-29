@@ -143,9 +143,7 @@ export function AssessmentDrawer({ report }: { report: ReportRow }) {
           </div>
           {/* TODO: URL Parsing to morph into embed url */}
         </div>
-
         <Separator />
-        <h3>Assessment</h3>
         <form
           id="report-assessment-form"
           className="grid gap-4"

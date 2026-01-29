@@ -43,7 +43,8 @@ const formSchema = z.object({
     .max(300, "Description must be at most 300 characters in length"),
 });
 
-export function AssessmentDrawer({ report }: { report: ReportRow }) {
+export function AssessmentDialog({ report }: { report: ReportRow }) {
+  // TODO On ok response, use returning or form state to update the badge UI (since we don't close dialog)
   const form = useForm({
     defaultValues: {
       reportId: report.id,

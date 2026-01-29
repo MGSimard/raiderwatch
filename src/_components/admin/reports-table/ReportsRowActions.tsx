@@ -1,8 +1,3 @@
-// ACTIONS:
-// - Review Report
-// - Isolate Raider (Set search query to embarkId)
-// - Copy Report
-// - Copy Embark ID
 import { Button } from "@/_components/admin/ui/button";
 import {
   DropdownMenu,
@@ -10,11 +5,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/_components/admin/ui/dropdown-menu";
-import { CopySimpleIcon, DotsThreeVerticalIcon, GavelIcon, UserFocusIcon } from "@phosphor-icons/react";
-import type { ReportRow, SearchFilters } from "@/_lib/types";
-import { AssessmentDrawer } from "../AssessmentDrawer";
+import { AssessmentDialog } from "@/_components/admin/AssessmentDialog";
 import { Dialog, DialogTrigger } from "@/_components/admin/ui/dialog";
 import { copyToClipboard } from "@/_lib/utils";
+import type { ReportRow, SearchFilters } from "@/_lib/types";
+import { CopySimpleIcon, DotsThreeVerticalIcon, GavelIcon, UserFocusIcon } from "@phosphor-icons/react";
 
 interface ReportsRowActionsProps {
   reportData: ReportRow;
@@ -35,7 +30,7 @@ export function ReportsRowActions({ reportData, setFilters }: ReportsRowActionsP
 
   return (
     <Dialog>
-      <AssessmentDrawer report={reportData} />
+      <AssessmentDialog report={reportData} />
       <DropdownMenu>
         <DropdownMenuTrigger
           render={

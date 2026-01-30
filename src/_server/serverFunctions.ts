@@ -19,7 +19,7 @@ export const getRaiderApprovedReports = createServerFn({ method: "GET" })
     const normalizedEmbarkId = embarkId.toLowerCase();
 
     try {
-      const results = await db
+      return await db
         .select({
           id: reports.id,
           reason: reports.reason,
@@ -30,11 +30,6 @@ export const getRaiderApprovedReports = createServerFn({ method: "GET" })
         .from(reports)
         .where(and(eq(reports.embarkId, normalizedEmbarkId), eq(reports.status, "approved")))
         .orderBy(desc(reports.createdAt));
-
-      return results.map((report) => ({
-        ...report,
-        createdAt: report.createdAt.toISOString(),
-      }));
     } catch (err: unknown) {
       console.error("Error fetching raider reports:", err instanceof Error ? err : "Unknown error");
       throw new Error(`Failed to fetch reports for Embark ID: ${embarkId}`);

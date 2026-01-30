@@ -1,4 +1,5 @@
-import { boolean, index, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, check, index, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
 import { REPORT_REASON_ENUMS, REPORT_STATUS_ENUMS } from "@/_lib/enums";
 
 // Fixed Better Auth's incorrect use of timestamp (Should be timestamptz)
@@ -92,7 +93,7 @@ export const reports = pgTable(
     reason: reportReasonEnum("reason").notNull(),
     description: text("description").notNull(),
     videoUrl: text("video_url").notNull(),
-    videoStoragePath: text("video_storage_path"),
+    canonicalVideoUrl: text("canonical_video_url"),
     status: reportStatusEnum("status").notNull().default("pending"),
     reviewedAt: timestamp("reviewed_at", { withTimezone: true }),
     reviewedBy: text("reviewed_by").references(() => users.id, { onDelete: "set null" }),
@@ -103,5 +104,13 @@ export const reports = pgTable(
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
   },
-  (table) => [index("reports_embark_id_idx").on(table.embarkId), index("reports_status_idx").on(table.status)]
+  (table) => [
+    // Canonical video URL (RaiderWatch Youtube Channel) is required when the report is approved
+    check(
+      "canonical_url_required_when_approved",
+      sql`${table.status} != 'approved' OR ${table.canonicalVideoUrl} IS NOT NULL`
+    ),
+    index("reports_embark_id_idx").on(table.embarkId),
+    index("reports_status_idx").on(table.status),
+  ]
 );

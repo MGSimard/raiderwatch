@@ -23,8 +23,7 @@ export const getRaiderApprovedReports = createServerFn({ method: "GET" })
         .select({
           id: reports.id,
           reason: reports.reason,
-          videoUrl: reports.videoUrl,
-          videoStoragePath: reports.videoStoragePath,
+          canonicalVideoUrl: reports.canonicalVideoUrl,
           createdAt: reports.createdAt,
         })
         .from(reports)
@@ -218,7 +217,7 @@ export const getReportsTableData = createServerFn({ method: "GET" })
             reason: reports.reason,
             description: reports.description,
             videoUrl: reports.videoUrl,
-            videoStoragePath: reports.videoStoragePath,
+            canonicalVideoUrl: reports.canonicalVideoUrl,
             status: reports.status,
             reviewedAt: reports.reviewedAt,
             reviewedBy: reports.reviewedBy,
@@ -261,7 +260,7 @@ const updateReportSchema = z.object({
   reportId: z.number(),
   status: z.enum(REPORT_STATUS_ENUMS),
   reason: z.enum(REPORT_REASON_ENUMS),
-  videoStoragePath: z.string(),
+  canonicalVideoUrl: z.string(),
   reviewerComment: z.string(),
 });
 export const updateReport = createServerFn({ method: "POST" })
@@ -275,12 +274,12 @@ export const updateReport = createServerFn({ method: "POST" })
     });
     if (!hasPermission) throw new Error("Unauthorized");
 
-    const { reportId, status, reason, videoStoragePath, reviewerComment } = data;
+    const { reportId, status, reason, canonicalVideoUrl, reviewerComment } = data;
 
     try {
       const updated = await db
         .update(reports)
-        .set({ status, reason, videoStoragePath, reviewerComment, reviewedBy: user.id, reviewedAt: new Date() })
+        .set({ status, reason, canonicalVideoUrl, reviewerComment, reviewedBy: user.id, reviewedAt: new Date() })
         .where(eq(reports.id, reportId))
         .returning({ id: reports.id });
 

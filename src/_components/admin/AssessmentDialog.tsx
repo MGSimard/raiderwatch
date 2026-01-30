@@ -33,11 +33,12 @@ import type { ReportRow } from "@/_lib/types";
 import { CopySimpleIcon } from "@phosphor-icons/react";
 import { updateReport } from "@/_server/serverFunctions";
 
+// TODO Match with server action schema
 const formSchema = z.object({
   reportId: z.number(),
   status: z.enum(REPORT_STATUS_ENUMS, "Select a valid report status from the dropdown menu"),
   reason: z.enum(REPORT_REASON_ENUMS, "Select a valid reason from the dropdown menu"),
-  videoStoragePath: z.url().trim(),
+  canonicalVideoUrl: z.url().trim(),
   reviewerComment: z
     .string()
     .trim()
@@ -52,7 +53,7 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
       reportId: report.id,
       status: report.status,
       reason: report.reason,
-      videoStoragePath: report.videoStoragePath ?? "",
+      canonicalVideoUrl: report.canonicalVideoUrl ?? "",
       reviewerComment: report.reviewerComment ?? "",
     },
     validators: {
@@ -108,6 +109,7 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
         </div>
         <div>
           <div className="grid grid-cols-2 gap-2">
+            {/* TODO: URL Parsing to morph into embed url, then use videoUrl */}
             <iframe
               className="h-full w-full bg-black"
               src="https://www.youtube.com/embed/If_RqCOtWZ8?si=qfQrkiggPyhgC0Bl"
@@ -141,7 +143,6 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
               </InputGroup>
             </div>
           </div>
-          {/* TODO: URL Parsing to morph into embed url */}
         </div>
         <Separator />
         <form
@@ -178,12 +179,12 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
             }}
           />
           <form.Field
-            name="videoStoragePath"
+            name="canonicalVideoUrl"
             children={(field) => {
               const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>Video Storage Path</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>Canonical Video URL</FieldLabel>
                   <Input
                     id={field.name}
                     name={field.name}
@@ -191,7 +192,7 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
                     aria-invalid={isInvalid}
-                    placeholder="https://example.com/video.mp4"
+                    placeholder="https://www.youtube.com/watch?v=xxx"
                     required
                   />
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}

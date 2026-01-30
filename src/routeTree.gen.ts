@@ -8,263 +8,263 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as DashboardRouteRouteImport } from "./routes/dashboard/route";
-import { Route as publicRouteRouteImport } from "./routes/(public)/route";
-import { Route as DashboardIndexRouteImport } from "./routes/dashboard/index";
-import { Route as publicIndexRouteImport } from "./routes/(public)/index";
-import { Route as DashboardTeamRouteImport } from "./routes/dashboard/team";
-import { Route as DashboardReportsRouteImport } from "./routes/dashboard/reports";
-import { Route as DashboardAuditLogsRouteImport } from "./routes/dashboard/audit-logs";
-import { Route as publicWpAdminRouteImport } from "./routes/(public)/wp-admin";
-import { Route as publicUnauthorizedRouteImport } from "./routes/(public)/unauthorized";
-import { Route as publicAuthRouteImport } from "./routes/(public)/auth";
-import { Route as ApiAuthSplatRouteImport } from "./routes/api/auth/$";
-import { Route as publicREmbarkIdRouteImport } from "./routes/(public)/r.$embarkId";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
+import { Route as publicRouteRouteImport } from './routes/(public)/route'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as publicIndexRouteImport } from './routes/(public)/index'
+import { Route as DashboardTeamRouteImport } from './routes/dashboard/team'
+import { Route as DashboardReportsRouteImport } from './routes/dashboard/reports'
+import { Route as DashboardAuditLogsRouteImport } from './routes/dashboard/audit-logs'
+import { Route as publicWpAdminRouteImport } from './routes/(public)/wp-admin'
+import { Route as publicUnauthorizedRouteImport } from './routes/(public)/unauthorized'
+import { Route as publicAuthRouteImport } from './routes/(public)/auth'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as publicREmbarkIdRouteImport } from './routes/(public)/r.$embarkId'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
-  id: "/dashboard",
-  path: "/dashboard",
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const publicRouteRoute = publicRouteRouteImport.update({
-  id: "/(public)",
+  id: '/(public)',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => DashboardRouteRoute,
-} as any);
+} as any)
 const publicIndexRoute = publicIndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => publicRouteRoute,
-} as any);
+} as any)
 const DashboardTeamRoute = DashboardTeamRouteImport.update({
-  id: "/team",
-  path: "/team",
+  id: '/team',
+  path: '/team',
   getParentRoute: () => DashboardRouteRoute,
-} as any);
+} as any)
 const DashboardReportsRoute = DashboardReportsRouteImport.update({
-  id: "/reports",
-  path: "/reports",
+  id: '/reports',
+  path: '/reports',
   getParentRoute: () => DashboardRouteRoute,
-} as any);
+} as any)
 const DashboardAuditLogsRoute = DashboardAuditLogsRouteImport.update({
-  id: "/audit-logs",
-  path: "/audit-logs",
+  id: '/audit-logs',
+  path: '/audit-logs',
   getParentRoute: () => DashboardRouteRoute,
-} as any);
+} as any)
 const publicWpAdminRoute = publicWpAdminRouteImport.update({
-  id: "/wp-admin",
-  path: "/wp-admin",
+  id: '/wp-admin',
+  path: '/wp-admin',
   getParentRoute: () => publicRouteRoute,
-} as any);
+} as any)
 const publicUnauthorizedRoute = publicUnauthorizedRouteImport.update({
-  id: "/unauthorized",
-  path: "/unauthorized",
+  id: '/unauthorized',
+  path: '/unauthorized',
   getParentRoute: () => publicRouteRoute,
-} as any);
+} as any)
 const publicAuthRoute = publicAuthRouteImport.update({
-  id: "/auth",
-  path: "/auth",
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => publicRouteRoute,
-} as any);
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: "/api/auth/$",
-  path: "/api/auth/$",
+  id: '/api/auth/$',
+  path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const publicREmbarkIdRoute = publicREmbarkIdRouteImport.update({
-  id: "/r/$embarkId",
-  path: "/r/$embarkId",
+  id: '/r/$embarkId',
+  path: '/r/$embarkId',
   getParentRoute: () => publicRouteRoute,
-} as any);
+} as any)
 
 export interface FileRoutesByFullPath {
-  "/dashboard": typeof DashboardRouteRouteWithChildren;
-  "/auth": typeof publicAuthRoute;
-  "/unauthorized": typeof publicUnauthorizedRoute;
-  "/wp-admin": typeof publicWpAdminRoute;
-  "/dashboard/audit-logs": typeof DashboardAuditLogsRoute;
-  "/dashboard/reports": typeof DashboardReportsRoute;
-  "/dashboard/team": typeof DashboardTeamRoute;
-  "/": typeof publicIndexRoute;
-  "/dashboard/": typeof DashboardIndexRoute;
-  "/r/$embarkId": typeof publicREmbarkIdRoute;
-  "/api/auth/$": typeof ApiAuthSplatRoute;
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/auth': typeof publicAuthRoute
+  '/unauthorized': typeof publicUnauthorizedRoute
+  '/wp-admin': typeof publicWpAdminRoute
+  '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
+  '/dashboard/team': typeof DashboardTeamRoute
+  '/': typeof publicIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/r/$embarkId': typeof publicREmbarkIdRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
-  "/auth": typeof publicAuthRoute;
-  "/unauthorized": typeof publicUnauthorizedRoute;
-  "/wp-admin": typeof publicWpAdminRoute;
-  "/dashboard/audit-logs": typeof DashboardAuditLogsRoute;
-  "/dashboard/reports": typeof DashboardReportsRoute;
-  "/dashboard/team": typeof DashboardTeamRoute;
-  "/": typeof publicIndexRoute;
-  "/dashboard": typeof DashboardIndexRoute;
-  "/r/$embarkId": typeof publicREmbarkIdRoute;
-  "/api/auth/$": typeof ApiAuthSplatRoute;
+  '/auth': typeof publicAuthRoute
+  '/unauthorized': typeof publicUnauthorizedRoute
+  '/wp-admin': typeof publicWpAdminRoute
+  '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
+  '/dashboard/team': typeof DashboardTeamRoute
+  '/': typeof publicIndexRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/r/$embarkId': typeof publicREmbarkIdRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/(public)": typeof publicRouteRouteWithChildren;
-  "/dashboard": typeof DashboardRouteRouteWithChildren;
-  "/(public)/auth": typeof publicAuthRoute;
-  "/(public)/unauthorized": typeof publicUnauthorizedRoute;
-  "/(public)/wp-admin": typeof publicWpAdminRoute;
-  "/dashboard/audit-logs": typeof DashboardAuditLogsRoute;
-  "/dashboard/reports": typeof DashboardReportsRoute;
-  "/dashboard/team": typeof DashboardTeamRoute;
-  "/(public)/": typeof publicIndexRoute;
-  "/dashboard/": typeof DashboardIndexRoute;
-  "/(public)/r/$embarkId": typeof publicREmbarkIdRoute;
-  "/api/auth/$": typeof ApiAuthSplatRoute;
+  __root__: typeof rootRouteImport
+  '/(public)': typeof publicRouteRouteWithChildren
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/(public)/auth': typeof publicAuthRoute
+  '/(public)/unauthorized': typeof publicUnauthorizedRoute
+  '/(public)/wp-admin': typeof publicWpAdminRoute
+  '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
+  '/dashboard/reports': typeof DashboardReportsRoute
+  '/dashboard/team': typeof DashboardTeamRoute
+  '/(public)/': typeof publicIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/(public)/r/$embarkId': typeof publicREmbarkIdRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/dashboard"
-    | "/auth"
-    | "/unauthorized"
-    | "/wp-admin"
-    | "/dashboard/audit-logs"
-    | "/dashboard/reports"
-    | "/dashboard/team"
-    | "/"
-    | "/dashboard/"
-    | "/r/$embarkId"
-    | "/api/auth/$";
-  fileRoutesByTo: FileRoutesByTo;
+    | '/dashboard'
+    | '/auth'
+    | '/unauthorized'
+    | '/wp-admin'
+    | '/dashboard/audit-logs'
+    | '/dashboard/reports'
+    | '/dashboard/team'
+    | '/'
+    | '/dashboard/'
+    | '/r/$embarkId'
+    | '/api/auth/$'
+  fileRoutesByTo: FileRoutesByTo
   to:
-    | "/auth"
-    | "/unauthorized"
-    | "/wp-admin"
-    | "/dashboard/audit-logs"
-    | "/dashboard/reports"
-    | "/dashboard/team"
-    | "/"
-    | "/dashboard"
-    | "/r/$embarkId"
-    | "/api/auth/$";
+    | '/auth'
+    | '/unauthorized'
+    | '/wp-admin'
+    | '/dashboard/audit-logs'
+    | '/dashboard/reports'
+    | '/dashboard/team'
+    | '/'
+    | '/dashboard'
+    | '/r/$embarkId'
+    | '/api/auth/$'
   id:
-    | "__root__"
-    | "/(public)"
-    | "/dashboard"
-    | "/(public)/auth"
-    | "/(public)/unauthorized"
-    | "/(public)/wp-admin"
-    | "/dashboard/audit-logs"
-    | "/dashboard/reports"
-    | "/dashboard/team"
-    | "/(public)/"
-    | "/dashboard/"
-    | "/(public)/r/$embarkId"
-    | "/api/auth/$";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/(public)'
+    | '/dashboard'
+    | '/(public)/auth'
+    | '/(public)/unauthorized'
+    | '/(public)/wp-admin'
+    | '/dashboard/audit-logs'
+    | '/dashboard/reports'
+    | '/dashboard/team'
+    | '/(public)/'
+    | '/dashboard/'
+    | '/(public)/r/$embarkId'
+    | '/api/auth/$'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  publicRouteRoute: typeof publicRouteRouteWithChildren;
-  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
-  ApiAuthSplatRoute: typeof ApiAuthSplatRoute;
+  publicRouteRoute: typeof publicRouteRouteWithChildren
+  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/dashboard": {
-      id: "/dashboard";
-      path: "/dashboard";
-      fullPath: "/dashboard";
-      preLoaderRoute: typeof DashboardRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/(public)": {
-      id: "/(public)";
-      path: "";
-      fullPath: "";
-      preLoaderRoute: typeof publicRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/dashboard/": {
-      id: "/dashboard/";
-      path: "/";
-      fullPath: "/dashboard/";
-      preLoaderRoute: typeof DashboardIndexRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
-    };
-    "/(public)/": {
-      id: "/(public)/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof publicIndexRouteImport;
-      parentRoute: typeof publicRouteRoute;
-    };
-    "/dashboard/team": {
-      id: "/dashboard/team";
-      path: "/team";
-      fullPath: "/dashboard/team";
-      preLoaderRoute: typeof DashboardTeamRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
-    };
-    "/dashboard/reports": {
-      id: "/dashboard/reports";
-      path: "/reports";
-      fullPath: "/dashboard/reports";
-      preLoaderRoute: typeof DashboardReportsRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
-    };
-    "/dashboard/audit-logs": {
-      id: "/dashboard/audit-logs";
-      path: "/audit-logs";
-      fullPath: "/dashboard/audit-logs";
-      preLoaderRoute: typeof DashboardAuditLogsRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
-    };
-    "/(public)/wp-admin": {
-      id: "/(public)/wp-admin";
-      path: "/wp-admin";
-      fullPath: "/wp-admin";
-      preLoaderRoute: typeof publicWpAdminRouteImport;
-      parentRoute: typeof publicRouteRoute;
-    };
-    "/(public)/unauthorized": {
-      id: "/(public)/unauthorized";
-      path: "/unauthorized";
-      fullPath: "/unauthorized";
-      preLoaderRoute: typeof publicUnauthorizedRouteImport;
-      parentRoute: typeof publicRouteRoute;
-    };
-    "/(public)/auth": {
-      id: "/(public)/auth";
-      path: "/auth";
-      fullPath: "/auth";
-      preLoaderRoute: typeof publicAuthRouteImport;
-      parentRoute: typeof publicRouteRoute;
-    };
-    "/api/auth/$": {
-      id: "/api/auth/$";
-      path: "/api/auth/$";
-      fullPath: "/api/auth/$";
-      preLoaderRoute: typeof ApiAuthSplatRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/(public)/r/$embarkId": {
-      id: "/(public)/r/$embarkId";
-      path: "/r/$embarkId";
-      fullPath: "/r/$embarkId";
-      preLoaderRoute: typeof publicREmbarkIdRouteImport;
-      parentRoute: typeof publicRouteRoute;
-    };
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(public)': {
+      id: '/(public)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof publicRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/(public)/': {
+      id: '/(public)/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof publicIndexRouteImport
+      parentRoute: typeof publicRouteRoute
+    }
+    '/dashboard/team': {
+      id: '/dashboard/team'
+      path: '/team'
+      fullPath: '/dashboard/team'
+      preLoaderRoute: typeof DashboardTeamRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/reports': {
+      id: '/dashboard/reports'
+      path: '/reports'
+      fullPath: '/dashboard/reports'
+      preLoaderRoute: typeof DashboardReportsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/audit-logs': {
+      id: '/dashboard/audit-logs'
+      path: '/audit-logs'
+      fullPath: '/dashboard/audit-logs'
+      preLoaderRoute: typeof DashboardAuditLogsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/(public)/wp-admin': {
+      id: '/(public)/wp-admin'
+      path: '/wp-admin'
+      fullPath: '/wp-admin'
+      preLoaderRoute: typeof publicWpAdminRouteImport
+      parentRoute: typeof publicRouteRoute
+    }
+    '/(public)/unauthorized': {
+      id: '/(public)/unauthorized'
+      path: '/unauthorized'
+      fullPath: '/unauthorized'
+      preLoaderRoute: typeof publicUnauthorizedRouteImport
+      parentRoute: typeof publicRouteRoute
+    }
+    '/(public)/auth': {
+      id: '/(public)/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof publicAuthRouteImport
+      parentRoute: typeof publicRouteRoute
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(public)/r/$embarkId': {
+      id: '/(public)/r/$embarkId'
+      path: '/r/$embarkId'
+      fullPath: '/r/$embarkId'
+      preLoaderRoute: typeof publicREmbarkIdRouteImport
+      parentRoute: typeof publicRouteRoute
+    }
   }
 }
 
 interface publicRouteRouteChildren {
-  publicAuthRoute: typeof publicAuthRoute;
-  publicUnauthorizedRoute: typeof publicUnauthorizedRoute;
-  publicWpAdminRoute: typeof publicWpAdminRoute;
-  publicIndexRoute: typeof publicIndexRoute;
-  publicREmbarkIdRoute: typeof publicREmbarkIdRoute;
+  publicAuthRoute: typeof publicAuthRoute
+  publicUnauthorizedRoute: typeof publicUnauthorizedRoute
+  publicWpAdminRoute: typeof publicWpAdminRoute
+  publicIndexRoute: typeof publicIndexRoute
+  publicREmbarkIdRoute: typeof publicREmbarkIdRoute
 }
 
 const publicRouteRouteChildren: publicRouteRouteChildren = {
@@ -273,15 +273,17 @@ const publicRouteRouteChildren: publicRouteRouteChildren = {
   publicWpAdminRoute: publicWpAdminRoute,
   publicIndexRoute: publicIndexRoute,
   publicREmbarkIdRoute: publicREmbarkIdRoute,
-};
+}
 
-const publicRouteRouteWithChildren = publicRouteRoute._addFileChildren(publicRouteRouteChildren);
+const publicRouteRouteWithChildren = publicRouteRoute._addFileChildren(
+  publicRouteRouteChildren,
+)
 
 interface DashboardRouteRouteChildren {
-  DashboardAuditLogsRoute: typeof DashboardAuditLogsRoute;
-  DashboardReportsRoute: typeof DashboardReportsRoute;
-  DashboardTeamRoute: typeof DashboardTeamRoute;
-  DashboardIndexRoute: typeof DashboardIndexRoute;
+  DashboardAuditLogsRoute: typeof DashboardAuditLogsRoute
+  DashboardReportsRoute: typeof DashboardReportsRoute
+  DashboardTeamRoute: typeof DashboardTeamRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
@@ -289,22 +291,26 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardReportsRoute: DashboardReportsRoute,
   DashboardTeamRoute: DashboardTeamRoute,
   DashboardIndexRoute: DashboardIndexRoute,
-};
+}
 
-const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(DashboardRouteRouteChildren);
+const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
+  DashboardRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   publicRouteRoute: publicRouteRouteWithChildren,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
-};
-export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>();
+}
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
-import type { getRouter } from "./router.tsx";
-import type { createStart } from "@tanstack/react-start";
-declare module "@tanstack/react-start" {
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true;
-    router: Awaited<ReturnType<typeof getRouter>>;
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }

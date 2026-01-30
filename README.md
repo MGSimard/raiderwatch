@@ -4,6 +4,8 @@
 
 ## TASK LIST
 
+- Replace explikcit drizzle-adapter package once it releases to live
+- URL validation matching for canonical video URL + everywhere else where we limit to youtube-specific patterns
 - Do a pass on toast messages (Format, if I want periods etc.)
 - Maybe not Video Storage Path, could just make a YT channel and run reuploads/edits there
 - htmlFor pass

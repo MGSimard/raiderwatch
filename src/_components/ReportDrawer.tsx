@@ -16,8 +16,6 @@ import { CaretDoubleRightIcon } from "@phosphor-icons/react";
 import type { ApprovedReport } from "@/_lib/types";
 
 export function ReportDrawer({ embarkId, report }: { embarkId: string; report: ApprovedReport }) {
-  const embedUrl = getYouTubeEmbedUrl(report.canonicalVideoUrl);
-
   return (
     <Drawer direction="right">
       <DrawerTrigger asChild>
@@ -58,11 +56,12 @@ export function ReportDrawer({ embarkId, report }: { embarkId: string; report: A
                     </li>
                   </ul>
                 </div>
-                {embedUrl && (
+                {report.canonicalVideoUrl && (
                   <div>
                     <h3 className="mb-2 text-sm font-semibold">Evidence</h3>
+                    {/* TODO: Fallback 16:9 if undefined */}
                     <iframe
-                      src={embedUrl}
+                      src={getYouTubeEmbedUrl(report.canonicalVideoUrl)}
                       title="YouTube video"
                       className="aspect-video w-full rounded-md"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -102,11 +102,10 @@ export function extractYouTubeVideoId(url: string): string | null {
 /**
  * Converts any valid YouTube URL to an embed format
  *
- * @param url - Any YouTube URL format (or null/undefined)
- * @returns Embed URL (https://www.youtube.com/embed/VIDEO_ID) or null if invalid
+ * @param url - Any YouTube URL format
+ * @returns Embed URL (https://www.youtube.com/embed/VIDEO_ID) or undefined if invalid
  */
-export function getYouTubeEmbedUrl(url: string | null | undefined): string | null {
-  if (!url) return null;
+export function getYouTubeEmbedUrl(url: string) {
   const videoId = extractYouTubeVideoId(url);
-  return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+  return videoId ? `https://www.youtube.com/embed/${videoId}` : undefined;
 }

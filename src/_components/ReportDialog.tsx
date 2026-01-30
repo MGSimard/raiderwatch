@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useForm } from "@tanstack/react-form";
 import { Button } from "@/_components/ui/button";
 import {
   Dialog,
@@ -14,15 +16,12 @@ import { Field, FieldError, FieldLabel } from "@/_components/ui/field";
 import { Input } from "@/_components/ui/input";
 import { InputGroup, InputGroupAddon, InputGroupText, InputGroupTextarea } from "@/_components/ui/input-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/_components/ui/select";
+import { toast } from "sonner";
 import { REPORT_REASON_ENUMS } from "@/_lib/enums";
 import { REPORT_REASON_LABELS } from "@/_lib/constants";
-import { cn } from "@/_lib/utils";
 import { fileReport } from "@/_server/serverFunctions";
-import { useForm } from "@tanstack/react-form";
-import { useState } from "react";
-import { toast } from "sonner";
-/* oxlint-disable no-children-prop */
-import { z } from "zod";
+import { fileReportSchema } from "@/_lib/schemas";
+import { cn } from "@/_lib/utils";
 
 export function ReportDialog({ embarkId, children }: { embarkId: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -34,11 +33,11 @@ export function ReportDialog({ embarkId, children }: { embarkId: string; childre
       videoUrl: "",
     },
     validators: {
-      onSubmit: formSchema,
+      onSubmit: fileReportSchema,
     },
     onSubmit: async ({ value }) => {
       try {
-        const validated = formSchema.parse(value); // Needed since we use "" default for reason
+        const validated = fileReportSchema.parse(value); // Needed since we use "" default for reason
         await fileReport({ data: validated });
         toast.success("Report submitted successfully. A curator will review it shortly.");
         form.reset();
@@ -195,45 +194,3 @@ export function ReportDialog({ embarkId, children }: { embarkId: string; childre
     </Dialog>
   );
 }
-
-const formSchema = z.object({
-  embarkId: z
-    .string()
-    .trim()
-    .regex(
-      /^[a-zA-Z0-9\-_.]+#\d{4}$/,
-      "Invalid Embark ID format. Username must only contain letters, numbers, and symbols (- _ .), and 4-digit discriminator. (e.g. username#1234)"
-    ),
-  reason: z.enum(REPORT_REASON_ENUMS, "Select a valid reason from the dropdown menu"),
-  description: z
-    .string()
-    .trim()
-    .min(20, "Description must be at least 20 characters in length")
-    .max(300, "Description must be at most 300 characters in length"),
-  videoUrl: z
-    .url()
-    .trim()
-    .refine(
-      (url) => {
-        try {
-          const urlObj = new URL(url);
-          const hostname = urlObj.hostname.toLowerCase();
-
-          if (hostname === "youtu.be") {
-            // Short link format: youtu.be/VIDEO_ID
-            return urlObj.pathname.length > 1;
-          }
-
-          if (hostname === "youtube.com" || hostname === "www.youtube.com" || hostname === "m.youtube.com") {
-            // Standard format: youtube.com/watch?v=VIDEO_ID
-            return urlObj.searchParams.has("v");
-          }
-
-          return false;
-        } catch {
-          return false;
-        }
-      },
-      { message: "Must be a valid YouTube video URL (youtube.com/watch?v=xxx or youtu.be/xxx)" }
-    ),
-});

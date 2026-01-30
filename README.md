@@ -4,6 +4,11 @@
 
 ## TASK LIST
 
+- Finalize report assesment form
+- If Under Review or Rejected, allow no canonical URL
+- If Accepted, require canonical URL and reviewer comment
+- If denied, require reviewer comment
+
 - Replace explikcit drizzle-adapter package once it releases to live
 - URL validation matching for canonical video URL + everywhere else where we limit to youtube-specific patterns
 - Do a pass on toast messages (Format, if I want periods etc.)

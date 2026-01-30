@@ -4,8 +4,7 @@ import { reports, users } from "./db/schema";
 import { and, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import { auth } from "@/_auth";
 import { authMiddleware } from "@/_auth/authMiddleware";
-import { searchFilterSchema } from "@/_lib/schemas";
-import { REPORT_REASON_ENUMS, REPORT_STATUS_ENUMS } from "@/_lib/enums";
+import { fileReportSchema, searchFilterSchema, updateReportSchema } from "@/_lib/schemas";
 import { z } from "zod";
 // import { notFound } from "@tanstack/react-router"; // Available for 404 handling
 
@@ -36,14 +35,9 @@ export const getRaiderApprovedReports = createServerFn({ method: "GET" })
   });
 
 // TODO: In-depth validation rules + error messages
-const reportSchema = z.object({
-  embarkId: z.string(),
-  reason: z.enum(REPORT_REASON_ENUMS),
-  description: z.string(),
-  videoUrl: z.url(),
-});
+
 export const fileReport = createServerFn({ method: "POST" })
-  .inputValidator(reportSchema)
+  .inputValidator(fileReportSchema)
   .handler(async ({ data }) => {
     const { embarkId, reason, description, videoUrl } = data;
     const normalizedEmbarkId = embarkId.toLowerCase();
@@ -255,14 +249,6 @@ export const getReportsTableData = createServerFn({ method: "GET" })
 // TODO: Consider just removing try/catches and letting original errors bubble up to useQuery
 
 // UPDATE REPORT (Assessment)
-// TODO Match form schema
-const updateReportSchema = z.object({
-  reportId: z.number(),
-  status: z.enum(REPORT_STATUS_ENUMS),
-  reason: z.enum(REPORT_REASON_ENUMS),
-  canonicalVideoUrl: z.string(),
-  reviewerComment: z.string(),
-});
 export const updateReport = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
   .inputValidator(updateReportSchema)

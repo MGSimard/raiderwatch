@@ -32,19 +32,8 @@ import { REPORT_REASON_LABELS, REPORT_STATUS_META } from "@/_lib/constants";
 import type { ReportRow } from "@/_lib/types";
 import { CopySimpleIcon } from "@phosphor-icons/react";
 import { updateReport } from "@/_server/serverFunctions";
-
-// TODO Match with server action schema
-const formSchema = z.object({
-  reportId: z.number(),
-  status: z.enum(REPORT_STATUS_ENUMS, "Select a valid report status from the dropdown menu"),
-  reason: z.enum(REPORT_REASON_ENUMS, "Select a valid reason from the dropdown menu"),
-  canonicalVideoUrl: z.url().trim(),
-  reviewerComment: z
-    .string()
-    .trim()
-    .min(20, "Description must be at least 20 characters in length")
-    .max(300, "Description must be at most 300 characters in length"),
-});
+import { getYouTubeEmbedUrl } from "@/_lib/utils";
+import { updateReportSchema } from "@/_lib/schemas";
 
 export function AssessmentDialog({ report }: { report: ReportRow }) {
   // TODO On ok response, use returning or form state to update the badge UI (since we don't close dialog)
@@ -57,7 +46,7 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
       reviewerComment: report.reviewerComment ?? "",
     },
     validators: {
-      onSubmit: formSchema,
+      onSubmit: updateReportSchema,
     },
     onSubmit: async ({ value }) => {
       try {
@@ -109,10 +98,10 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
         </div>
         <div>
           <div className="grid grid-cols-2 gap-2">
-            {/* TODO: URL Parsing to morph into embed url, then use videoUrl */}
+            {/* TODO: If null (can't really happen, but just in case) show a fallback in 16:9 */}
             <iframe
               className="h-full w-full bg-black"
-              src="https://www.youtube.com/embed/If_RqCOtWZ8?si=qfQrkiggPyhgC0Bl"
+              src={getYouTubeEmbedUrl(report.videoUrl)}
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

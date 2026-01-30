@@ -100,7 +100,7 @@ export function extractYouTubeVideoId(url: string): string | null {
 }
 
 /**
- * Converts any valid YouTube URL toan embed format
+ * Converts any valid YouTube URL to an embed format
  *
  * @param url - Any YouTube URL format (or null/undefined)
  * @returns Embed URL (https://www.youtube.com/embed/VIDEO_ID) or null if invalid

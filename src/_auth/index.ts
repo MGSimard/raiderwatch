@@ -15,7 +15,7 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
-    disableSignUp: false, // TODO: Disable sign-ups later
+    disableSignUp: true,
   },
   session: {
     cookieCache: {

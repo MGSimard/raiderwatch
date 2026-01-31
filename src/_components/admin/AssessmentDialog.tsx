@@ -33,9 +33,10 @@ import { CopySimpleIcon } from "@phosphor-icons/react";
 import { updateReport } from "@/_server/serverFunctions";
 import { getYouTubeEmbedUrl } from "@/_lib/utils";
 import { updateReportSchema } from "@/_lib/schemas";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function AssessmentDialog({ report }: { report: ReportRow }) {
-  // TODO On ok response, use returning or form state to update the badge UI (since we don't close dialog)
+  const queryClient = useQueryClient();
   const form = useForm({
     defaultValues: {
       reportId: report.id,
@@ -50,6 +51,10 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
     onSubmit: async ({ value }) => {
       try {
         await updateReport({ data: value });
+        void queryClient.invalidateQueries({ queryKey: ["reportsTable"] });
+        void queryClient.invalidateQueries({ queryKey: ["dashboardOverview"] });
+        void queryClient.invalidateQueries({ queryKey: ["reportsChartData"] });
+        void queryClient.invalidateQueries({ queryKey: ["raidersChartData"] });
         toast.success("Report updated successfully.");
       } catch (err) {
         console.error("Error updating report:", err);

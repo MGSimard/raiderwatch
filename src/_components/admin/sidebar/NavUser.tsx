@@ -1,5 +1,6 @@
 import { CaretRightIcon, SignOutIcon, UserIcon } from "@phosphor-icons/react";
-import { useNavigate, useRouteContext } from "@tanstack/react-router";
+import { useNavigate, useRouter, useRouteContext } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/_components/admin/ui/sidebar";
 import {
   DropdownMenu,
@@ -17,12 +18,15 @@ export function NavUser() {
   const { setOpenMobile } = useSidebar();
   const { user } = useRouteContext({ from: "/dashboard" });
   const navigate = useNavigate();
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const handleSignOut = async () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          // TODO router invalidation, clear query cache, etc
+          queryClient.clear();
+          router.invalidate();
           setOpenMobile(false);
           void navigate({ to: "/auth" });
         },

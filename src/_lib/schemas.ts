@@ -9,7 +9,6 @@ export const searchFilterSchema = z.object({
   pageSize: z.number(),
 });
 
-// TODO: Normalize if I use periods or not, also schemas as in client and server, so use a neutral language instead of UI-based (Like dropdown, etc)
 export const fileReportSchema = z.object({
   embarkId: z
     .string()
@@ -18,12 +17,12 @@ export const fileReportSchema = z.object({
       /^[a-zA-Z0-9\-_.]+#\d{4}$/,
       "Invalid Embark ID format. Username must only contain letters, numbers, and symbols (- _ .), and 4-digit discriminator. (e.g. username#1234)."
     ),
-  reason: z.enum(REPORT_REASON_ENUMS, "Invalid report reason."),
+  reason: z.enum(REPORT_REASON_ENUMS, "Must be a valid report reason."),
   description: z
     .string()
     .trim()
-    .min(20, "Description must be at least 20 characters in length.")
-    .max(300, "Description must be at most 300 characters in length."),
+    .min(20, "Description must be at least 20 characters.")
+    .max(300, "Description cannot exceed 300 characters."),
   videoUrl: z.url().refine(extractYouTubeVideoId, {
     message: "Must be a valid YouTube URL.",
   }),
@@ -33,12 +32,12 @@ export const fileReportSchema = z.object({
 const optionalString = <T extends z.ZodTypeAny>(schema: T) => z.union([z.literal(""), schema]);
 const baseFields = z.object({
   reportId: z.number(),
-  reason: z.enum(REPORT_REASON_ENUMS, "Select a valid reason from the dropdown menu"),
+  reason: z.enum(REPORT_REASON_ENUMS, "Must be a valid report reason."),
 });
 const canonicalVideoUrl = z.url().refine(extractYouTubeVideoId, {
-  message: "Must be a valid YouTube URL",
+  message: "Must be a valid YouTube URL.",
 });
-const reviewerComment = z.string().trim().max(300, "Review comment must be at most 300 characters in length");
+const reviewerComment = z.string().trim().max(300, "Review notes cannot exceed 300 characters.");
 export const updateReportSchema = z.discriminatedUnion("status", [
   z.object({
     ...baseFields.shape,
@@ -56,13 +55,14 @@ export const updateReportSchema = z.discriminatedUnion("status", [
     ...baseFields.shape,
     status: z.literal("approved"),
     canonicalVideoUrl,
-    reviewerComment: reviewerComment.min(20, "Reviewer comment must be at least 20 characters"),
+    reviewerComment: reviewerComment.min(20, "Review notes must be at least 20 characters."),
   }),
   z.object({
     ...baseFields.shape,
     status: z.literal("rejected"),
     canonicalVideoUrl: optionalString(canonicalVideoUrl),
-    reviewerComment: reviewerComment.min(20, "Reviewer comment must be at least 20 characters"),
+    reviewerComment: reviewerComment.min(20, "Review notes must be at least 20 characters."),
   }),
 ]);
 export type UpdateReportInput = z.infer<typeof updateReportSchema>;
+/**/

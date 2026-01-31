@@ -177,6 +177,49 @@ export const getReportsChartData = createServerFn({ method: "GET" })
     }
   });
 
+export const getRaidersChartData = createServerFn({ method: "GET" })
+  .middleware([authMiddleware])
+  .handler(async ({ context }) => {
+    const user = context.session?.user;
+    if (!user) throw new Error("Unauthenticated");
+
+    const { success: hasPermission } = await auth.api.userHasPermission({
+      body: { userId: user.id, permissions: { report: ["assess"] } },
+    });
+    if (!hasPermission) throw new Error("Unauthorized");
+
+    try {
+      const asOfUtc = new Date();
+      asOfUtc.setUTCHours(0, 0, 0, 0);
+
+      const ninetyDaysAgo = new Date(asOfUtc);
+      ninetyDaysAgo.setUTCDate(ninetyDaysAgo.getUTCDate() - 90);
+
+      const [[totals], daily] = await Promise.all([
+        db.select({ totalRaiders: sql<number>`cast(count(distinct ${reports.embarkId}) as int)` }).from(reports), // Alternative: totalRaiders: sql<number>`(select cast(count(distinct ${reports.embarkId}) as int) from ${reports})`,
+
+        db
+          .select({
+            date: sql<string>`to_char(${reports.createdAt} AT TIME ZONE 'UTC', 'YYYY-MM-DD')`,
+            raiders: sql<number>`cast(count(distinct ${reports.embarkId}) as int)`,
+          })
+          .from(reports)
+          .where(gte(reports.createdAt, ninetyDaysAgo))
+          .groupBy(sql`to_char(${reports.createdAt} AT TIME ZONE 'UTC', 'YYYY-MM-DD')`)
+          .orderBy(sql`to_char(${reports.createdAt} AT TIME ZONE 'UTC', 'YYYY-MM-DD')`),
+      ]);
+
+      return {
+        totalRaiders: totals?.totalRaiders ?? 0,
+        daily,
+        asOfUtc: asOfUtc.toISOString(),
+      };
+    } catch (err: unknown) {
+      console.error("Error fetching raiders chart data:", err instanceof Error ? err : "Unknown error");
+      throw new Error("Failed to fetch raiders chart data.");
+    }
+  });
+
 export const getReportsTableData = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
   .inputValidator(searchFilterSchema)

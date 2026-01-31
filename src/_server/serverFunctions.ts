@@ -116,14 +116,14 @@ export const getDashboardOverview = createServerFn({ method: "GET" })
 
       const [result] = await db
         .select({
-          totalRaiders: sql<number>`(select cast(count(distinct ${reports.embarkId}) as int) from ${reports})`,
           approved: sql<number>`cast(count(case when ${reports.status} = 'approved' then 1 end) as int)`,
           rejected: sql<number>`cast(count(case when ${reports.status} = 'rejected' then 1 end) as int)`,
           pending: sql<number>`cast(count(case when ${reports.status} = 'pending' then 1 end) as int)`,
-          weeklyRaiders: sql<number>`(select cast(count(*) as int) from (select ${reports.embarkId} from ${reports} group by ${reports.embarkId} having min(${reports.createdAt}) >= ${weekStartUtc} and min(${reports.createdAt}) < ${weekEndUtc}) as weekly_raiders)`,
+          underReview: sql<number>`cast(count(case when ${reports.status} = 'under_review' then 1 end) as int)`,
           weeklyApproved: sql<number>`cast(count(case when ${reports.status} = 'approved' and ${reports.reviewedAt} >= ${weekStartUtc} and ${reports.reviewedAt} < ${weekEndUtc} then 1 end) as int)`,
           weeklyRejected: sql<number>`cast(count(case when ${reports.status} = 'rejected' and ${reports.reviewedAt} >= ${weekStartUtc} and ${reports.reviewedAt} < ${weekEndUtc} then 1 end) as int)`,
           weeklyPending: sql<number>`cast(count(case when ${reports.status} = 'pending' and ${reports.createdAt} >= ${weekStartUtc} and ${reports.createdAt} < ${weekEndUtc} then 1 end) as int)`,
+          weeklyUnderReview: sql<number>`cast(count(case when ${reports.status} = 'under_review' and ${reports.createdAt} >= ${weekStartUtc} and ${reports.createdAt} < ${weekEndUtc} then 1 end) as int)`,
         })
         .from(reports);
 

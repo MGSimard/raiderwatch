@@ -8,57 +8,57 @@ export function StatCards() {
     queryKey: ["dashboardOverview"],
     queryFn: () => getDashboardOverview(),
   });
-  const { totalRaiders, approved, rejected, pending, weeklyRaiders, weeklyApproved, weeklyRejected, weeklyPending } =
+  const { approved, rejected, pending, underReview, weeklyApproved, weeklyRejected, weeklyPending, weeklyUnderReview } =
     data ?? {};
 
   return (
     <div className="grid grid-cols-1 gap-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs md:gap-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4 dark:*:data-[slot=card]:bg-card">
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Tracked Raiders</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            {totalRaiders ?? "-"}
-          </CardTitle>
+          <CardDescription>Pending</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">{pending ?? "-"}</CardTitle>
           <CardAction>
             <Badge variant="outline" className="text-muted-foreground">
-              {weeklyRaiders ? `${String(weeklyRaiders)} this week` : "-"}
+              {weeklyPending ? `${String(weeklyPending)} this week` : "None this week"}
             </Badge>
           </CardAction>
         </CardHeader>
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Approved Reports</CardDescription>
+          <CardDescription>Under Review</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {underReview ?? "-"}
+          </CardTitle>
+          <CardAction>
+            <Badge variant="outline" className="text-muted-foreground">
+              {weeklyUnderReview ? `${String(weeklyUnderReview)} this week` : "None this week"}
+            </Badge>
+          </CardAction>
+        </CardHeader>
+      </Card>
+      <Card className="@container/card">
+        <CardHeader>
+          <CardDescription>Approved</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {approved ?? "-"}
           </CardTitle>
           <CardAction>
             <Badge variant="outline" className="text-muted-foreground">
-              {weeklyApproved ? `${String(weeklyApproved)} this week` : "-"}
+              {weeklyApproved ? `${String(weeklyApproved)} this week` : "None this week"}
             </Badge>
           </CardAction>
         </CardHeader>
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Denied Reports</CardDescription>
+          <CardDescription>Denied</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {rejected ?? "-"}
           </CardTitle>
           <CardAction>
             <Badge variant="outline" className="text-muted-foreground">
-              {weeklyRejected ? `${String(weeklyRejected)} this week` : "-"}
-            </Badge>
-          </CardAction>
-        </CardHeader>
-      </Card>
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>Pending Reports</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">{pending ?? "-"}</CardTitle>
-          <CardAction>
-            <Badge variant="outline" className="text-muted-foreground">
-              {weeklyPending ? `${String(weeklyPending)} this week` : "-"}
+              {weeklyRejected ? `${String(weeklyRejected)} this week` : "None this week"}
             </Badge>
           </CardAction>
         </CardHeader>

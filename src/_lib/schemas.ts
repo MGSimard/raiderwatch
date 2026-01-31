@@ -29,16 +29,40 @@ export const fileReportSchema = z.object({
   }),
 });
 
-export const updateReportSchema = z.object({
+// UPDATE REPORT (ASSESSMENT)
+const optionalString = <T extends z.ZodTypeAny>(schema: T) => z.union([z.literal(""), schema]);
+const baseFields = z.object({
   reportId: z.number(),
-  status: z.enum(REPORT_STATUS_ENUMS, "Select a valid report status from the dropdown menu"),
   reason: z.enum(REPORT_REASON_ENUMS, "Select a valid reason from the dropdown menu"),
-  canonicalVideoUrl: z.url("Must be a valid URL").refine(extractYouTubeVideoId, {
-    message: "Must be a valid YouTube URL",
-  }),
-  reviewerComment: z
-    .string()
-    .trim()
-    .min(20, "Description must be at least 20 characters in length")
-    .max(300, "Description must be at most 300 characters in length"),
 });
+const canonicalVideoUrl = z.url("Must be a valid URL").refine(extractYouTubeVideoId, {
+  message: "Must be a valid YouTube URL",
+});
+const reviewerComment = z.string().trim().max(300, "Review comment must be at most 300 characters in length");
+export const updateReportSchema = z.discriminatedUnion("status", [
+  z.object({
+    ...baseFields.shape,
+    status: z.literal("pending"),
+    canonicalVideoUrl: optionalString(canonicalVideoUrl),
+    reviewerComment,
+  }),
+  z.object({
+    ...baseFields.shape,
+    status: z.literal("under_review"),
+    canonicalVideoUrl: optionalString(canonicalVideoUrl),
+    reviewerComment,
+  }),
+  z.object({
+    ...baseFields.shape,
+    status: z.literal("approved"),
+    canonicalVideoUrl,
+    reviewerComment: reviewerComment.min(20, "Reviewer comment must be at least 20 characters"),
+  }),
+  z.object({
+    ...baseFields.shape,
+    status: z.literal("rejected"),
+    canonicalVideoUrl: optionalString(canonicalVideoUrl),
+    reviewerComment: reviewerComment.min(20, "Reviewer comment must be at least 20 characters"),
+  }),
+]);
+export type UpdateReportInput = z.infer<typeof updateReportSchema>;

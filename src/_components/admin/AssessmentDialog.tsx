@@ -140,6 +140,32 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
             void form.handleSubmit();
           }}>
           <form.Field
+            name="status"
+            children={(field) => {
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>Status</FieldLabel>
+                  <Select
+                    name={field.name}
+                    value={field.state.value}
+                    onValueChange={(value) => value && field.handleChange(value)}>
+                    <SelectTrigger id={field.name} aria-invalid={isInvalid} className="min-w-[120px]">
+                      <SelectValue>{(value: ReportStatus) => REPORT_STATUS_META[value].label}</SelectValue>
+                    </SelectTrigger>
+                    <SelectContent alignItemWithTrigger={false}>
+                      {REPORT_STATUS_ENUMS.map((status) => (
+                        <SelectItem key={status} value={status} className="cursor-pointer">
+                          {REPORT_STATUS_META[status].label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </Field>
+              );
+            }}
+          />
+          <form.Field
             name="reason"
             children={(field) => {
               const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
@@ -180,7 +206,6 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
                     onChange={(e) => field.handleChange(e.target.value)}
                     aria-invalid={isInvalid}
                     placeholder="https://www.youtube.com/watch?v=xxx"
-                    required
                   />
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </Field>
@@ -205,7 +230,6 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
                       rows={6}
                       className="min-h-24 resize-none wrap-break-word"
                       placeholder="Enter your comment here..."
-                      required
                     />
                     <InputGroupAddon align="block-end">
                       <InputGroupText className={cn(field.state.value.length > 300 && "text-destructive")}>
@@ -214,32 +238,6 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
                     </InputGroupAddon>
                   </InputGroup>
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                </Field>
-              );
-            }}
-          />
-          <form.Field
-            name="status"
-            children={(field) => {
-              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-              return (
-                <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>Status</FieldLabel>
-                  <Select
-                    name={field.name}
-                    value={field.state.value}
-                    onValueChange={(value) => value && field.handleChange(value)}>
-                    <SelectTrigger id={field.name} aria-invalid={isInvalid} className="min-w-[120px]">
-                      <SelectValue>{(value: ReportStatus) => REPORT_STATUS_META[value].label}</SelectValue>
-                    </SelectTrigger>
-                    <SelectContent alignItemWithTrigger={false}>
-                      {REPORT_STATUS_ENUMS.map((status) => (
-                        <SelectItem key={status} value={status} className="cursor-pointer">
-                          {REPORT_STATUS_META[status].label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
                 </Field>
               );
             }}

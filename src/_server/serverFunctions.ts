@@ -265,7 +265,14 @@ export const updateReport = createServerFn({ method: "POST" })
     try {
       const updated = await db
         .update(reports)
-        .set({ status, reason, canonicalVideoUrl, reviewerComment, reviewedBy: user.id, reviewedAt: new Date() })
+        .set({
+          status,
+          reason,
+          canonicalVideoUrl: canonicalVideoUrl || null, // Catch empty strings with || and submit as null
+          reviewerComment: reviewerComment || null, // Catch empty strings with || and submit as null
+          reviewedBy: user.id,
+          reviewedAt: new Date(),
+        })
         .where(eq(reports.id, reportId))
         .returning({ id: reports.id });
 

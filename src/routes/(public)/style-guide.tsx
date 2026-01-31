@@ -18,5 +18,30 @@ const ARC_YELLOW = "#ffea00";
 const ARC_RED = "#ff0000";
 
 function RouteComponent() {
-  return <div>Hello "/(public)/style-guide"!</div>;
+  return (
+    <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col p-8">
+      <h1>ARC Raiders Style Guide</h1>
+      <section>
+        <h2>Colors - Duo Tone UI</h2>
+        <div className="grid h-16 w-48 place-items-center bg-[#ece2d0] px-2 py-1 text-[#130918]">
+          <div>Background: {BG_LIGHTMODE}</div>
+          <div>Text: {TEXT_LIGHTMODE}</div>
+        </div>
+        <div className="grid h-16 w-48 place-items-center bg-[#130918] px-2 py-1 text-[#ece2d0]">
+          <div>Background: {BG_DARKMODE}</div>
+          <div>Text: {TEXT_DARKMODE}</div>
+        </div>
+      </section>
+      <section>
+        <h2>Typography</h2>
+        <ul>
+          <li>Logo: ITC Avant Garde or TeX Gyre Adventor</li>
+          <li>Nav/Tabs & Headings: Urbanist</li>
+          <li>Titles: Prompt</li>
+          <li>Core Font: Barlow</li>
+          <li>HUD (Compass, Timer): JetBrains Mono</li>
+        </ul>
+      </section>
+    </main>
+  );
 }

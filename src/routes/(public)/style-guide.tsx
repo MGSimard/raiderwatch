@@ -23,13 +23,30 @@ function RouteComponent() {
       <h1>ARC Raiders Style Guide</h1>
       <section>
         <h2>Colors - Duo Tone UI</h2>
-        <div className="grid h-16 w-48 place-items-center bg-[#ece2d0] px-2 py-1 text-[#130918]">
-          <div>Background: {BG_LIGHTMODE}</div>
-          <div>Text: {TEXT_LIGHTMODE}</div>
-        </div>
-        <div className="grid h-16 w-48 place-items-center bg-[#130918] px-2 py-1 text-[#ece2d0]">
-          <div>Background: {BG_DARKMODE}</div>
-          <div>Text: {TEXT_DARKMODE}</div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="grid h-16 place-items-center bg-[#ece2d0] px-2 py-1 text-[#130918]">
+            <div>Background: {BG_LIGHTMODE}</div>
+            <div>Text: {TEXT_LIGHTMODE}</div>
+          </div>
+          <div className="grid h-16 place-items-center bg-[#130918] px-2 py-1 text-[#ece2d0]">
+            <div>Background: {BG_DARKMODE}</div>
+            <div>Text: {TEXT_DARKMODE}</div>
+          </div>
+          <div className="col-span-2 grid h-16 place-items-center bg-[#f1aa1c] px-2 py-1 text-[#130918]">
+            <div>Primary Button: {BUTTON_PRIMARY}</div>
+          </div>
+          <div className="grid h-16 place-items-center bg-[#5fffff] px-2 py-1 text-[#130918]">
+            <div>ARC Blue: {ARC_BLUE}</div>
+          </div>
+          <div className="grid h-16 place-items-center bg-[#05ff74] px-2 py-1 text-[#130918]">
+            <div>ARC Green: {ARC_GREEN}</div>
+          </div>
+          <div className="grid h-16 place-items-center bg-[#ffea00] px-2 py-1 text-[#130918]">
+            <div>ARC Yellow: {ARC_YELLOW}</div>
+          </div>
+          <div className="grid h-16 place-items-center bg-[#ff0000] px-2 py-1 text-[#130918]">
+            <div>ARC Red: {ARC_RED}</div>
+          </div>
         </div>
       </section>
       <section>

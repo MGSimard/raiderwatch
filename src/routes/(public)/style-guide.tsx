@@ -12,6 +12,9 @@ const TEXT_DARKMODE = "#ece2d0";
 
 const BUTTON_PRIMARY = "#f1aa1c";
 
+// Need to find whatever color base they use for dark blue card backgrounds w/ transparency in the game
+// MIGHT BE: #090c19 which seems to be a blue-shifted version of #130918 (The dark purple site BG color)
+
 const ARC_BLUE = "#5fffff";
 const ARC_GREEN = "#05ff74";
 const ARC_YELLOW = "#ffea00";

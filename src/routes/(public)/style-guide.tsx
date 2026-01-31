@@ -59,6 +59,15 @@ function RouteComponent() {
           <li>HUD (Compass, Timer): JetBrains Mono</li>
         </ul>
       </section>
+      <section>
+        <h2>Interface Elements</h2>
+        <button
+          type="button"
+          className="ring-btn rounded-full bg-[#f1aa1c] px-3.5 py-2 font-medium text-[#130918] uppercase">
+          PRIMARY BUTTON
+        </button>
+        <button type="button">Secondary Button</button>
+      </section>
     </main>
   );
 }

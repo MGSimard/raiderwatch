@@ -325,6 +325,53 @@
       animation: none;
     }
   }
+  .ring-btn {
+    position: relative;
+    &:hover:before {
+      opacity: 1;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      inset: -4px; /* Gap between button and ring */
+      z-index: -1;
+      border-radius: inherit;
+      padding: 2px; /* Ring thickness */
+      pointer-events: none;
+      background: linear-gradient(
+        170deg,
+        #ffffff00 0%,
+        #ffffff 15%,
+        #00fff3 20%,
+        #800080 25%,
+        #ffffff00 35%,
+        #ffffff00 40%,
+        #ffffff 55%,
+        #00fff3 60%,
+        #800080 65%,
+        #ffffff00 75%,
+        #ffffff00 80%,
+        #ffffff 95%,
+        #00fff3 100%
+      );
+      background-size: 300% 300%;
+      background-repeat: no-repeat;
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0;
+      animation: ring-shimmer 4s linear infinite;
+    }
+  }
+  @keyframes ring-shimmer {
+    0% {
+      background-position: 15% 15%;
+    }
+    100% {
+      background-position: 75% 75%;
+    }
+  }
 }
 
 /* * {

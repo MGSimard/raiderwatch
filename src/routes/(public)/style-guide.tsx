@@ -67,6 +67,7 @@ function RouteComponent() {
           PRIMARY BUTTON
         </button>
         <button type="button">Secondary Button</button>
+        {/* NOTES: Secondary Button is full opacity of light background, semi-transparent if dark background (opaque on hover) */}
       </section>
     </main>
   );

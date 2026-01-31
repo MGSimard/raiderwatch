@@ -34,8 +34,6 @@ export const getRaiderApprovedReports = createServerFn({ method: "GET" })
     }
   });
 
-// TODO: In-depth validation rules + error messages
-
 export const fileReport = createServerFn({ method: "POST" })
   .inputValidator(fileReportSchema)
   .handler(async ({ data }) => {
@@ -102,15 +100,15 @@ export const getUserWithPermissions = createServerFn({ method: "GET" })
 export const getDashboardOverview = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
   .handler(async ({ context }) => {
-    const user = context.session?.user;
-    if (!user) throw new Error("Unauthenticated");
-
-    const { success: hasPermission } = await auth.api.userHasPermission({
-      body: { userId: user.id, permissions: { report: ["assess"] } },
-    });
-    if (!hasPermission) throw new Error("Unauthorized");
-
     try {
+      const user = context.session?.user;
+      if (!user) throw new Error("Unauthenticated");
+
+      const { success: hasPermission } = await auth.api.userHasPermission({
+        body: { userId: user.id, permissions: { report: ["assess"] } },
+      });
+      if (!hasPermission) throw new Error("Unauthorized");
+
       const weekStartUtc = sql.raw("date_trunc('week', now() at time zone 'utc')");
       const weekEndUtc = sql.raw("(date_trunc('week', now() at time zone 'utc') + interval '7 days')");
 
@@ -137,15 +135,15 @@ export const getDashboardOverview = createServerFn({ method: "GET" })
 export const getReportsChartData = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
   .handler(async ({ context }) => {
-    const user = context.session?.user;
-    if (!user) throw new Error("Unauthenticated");
-
-    const { success: hasPermission } = await auth.api.userHasPermission({
-      body: { userId: user.id, permissions: { report: ["assess"] } },
-    });
-    if (!hasPermission) throw new Error("Unauthorized");
-
     try {
+      const user = context.session?.user;
+      if (!user) throw new Error("Unauthenticated");
+
+      const { success: hasPermission } = await auth.api.userHasPermission({
+        body: { userId: user.id, permissions: { report: ["assess"] } },
+      });
+      if (!hasPermission) throw new Error("Unauthorized");
+
       const asOfUtc = new Date();
       asOfUtc.setUTCHours(0, 0, 0, 0);
 
@@ -180,15 +178,15 @@ export const getReportsChartData = createServerFn({ method: "GET" })
 export const getRaidersChartData = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
   .handler(async ({ context }) => {
-    const user = context.session?.user;
-    if (!user) throw new Error("Unauthenticated");
-
-    const { success: hasPermission } = await auth.api.userHasPermission({
-      body: { userId: user.id, permissions: { report: ["assess"] } },
-    });
-    if (!hasPermission) throw new Error("Unauthorized");
-
     try {
+      const user = context.session?.user;
+      if (!user) throw new Error("Unauthenticated");
+
+      const { success: hasPermission } = await auth.api.userHasPermission({
+        body: { userId: user.id, permissions: { report: ["assess"] } },
+      });
+      if (!hasPermission) throw new Error("Unauthorized");
+
       const asOfUtc = new Date();
       asOfUtc.setUTCHours(0, 0, 0, 0);
 
@@ -224,28 +222,28 @@ export const getReportsTableData = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
   .inputValidator(searchFilterSchema)
   .handler(async ({ context, data }) => {
-    const user = context.session?.user;
-    if (!user) throw new Error("Unauthenticated");
-
-    const { success: hasPermission } = await auth.api.userHasPermission({
-      body: { userId: user.id, permissions: { report: ["assess"] } },
-    });
-    if (!hasPermission) throw new Error("Unauthorized");
-
-    const { searchQuery, statuses, page, pageSize } = data;
-    const trimmed = searchQuery.trim();
-
-    const whereClause = !trimmed
-      ? undefined
-      : trimmed.includes("#")
-        ? eq(reports.embarkId, trimmed)
-        : /^\d+$/.test(trimmed)
-          ? eq(reports.id, Number(trimmed))
-          : eq(reports.embarkId, trimmed);
-
-    const statusClause = statuses.length > 0 ? inArray(reports.status, statuses) : undefined;
-
     try {
+      const user = context.session?.user;
+      if (!user) throw new Error("Unauthenticated");
+
+      const { success: hasPermission } = await auth.api.userHasPermission({
+        body: { userId: user.id, permissions: { report: ["assess"] } },
+      });
+      if (!hasPermission) throw new Error("Unauthorized");
+
+      const { searchQuery, statuses, page, pageSize } = data;
+      const trimmed = searchQuery.trim();
+
+      const whereClause = !trimmed
+        ? undefined
+        : trimmed.includes("#")
+          ? eq(reports.embarkId, trimmed)
+          : /^\d+$/.test(trimmed)
+            ? eq(reports.id, Number(trimmed))
+            : eq(reports.embarkId, trimmed);
+
+      const statusClause = statuses.length > 0 ? inArray(reports.status, statuses) : undefined;
+
       const [reportResults, [countResult]] = await Promise.all([
         db
           .select({
@@ -289,23 +287,21 @@ export const getReportsTableData = createServerFn({ method: "GET" })
     }
   });
 
-// TODO: Consider just removing try/catches and letting original errors bubble up to useQuery
-
 // UPDATE REPORT (Assessment)
 export const updateReport = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
   .inputValidator(updateReportSchema)
   .handler(async ({ context, data }) => {
-    const user = context.session?.user;
-    if (!user) throw new Error("Unauthenticated");
-    const { success: hasPermission } = await auth.api.userHasPermission({
-      body: { userId: user.id, permissions: { report: ["assess"] } },
-    });
-    if (!hasPermission) throw new Error("Unauthorized");
-
-    const { reportId, status, reason, canonicalVideoUrl, reviewerComment } = data;
-
     try {
+      const user = context.session?.user;
+      if (!user) throw new Error("Unauthenticated");
+      const { success: hasPermission } = await auth.api.userHasPermission({
+        body: { userId: user.id, permissions: { report: ["assess"] } },
+      });
+      if (!hasPermission) throw new Error("Unauthorized");
+
+      const { reportId, status, reason, canonicalVideoUrl, reviewerComment } = data;
+
       const updated = await db
         .update(reports)
         .set({

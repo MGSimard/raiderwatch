@@ -97,7 +97,6 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
         </div>
         <div>
           <div className="grid grid-cols-2 gap-2">
-            {/* TODO: If null (can't really happen, but just in case) show a fallback in 16:9 */}
             <iframe
               className="h-full w-full bg-black"
               src={getYouTubeEmbedUrl(report.videoUrl)}

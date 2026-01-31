@@ -59,11 +59,10 @@ export function ReportDrawer({ embarkId, report }: { embarkId: string; report: A
                 {report.canonicalVideoUrl && (
                   <div>
                     <h3 className="mb-2 text-sm font-semibold">Evidence</h3>
-                    {/* TODO: Fallback 16:9 if undefined */}
                     <iframe
                       src={getYouTubeEmbedUrl(report.canonicalVideoUrl)}
                       title="YouTube video"
-                      className="aspect-video w-full rounded-md"
+                      className="aspect-video w-full"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     />

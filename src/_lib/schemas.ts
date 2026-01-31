@@ -9,22 +9,23 @@ export const searchFilterSchema = z.object({
   pageSize: z.number(),
 });
 
+// TODO: Normalize if I use periods or not, also schemas as in client and server, so use a neutral language instead of UI-based (Like dropdown, etc)
 export const fileReportSchema = z.object({
   embarkId: z
     .string()
     .trim()
     .regex(
       /^[a-zA-Z0-9\-_.]+#\d{4}$/,
-      "Invalid Embark ID format. Username must only contain letters, numbers, and symbols (- _ .), and 4-digit discriminator. (e.g. username#1234)"
+      "Invalid Embark ID format. Username must only contain letters, numbers, and symbols (- _ .), and 4-digit discriminator. (e.g. username#1234)."
     ),
-  reason: z.enum(REPORT_REASON_ENUMS, "Select a valid reason from the dropdown menu"),
+  reason: z.enum(REPORT_REASON_ENUMS, "Invalid report reason."),
   description: z
     .string()
     .trim()
-    .min(20, "Description must be at least 20 characters in length")
-    .max(300, "Description must be at most 300 characters in length"),
-  videoUrl: z.url("Must be a valid URL").refine(extractYouTubeVideoId, {
-    message: "Must be a valid YouTube URL",
+    .min(20, "Description must be at least 20 characters in length.")
+    .max(300, "Description must be at most 300 characters in length."),
+  videoUrl: z.url("Must be a valid YouTube URL.").refine(extractYouTubeVideoId, {
+    message: "Must be a valid YouTube URL.",
   }),
 });
 

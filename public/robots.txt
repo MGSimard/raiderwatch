@@ -3,3 +3,5 @@ Disallow: /wp-admin/
 Disallow: /dashboard/
 Disallow: /unauthorized/
 Disallow: /auth/
+
+Sitemap: https://raiderwatch.netlify.app/sitemap.xml

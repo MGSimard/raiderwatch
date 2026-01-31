@@ -184,7 +184,7 @@ export function ReportsTable() {
 }
 
 function PendingResults() {
-  // TODO: Skeleton instead of loading text
+  // TODO: Consider skeleton shimmer
   return (
     <TableRow>
       <TableCell colSpan={columns.length}>Loading...</TableCell>

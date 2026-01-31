@@ -17,8 +17,6 @@ interface ReportsRowActionsProps {
 }
 
 export function ReportsRowActions({ reportData, setFilters }: ReportsRowActionsProps) {
-  // TODO: Long hover tooltip on trigger maybe?
-
   const handleIsolateRaider = () => {
     if (!setFilters) return;
     setFilters((prev) => ({

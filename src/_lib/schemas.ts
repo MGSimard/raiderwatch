@@ -35,7 +35,7 @@ const baseFields = z.object({
   reportId: z.number(),
   reason: z.enum(REPORT_REASON_ENUMS, "Select a valid reason from the dropdown menu"),
 });
-const canonicalVideoUrl = z.url("Must be a valid URL").refine(extractYouTubeVideoId, {
+const canonicalVideoUrl = z.url().refine(extractYouTubeVideoId, {
   message: "Must be a valid YouTube URL",
 });
 const reviewerComment = z.string().trim().max(300, "Review comment must be at most 300 characters in length");

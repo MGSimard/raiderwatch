@@ -24,7 +24,7 @@ export const fileReportSchema = z.object({
     .trim()
     .min(20, "Description must be at least 20 characters in length.")
     .max(300, "Description must be at most 300 characters in length."),
-  videoUrl: z.url("Must be a valid YouTube URL.").refine(extractYouTubeVideoId, {
+  videoUrl: z.url().refine(extractYouTubeVideoId, {
     message: "Must be a valid YouTube URL.",
   }),
 });

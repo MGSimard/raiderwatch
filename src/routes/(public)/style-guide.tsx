@@ -38,7 +38,6 @@ function RouteComponent() {
       <h1>ARC Raiders Style Guide</h1>
       <section>
         <h2>COLORS</h2>
-
         <div className="grid grid-cols-2 gap-4">
           <div
             className="grid h-16 place-items-center px-2 py-1"
@@ -89,7 +88,6 @@ function RouteComponent() {
           <li>HUD (Compass, Timer): JetBrains Mono</li>
         </ul>
       </section>
-      <div className="h-16 w-16 border-10 border-[#5c626d]/27 bg-red-500 backdrop-blur-xs">test</div>
       <section>
         <h2>Interface Elements</h2>
         <button
@@ -102,13 +100,13 @@ function RouteComponent() {
         <div className="flex flex-col gap-2 bg-[#090c19]/83 p-4 backdrop-blur-xs">
           <button
             type="button"
-            className="ring-btn flex items-center justify-between gap-4 rounded-full bg-[#090c19]/83 px-3.5 py-2 text-[#ece2d0] hover:bg-[#090c19] focus-visible:bg-[#090c19]">
-            Fill Squad <span className="font-medium opacity-70">ON</span>
+            className="ring-btn flex items-center justify-between gap-4 rounded-full border border-[#5a5f6f] bg-[#090c19]/83 px-3.5 py-2 text-[#ece2d0] hover:bg-[#090c19] focus-visible:bg-[#090c19]">
+            Fill Squad <span className="font-medium text-[#a4a5aa]">ON</span>
           </button>
           <button
             type="button"
-            className="ring-btn flex items-center justify-between gap-4 rounded-full bg-[#090c19]/83 px-3.5 py-2 text-[#ece2d0] hover:bg-[#090c19] focus-visible:bg-[#090c19]">
-            Solo vs. Squads <span className="font-medium opacity-70">OFF</span>
+            className="ring-btn flex items-center justify-between gap-4 rounded-full border border-[#5a5f6f] bg-[#090c19]/83 px-3.5 py-2 text-[#ece2d0] hover:bg-[#090c19] focus-visible:bg-[#090c19]">
+            Solo vs. Squads <span className="font-medium text-[#a4a5aa]">OFF</span>
           </button>
         </div>
       </section>

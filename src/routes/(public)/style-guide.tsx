@@ -12,6 +12,8 @@ const TEXT_DARKMODE = "#ece2d0";
 
 const BUTTON_PRIMARY = "#f1aa1c";
 
+const CARD_BG = "#090c19";
+
 // Need to find whatever color base they use for dark blue card backgrounds w/ transparency in the game
 // MIGHT BE: #090c19 which seems to be a blue-shifted version of #130918 (The dark purple site BG color)
 
@@ -20,9 +22,15 @@ const ARC_GREEN = "#05ff74";
 const ARC_YELLOW = "#ffea00";
 const ARC_RED = "#ff0000";
 
+// MISSING:
+// Utility button background color
+// Dark background button muted color (ON, OFF)
+// Dark background button border color
+// Keybinding button opacity (BG is lightbg, text is text-darkmode, can probably just eyeball this)
+
 function RouteComponent() {
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col p-8">
+    <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col bg-[url('https://images3.alphacoders.com/140/thumb-1920-1401749.jpg')] bg-cover bg-center p-8">
       <h1>ARC Raiders Style Guide</h1>
       <section>
         <h2>Colors - Duo Tone UI</h2>
@@ -34,6 +42,9 @@ function RouteComponent() {
           <div className="grid h-16 place-items-center bg-[#130918] px-2 py-1 text-[#ece2d0]">
             <div>Background: {BG_DARKMODE}</div>
             <div>Text: {TEXT_DARKMODE}</div>
+          </div>
+          <div className="col-span-2 grid h-16 place-items-center bg-[#090c19]/83 px-2 py-1 text-[#ece2d0] backdrop-blur-xs">
+            <div>Card Background: {CARD_BG}</div>
           </div>
           <div className="col-span-2 grid h-16 place-items-center bg-[#f1aa1c] px-2 py-1 text-[#130918]">
             <div>Primary Button: {BUTTON_PRIMARY}</div>
@@ -70,7 +81,19 @@ function RouteComponent() {
           PRIMARY BUTTON
         </button>
         <button type="button">Secondary Button</button>
-        {/* NOTES: Secondary Button is full opacity of light background, semi-transparent if dark background (opaque on hover) */}
+        {/* NOTES: Secondary Button is full opacity if light background, semi-transparent if dark background (opaque on hover) */}
+        <div className="flex flex-col gap-2 bg-[#090c19]/83 p-4 backdrop-blur-xs">
+          <button
+            type="button"
+            className="ring-btn flex items-center justify-between gap-4 rounded-full bg-[#090c19]/83 px-3.5 py-2 text-[#ece2d0] hover:bg-[#090c19] focus-visible:bg-[#090c19]">
+            Fill Squad <span className="font-medium opacity-70">ON</span>
+          </button>
+          <button
+            type="button"
+            className="ring-btn flex items-center justify-between gap-4 rounded-full bg-[#090c19]/83 px-3.5 py-2 text-[#ece2d0] hover:bg-[#090c19] focus-visible:bg-[#090c19]">
+            Solo vs. Squads <span className="font-medium opacity-70">OFF</span>
+          </button>
+        </div>
       </section>
     </main>
   );

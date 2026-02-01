@@ -327,14 +327,13 @@
   }
   .ring-btn {
     position: relative;
-    &:hover:before {
+    &:hover::before {
       opacity: 1;
     }
-    &:before {
+    &::before {
       content: "";
       position: absolute;
       inset: -4px; /* Gap between button and ring */
-      z-index: -1;
       border-radius: inherit;
       padding: 2px; /* Ring thickness */
       pointer-events: none;

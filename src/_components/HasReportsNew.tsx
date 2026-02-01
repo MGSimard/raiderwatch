@@ -30,8 +30,8 @@ export function HasReportsNew({
         </Link>
         <div className="flex items-center gap-2 text-arc-light">
           <h1>{embarkId}</h1>
-          <div className="flex shrink-0 items-center gap-1 rounded-full bg-arc-light/20 px-4 py-2 text-arc-light tabular-nums">
-            <WarningCircleIcon weight="fill" className="size-6 shrink-0" aria-hidden />
+          <div className="flex shrink-0 items-center gap-1 rounded-full bg-arc-light/20 px-3.5 py-2 text-arc-light tabular-nums">
+            <WarningCircleIcon weight="fill" className="-ml-1 size-6 shrink-0" aria-hidden />
             {approvedReports.length}
             <span className="sr-only"> reports</span>
           </div>

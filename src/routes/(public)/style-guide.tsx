@@ -4,48 +4,38 @@ export const Route = createFileRoute("/(public)/style-guide")({
   component: RouteComponent,
 });
 
-const BG_LIGHTMODE = "#ece2d0";
-const BG_DARKMODE = "#130918";
-
-const TEXT_LIGHTMODE = "#130918";
-const TEXT_DARKMODE = "#ece2d0";
-
-const BUTTON_PRIMARY = "#f1aa1c";
-
-const CARD_BG = "#090c19";
-
-// Need to find whatever color base they use for dark blue card backgrounds w/ transparency in the game
-// MIGHT BE: #090c19 which seems to be a blue-shifted version of #130918 (The dark purple site BG color)
-
-const ARC_BLUE = "#5fffff";
-const ARC_GREEN = "#05ff74";
-const ARC_YELLOW = "#ffea00";
-const ARC_RED = "#ff0000";
-
 // MISSING:
 // Utility button background color
 // Dark background button muted color (ON, OFF)
 // Dark background button border color
 // Keybinding button opacity (BG is lightbg, text is text-darkmode, can probably just eyeball this)
 
+const BUTTON_PRIMARY = "#F1AA1C"; // Orange
+
+const WEBSITE_LIGHT = "#ece2d0"; // Light Beige 1
+const WEBSITE_DARK = "#130918"; // Dark Purple
+
+const GAME_UI_LIGHT = "#f9eedf"; // Light Beige 2
+// Light background, card headers, light text, active page headers
+
+const GAME_UI_DARK = "#090c19"; // Dark Blue
+// Dark background, transparent & opaque cards, dark buttons, dark text (incl. card headers), active pagination dot & arrows
+
+const GAME_UI_MUTED = "#a4a5aa"; // Gray
+// Inactive page headers, envelope icon, inactive pagination dot & arrows
+
+const ARC_BLUE = "#5fffff"; // Cyan
+const ARC_GREEN = "#05ff74"; // Neon Green
+const ARC_YELLOW = "#ffea00"; // Yellow
+const ARC_RED = "#ff0000"; // Red
+
 function RouteComponent() {
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col bg-[url('https://images3.alphacoders.com/140/thumb-1920-1401749.jpg')] bg-cover bg-center p-8">
       <h1>ARC Raiders Style Guide</h1>
       <section>
-        <h2>Colors - Duo Tone UI</h2>
+        <h2>GLOBAL COLORS</h2>
         <div className="grid grid-cols-2 gap-4">
-          <div className="grid h-16 place-items-center bg-[#ece2d0] px-2 py-1 text-[#130918]">
-            <div>Background: {BG_LIGHTMODE}</div>
-            <div>Text: {TEXT_LIGHTMODE}</div>
-          </div>
-          <div className="grid h-16 place-items-center bg-[#130918] px-2 py-1 text-[#ece2d0]">
-            <div>Background: {BG_DARKMODE}</div>
-            <div>Text: {TEXT_DARKMODE}</div>
-          </div>
-          <div className="col-span-2 grid h-16 place-items-center bg-[#090c19]/83 px-2 py-1 text-[#ece2d0] backdrop-blur-xs">
-            <div>Card Background: {CARD_BG}</div>
-          </div>
           <div className="col-span-2 grid h-16 place-items-center bg-[#f1aa1c] px-2 py-1 text-[#130918]">
             <div>Primary Button: {BUTTON_PRIMARY}</div>
           </div>
@@ -62,6 +52,13 @@ function RouteComponent() {
             <div>ARC Red: {ARC_RED}</div>
           </div>
         </div>
+      </section>
+      <section>
+        <h2>WEBSITE COLORS</h2>
+      </section>
+      <section>
+        <h2>GAME UI COLORS</h2>
+        <div className="grid grid-cols-2 gap-4"></div>
       </section>
       <section>
         <h2>Typography</h2>

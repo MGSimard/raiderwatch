@@ -333,6 +333,7 @@
     &::before {
       content: "";
       position: absolute;
+      z-index: 1;
       inset: -4px; /* Gap between button and ring */
       border-radius: inherit;
       padding: 2px; /* Ring thickness */

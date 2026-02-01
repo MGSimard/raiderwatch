@@ -10,9 +10,6 @@ export const Route = createFileRoute("/(public)/style-guide")({
 // Dark background button border color
 // Keybinding button opacity (BG is lightbg, text is text-darkmode, can probably just eyeball this)
 
-const WEBSITE_LIGHT = "#ece2d0";
-const WEBSITE_DARK = "#130918";
-
 const BUTTON_PRIMARY = "#F1AA1C"; // Orange
 
 const GAME_UI_LIGHT = "#f9eedf";

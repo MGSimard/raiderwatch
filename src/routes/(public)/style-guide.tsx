@@ -37,31 +37,47 @@ function RouteComponent() {
     <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col bg-[url('https://images3.alphacoders.com/140/thumb-1920-1401749.jpg')] bg-cover bg-center p-8">
       <h1>ARC Raiders Style Guide</h1>
       <section>
-        <h2>GLOBAL COLORS</h2>
+        <h2>COLORS</h2>
+
         <div className="grid grid-cols-2 gap-4">
-          <div className="col-span-2 grid h-16 place-items-center bg-[#f1aa1c] px-2 py-1 text-[#130918]">
+          <div
+            className="grid h-16 place-items-center px-2 py-1"
+            style={{ backgroundColor: GAME_UI_LIGHT, color: GAME_UI_DARK }}>
+            <div>Background: {GAME_UI_LIGHT}</div>
+            <div>Text: {GAME_UI_DARK}</div>
+          </div>
+          <div
+            className="grid h-16 place-items-center px-2 py-1"
+            style={{ backgroundColor: GAME_UI_DARK, color: GAME_UI_LIGHT }}>
+            <div>Background: {GAME_UI_DARK}</div>
+            <div>Text: {GAME_UI_LIGHT}</div>
+          </div>
+          <div
+            className="col-span-2 grid h-16 place-items-center px-2 py-1"
+            style={{ backgroundColor: BUTTON_PRIMARY, color: GAME_UI_DARK }}>
             <div>Primary Button: {BUTTON_PRIMARY}</div>
           </div>
-          <div className="grid h-16 place-items-center bg-[#5fffff] px-2 py-1 text-[#130918]">
+          <div
+            className="grid h-16 place-items-center px-2 py-1"
+            style={{ backgroundColor: ARC_BLUE, color: GAME_UI_DARK }}>
             <div>ARC Blue: {ARC_BLUE}</div>
           </div>
-          <div className="grid h-16 place-items-center bg-[#05ff74] px-2 py-1 text-[#130918]">
+          <div
+            className="grid h-16 place-items-center px-2 py-1"
+            style={{ backgroundColor: ARC_GREEN, color: GAME_UI_DARK }}>
             <div>ARC Green: {ARC_GREEN}</div>
           </div>
-          <div className="grid h-16 place-items-center bg-[#ffea00] px-2 py-1 text-[#130918]">
+          <div
+            className="grid h-16 place-items-center px-2 py-1"
+            style={{ backgroundColor: ARC_YELLOW, color: GAME_UI_DARK }}>
             <div>ARC Yellow: {ARC_YELLOW}</div>
           </div>
-          <div className="grid h-16 place-items-center bg-[#ff0000] px-2 py-1 text-[#130918]">
+          <div
+            className="grid h-16 place-items-center px-2 py-1"
+            style={{ backgroundColor: ARC_RED, color: GAME_UI_DARK }}>
             <div>ARC Red: {ARC_RED}</div>
           </div>
         </div>
-      </section>
-      <section>
-        <h2>WEBSITE COLORS</h2>
-      </section>
-      <section>
-        <h2>GAME UI COLORS</h2>
-        <div className="grid grid-cols-2 gap-4"></div>
       </section>
       <section>
         <h2>Typography</h2>

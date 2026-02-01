@@ -1,10 +1,14 @@
 import type { CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
-import { Button } from "@/_components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/_components/ui/card";
 import { ReportDrawerNew } from "@/_components/ReportDrawerNew";
 import { ReportDialog } from "@/_components/ReportDialog";
-import { CaretLeftIcon, CircleDashedIcon, PlusIcon, WarningDiamondIcon } from "@phosphor-icons/react";
+import {
+  CaretLeftIcon,
+  CircleDashedIcon,
+  PlusIcon,
+  WarningCircleIcon,
+  WarningDiamondIcon,
+} from "@phosphor-icons/react";
 import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
 
 export function HasReportsNew({
@@ -24,9 +28,14 @@ export function HasReportsNew({
           viewTransition>
           <CaretLeftIcon className="h-full w-full" weight="bold" aria-hidden />
         </Link>
-        <h1>
-          {embarkId} <span className="tabular-nums">({approvedReports.length})</span>
-        </h1>
+        <div className="flex items-center gap-2 text-arc-light">
+          <h1>{embarkId}</h1>
+          <div className="flex shrink-0 items-center gap-1 rounded-full bg-arc-light/20 px-4 py-2 text-arc-light tabular-nums">
+            <WarningCircleIcon weight="fill" className="size-6 shrink-0" aria-hidden />
+            {approvedReports.length}
+            <span className="sr-only"> reports</span>
+          </div>
+        </div>
       </nav>
       <section className="mt-4">
         <div>

@@ -340,27 +340,30 @@
       pointer-events: none;
       background: linear-gradient(
         170deg,
-        #ffffff00 0%,
-        #ffffff 15%,
-        #00fff3 20%,
-        #800080 25%,
-        #ffffff00 35%,
-        #ffffff00 40%,
-        #ffffff 55%,
-        #00fff3 60%,
-        #800080 65%,
-        #ffffff00 75%,
-        #ffffff00 80%,
-        #ffffff 95%,
-        #00fff3 100%
+        transparent 0%,
+        #f9eedf 10%,
+        #f9eedf 15%,
+        #30e0ff 20%,
+        #b000fa 25%,
+        transparent 30%,
+        transparent 45%,
+        #f9eedf 50%,
+        #f9eedf 55%,
+        #30e0ff 60%,
+        #b000fa 65%,
+        transparent 70%,
+        transparent 85%,
+        #f9eedf 90%,
+        #f9eedf 95%,
+        #30e0ff 100%
       );
       background-size: 300% 300%;
       mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
       mask-composite: exclude;
-      opacity: 0;
-      animation: ring-shimmer 4s linear infinite;
+      opacity: 1;
+      animation: ring-shimmer 3s linear infinite;
     }
   }
   @keyframes ring-shimmer {

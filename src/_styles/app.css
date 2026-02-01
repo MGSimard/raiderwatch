@@ -41,6 +41,20 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  /**/
+  /* TODO: Util button background color (setting button, profile button ingame */
+  --arc-primary: #f1aa1c; /* Orange, primary button, XP bar, premium currency, notifications */
+  --arc-light: #f9eedf; /* Light background, card headers, light text, active page headers */
+  --arc-dark: #090c19; /* Dark background, transparent & opaque cards, dark buttons, dark text (incl. card headers), active pagination dot & arrows */
+  --arc-muted: #a4a5aa; /* Inactive page headers, envelope icon, inactive pagination dot & arrows, Horizontal Separator in traders, setting (on, off) */
+  --arc-border: #5a5f6f; /* Button border, trader rectangle border */
+  --arc-item: #2f3241; /* List items (Friends, party members, match history) */
+  --arc-muted2: #606576; /* Skill nodes */
+  --arc-radial: #3e4150; /* Radial meters */
+  --arc-blue: #5fffff; /* Cyan */
+  --arc-green: #05ff74; /* Neon Green */
+  --arc-yellow: #ffea00; /* Yellow */
+  --arc-red: #ff0000; /* Red */
 }
 
 .dark {
@@ -120,6 +134,19 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+  /**/
+  --color-arc-primary: var(--arc-primary);
+  --color-arc-light: var(--arc-light);
+  --color-arc-dark: var(--arc-dark);
+  --color-arc-muted: var(--arc-muted);
+  --color-arc-border: var(--arc-border);
+  --color-arc-item: var(--arc-item);
+  --color-arc-muted2: var(--arc-muted2);
+  --color-arc-radial: var(--arc-radial);
+  --color-arc-blue: var(--arc-blue);
+  --color-arc-green: var(--arc-green);
+  --color-arc-yellow: var(--arc-yellow);
+  --color-arc-red: var(--arc-red);
 }
 
 @layer base {
@@ -335,7 +362,7 @@
       position: absolute;
       z-index: 1;
       inset: -4px; /* Gap between button and ring */
-      border-radius: inherit;
+      border-radius: calc(var(--pass-radius) + 4px);
       padding: 2px; /* Ring thickness */
       pointer-events: none;
       background: linear-gradient(

@@ -6,31 +6,7 @@ export const Route = createFileRoute("/(public)/style-guide")({
 
 // MISSING:
 // Utility button background color
-// Dark background button muted color (ON, OFF)
-// Dark background button border color
 // Keybinding button opacity (BG is lightbg, text is text-darkmode, can probably just eyeball this)
-
-const BUTTON_PRIMARY = "#F1AA1C"; // Orange
-
-const GAME_UI_LIGHT = "#f9eedf";
-// Light background, card headers, light text, active page headers
-
-const GAME_UI_DARK = "#090c19"; // Dark Blue
-// Dark background, transparent & opaque cards, dark buttons, dark text (incl. card headers), active pagination dot & arrows
-
-const GAME_UI_MUTED = "#a4a5aa";
-// Inactive page headers, envelope icon, inactive pagination dot & arrows, Horizontal Separator in traders, setting (on, off)
-
-const GAME_UI_BORDER = "#5a5f6f";
-// Button border, trader rectangle border
-
-const GAME_UI_MUTED2 = "#606576"; // Skill nodes
-const UNFILLED_RADIAL_METER = "#3e4150"; // Radial meters
-
-const ARC_BLUE = "#5fffff"; // Cyan
-const ARC_GREEN = "#05ff74"; // Neon Green
-const ARC_YELLOW = "#ffea00"; // Yellow
-const ARC_RED = "#ff0000"; // Red
 
 function RouteComponent() {
   return (
@@ -39,42 +15,28 @@ function RouteComponent() {
       <section>
         <h2>COLORS</h2>
         <div className="grid grid-cols-2 gap-4">
-          <div
-            className="grid h-16 place-items-center px-2 py-1"
-            style={{ backgroundColor: GAME_UI_LIGHT, color: GAME_UI_DARK }}>
-            <div>Background: {GAME_UI_LIGHT}</div>
-            <div>Text: {GAME_UI_DARK}</div>
+          <div className="grid h-16 place-items-center bg-arc-light px-2 py-1 text-arc-dark">
+            <div>Background: #f9eedf</div>
+            <div>Text: #090c19</div>
           </div>
-          <div
-            className="grid h-16 place-items-center px-2 py-1"
-            style={{ backgroundColor: GAME_UI_DARK, color: GAME_UI_LIGHT }}>
-            <div>Background: {GAME_UI_DARK}</div>
-            <div>Text: {GAME_UI_LIGHT}</div>
+          <div className="grid h-16 place-items-center bg-arc-dark px-2 py-1 text-arc-light">
+            <div>Background: #090c19</div>
+            <div>Text: #f9eedf</div>
           </div>
-          <div
-            className="col-span-2 grid h-16 place-items-center px-2 py-1"
-            style={{ backgroundColor: BUTTON_PRIMARY, color: GAME_UI_DARK }}>
-            <div>Primary Button: {BUTTON_PRIMARY}</div>
+          <div className="col-span-2 grid h-16 place-items-center bg-arc-primary px-2 py-1 text-arc-dark">
+            <div>Primary Button: #f1aa1c</div>
           </div>
-          <div
-            className="grid h-16 place-items-center px-2 py-1"
-            style={{ backgroundColor: ARC_BLUE, color: GAME_UI_DARK }}>
-            <div>ARC Blue: {ARC_BLUE}</div>
+          <div className="grid h-16 place-items-center bg-arc-blue px-2 py-1 text-arc-dark">
+            <div>ARC Blue: #5fffff</div>
           </div>
-          <div
-            className="grid h-16 place-items-center px-2 py-1"
-            style={{ backgroundColor: ARC_GREEN, color: GAME_UI_DARK }}>
-            <div>ARC Green: {ARC_GREEN}</div>
+          <div className="bg-arc-green grid h-16 place-items-center px-2 py-1 text-arc-dark">
+            <div>ARC Green: #05ff74</div>
           </div>
-          <div
-            className="grid h-16 place-items-center px-2 py-1"
-            style={{ backgroundColor: ARC_YELLOW, color: GAME_UI_DARK }}>
-            <div>ARC Yellow: {ARC_YELLOW}</div>
+          <div className="bg-arc-yellow grid h-16 place-items-center px-2 py-1 text-arc-dark">
+            <div>ARC Yellow: #ffea00</div>
           </div>
-          <div
-            className="grid h-16 place-items-center px-2 py-1"
-            style={{ backgroundColor: ARC_RED, color: GAME_UI_DARK }}>
-            <div>ARC Red: {ARC_RED}</div>
+          <div className="bg-arc-red grid h-16 place-items-center px-2 py-1 text-arc-dark">
+            <div>ARC Red: #ff0000</div>
           </div>
         </div>
       </section>

@@ -192,3 +192,142 @@ Normal & Italic
   font-style: italic;
   font-display: swap;
 }
+
+/* URBANIST (PAGE TAB FONT)
+Normal & Italic
+100 - Thin
+200 - ExtraLight
+300 - Light
+400 - Regular
+500 - Medium
+600 - SemiBold
+700 - Bold
+800 - ExtraBold
+900 - Black
+*/
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-ThinItalic.woff2") format("woff2");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-ExtraLightItalic.woff2") format("woff2");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-SemiBoldItalic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-ExtraBoldItalic.woff2") format("woff2");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Urbanist";
+  src: url("/assets/fonts/Urbanist/Urbanist-BlackItalic.woff2") format("woff2");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}

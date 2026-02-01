@@ -24,6 +24,8 @@ const GAME_UI_DARK = "#090c19"; // Dark Blue
 const GAME_UI_MUTED = "#a4a5aa"; // Gray
 // Inactive page headers, envelope icon, inactive pagination dot & arrows
 
+// NOTE: Either use outline or border with bg-clip-padding to prevent div background from being visible behind a transparent border
+
 const ARC_BLUE = "#5fffff"; // Cyan
 const ARC_GREEN = "#05ff74"; // Neon Green
 const ARC_YELLOW = "#ffea00"; // Yellow
@@ -70,6 +72,7 @@ function RouteComponent() {
           <li>HUD (Compass, Timer): JetBrains Mono</li>
         </ul>
       </section>
+      <div className="h-16 w-16 border-10 border-[#5c626d]/27 bg-red-500 bg-clip-padding backdrop-blur-xs">test</div>
       <section>
         <h2>Interface Elements</h2>
         <button

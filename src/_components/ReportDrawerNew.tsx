@@ -24,7 +24,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
           aria-label="View Report"
           className="group btn-ring flex w-full items-center justify-between gap-4 rounded-[4px] border border-arc-border bg-arc-item p-4 [--pass-radius:2px]">
           <div className="text-start">
-            <h2 className="font-bold text-arc-light uppercase">{REPORT_REASON_LABELS[report.reason]}</h2>
+            <h3 className="font-bold text-arc-light uppercase">{REPORT_REASON_LABELS[report.reason]}</h3>
             <p className="flex items-center gap-1 text-xs/relaxed text-arc-muted">
               <CalendarDotsIcon aria-hidden /> <span>{formatUtcDate(report.createdAt)}</span>
             </p>

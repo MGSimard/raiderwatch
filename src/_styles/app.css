@@ -43,18 +43,25 @@
   --sidebar-ring: oklch(0.708 0 0);
   /**/
   /* TODO: Util button background color (setting button, profile button ingame */
-  --arc-primary: #f1aa1c; /* Orange, primary button, XP bar, premium currency, notifications */
-  --arc-light: #f9eedf; /* Light background, card headers, light text, active page headers */
-  --arc-dark: #090c19; /* Dark background, transparent & opaque cards, dark buttons, dark text (incl. card headers), active pagination dot & arrows */
-  --arc-muted: #a4a5aa; /* Inactive page headers, envelope icon, inactive pagination dot & arrows, Horizontal Separator in traders, setting (on, off) */
-  --arc-border: #5a5f6f; /* Button border, trader rectangle border */
-  --arc-item: #2f3241; /* List items (Friends, party members, match history) */
-  --arc-muted2: #606576; /* Skill nodes */
-  --arc-radial: #3e4150; /* Radial meters */
-  --arc-blue: #5fffff; /* Cyan */
-  --arc-green: #05ff74; /* Neon Green */
-  --arc-yellow: #ffea00; /* Yellow */
-  --arc-red: #ff0000; /* Red */
+  --arc-primary: oklch(0.7862 0.1587 77.38); /* Orange, primary button, XP bar, premium currency, notifications */
+  --arc-light: oklch(0.9537 0.0232 75.86); /* Light background, card headers, light text, active page headers */
+  --arc-dark: oklch(
+    0.1587 0.0281 272.86
+  ); /* Dark background, transparent & opaque cards, dark buttons, dark text (incl. card headers), active pagination dot & arrows */
+  --arc-muted: oklch(
+    0.7227 0.0073 277.12
+  ); /* Inactive page headers, envelope icon, inactive pagination dot & arrows, Horizontal Separator in traders, setting (on, off) */
+  --arc-border: oklch(0.487 0.0264 271.68); /* Button border, trader rectangle border */
+  --arc-item: oklch(0.3207 0.027 275.94); /* List items (Friends, party members, match history) */
+  --arc-muted2: oklch(0.5086 0.0276 272.44); /* Skill nodes */
+  --arc-radial: oklch(0.3785 0.0259 276.21); /* Radial meters */
+  --arc-blue: oklch(0.9174 0.132 195.1); /* Cyan */
+  --arc-green: oklch(0.8736 0.2439 149.34); /* Neon Green */
+  --arc-yellow: oklch(0.9249 0.194362 102.8911); /* Yellow */
+  --arc-red: oklch(0.628 0.2577 29.23); /* Red */
+  --arc-shimmer-beige: var(--arc-light);
+  --arc-shimmer-cyan: oklch(0.8361 0.1384 213.25);
+  --arc-shimmer-purple: oklch(0.585 0.296211 309.7877);
 }
 
 .dark {
@@ -147,6 +154,9 @@
   --color-arc-green: var(--arc-green);
   --color-arc-yellow: var(--arc-yellow);
   --color-arc-red: var(--arc-red);
+  --color-arc-shimmer-beige: var(--arc-shimmer-beige);
+  --color-arc-shimmer-cyan: var(--arc-shimmer-cyan);
+  --color-arc-shimmer-purple: var(--arc-shimmer-purple);
 }
 
 @layer base {
@@ -368,21 +378,21 @@
       background: linear-gradient(
         170deg,
         transparent 0%,
-        #f9eedf 10%,
-        #f9eedf 15%,
-        #30e0ff 20%,
-        #b000fa 25%,
+        var(--arc-shimmer-beige) 10%,
+        var(--arc-shimmer-beige) 15%,
+        var(--arc-shimmer-cyan) 20%,
+        var(--arc-shimmer-purple) 25%,
         transparent 30%,
         transparent 45%,
-        #f9eedf 50%,
-        #f9eedf 55%,
-        #30e0ff 60%,
-        #b000fa 65%,
+        var(--arc-shimmer-beige) 50%,
+        var(--arc-shimmer-beige) 55%,
+        var(--arc-shimmer-cyan) 60%,
+        var(--arc-shimmer-purple) 65%,
         transparent 70%,
         transparent 85%,
-        #f9eedf 90%,
-        #f9eedf 95%,
-        #30e0ff 100%
+        var(--arc-shimmer-beige) 90%,
+        var(--arc-shimmer-beige) 95%,
+        var(--arc-shimmer-cyan) 100%
       );
       background-size: 300% 300%;
       mask:

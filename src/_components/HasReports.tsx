@@ -114,7 +114,7 @@ export function HasReports({
             </div>
             <span className="px-2 py-0.5">REPORT HISTORY</span>
           </div>
-          <ul className="grid gap-2 rounded-b-[6px] bg-arc-dark/50 p-4 backdrop-blur-sm">
+          <ul className="grid gap-3 rounded-b-[6px] bg-arc-dark/50 p-4 backdrop-blur-sm">
             {approvedReports.map((report, index) => (
               <li key={report.id} className="report-stagger-item" style={{ "--stagger": index } as CSSProperties}>
                 <ReportDrawerNew embarkId={embarkId} report={report} />

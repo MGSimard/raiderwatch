@@ -10,21 +10,25 @@ export const Route = createFileRoute("/(public)/style-guide")({
 // Dark background button border color
 // Keybinding button opacity (BG is lightbg, text is text-darkmode, can probably just eyeball this)
 
+const WEBSITE_LIGHT = "#ece2d0";
+const WEBSITE_DARK = "#130918";
+
 const BUTTON_PRIMARY = "#F1AA1C"; // Orange
 
-const WEBSITE_LIGHT = "#ece2d0"; // Light Beige 1
-const WEBSITE_DARK = "#130918"; // Dark Purple
-
-const GAME_UI_LIGHT = "#f9eedf"; // Light Beige 2
+const GAME_UI_LIGHT = "#f9eedf";
 // Light background, card headers, light text, active page headers
 
 const GAME_UI_DARK = "#090c19"; // Dark Blue
 // Dark background, transparent & opaque cards, dark buttons, dark text (incl. card headers), active pagination dot & arrows
 
-const GAME_UI_MUTED = "#a4a5aa"; // Gray
-// Inactive page headers, envelope icon, inactive pagination dot & arrows
+const GAME_UI_MUTED = "#a4a5aa";
+// Inactive page headers, envelope icon, inactive pagination dot & arrows, Horizontal Separator in traders, setting (on, off)
 
-// NOTE: Either use outline or border with bg-clip-padding to prevent div background from being visible behind a transparent border
+const GAME_UI_BORDER = "#5a5f6f";
+// Button border, trader rectangle border
+
+const GAME_UI_MUTED2 = "#606576"; // Skill nodes
+const UNFILLED_RADIAL_METER = "#3e4150"; // Radial meters
 
 const ARC_BLUE = "#5fffff"; // Cyan
 const ARC_GREEN = "#05ff74"; // Neon Green
@@ -72,7 +76,7 @@ function RouteComponent() {
           <li>HUD (Compass, Timer): JetBrains Mono</li>
         </ul>
       </section>
-      <div className="h-16 w-16 border-10 border-[#5c626d]/27 bg-red-500 bg-clip-padding backdrop-blur-xs">test</div>
+      <div className="h-16 w-16 border-10 border-[#5c626d]/27 bg-red-500 backdrop-blur-xs">test</div>
       <section>
         <h2>Interface Elements</h2>
         <button

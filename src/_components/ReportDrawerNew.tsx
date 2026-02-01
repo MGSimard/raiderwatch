@@ -22,14 +22,17 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
         <button
           type="button"
           aria-label="View Report"
-          className="group ring-btn flex w-full items-center justify-between gap-4 rounded-[4px] border border-arc-border bg-arc-item p-4 [--pass-radius:2px]">
+          className="group btn-ring flex w-full items-center justify-between gap-4 rounded-[4px] border border-arc-border bg-arc-item p-4 [--pass-radius:2px]">
           <div className="text-start">
             <h2 className="font-bold text-arc-light uppercase">{REPORT_REASON_LABELS[report.reason]}</h2>
             <p className="flex items-center gap-1 text-xs/relaxed text-arc-muted">
               <CalendarDotsIcon aria-hidden /> <span>{formatUtcDate(report.createdAt)}</span>
             </p>
           </div>
-          <CaretRightIcon className="size-8 shrink-0 text-arc-muted transition-all duration-50 ease-out group-hover:translate-x-1 group-hover:text-arc-light group-focus-visible:translate-x-1 group-focus-visible:text-arc-light" />
+          <CaretRightIcon
+            aria-hidden
+            className="size-8 shrink-0 text-arc-muted transition-all duration-50 ease-out group-hover:translate-x-1 group-hover:text-arc-light group-focus-visible:translate-x-1 group-focus-visible:text-arc-light"
+          />
         </button>
       </DrawerTrigger>
       <DrawerContent className="bg-card">

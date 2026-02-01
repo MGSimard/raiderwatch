@@ -2,12 +2,12 @@ import type { CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/_components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/_components/ui/card";
-import { ReportDrawer } from "@/_components/ReportDrawer";
+import { ReportDrawerNew } from "@/_components/ReportDrawerNew";
 import { ReportDialog } from "@/_components/ReportDialog";
-import { ArrowLeftIcon } from "@phosphor-icons/react";
+import { CaretLeftIcon, PlusIcon, WarningDiamondIcon } from "@phosphor-icons/react";
 import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
 
-export function HasReports({
+export function HasReportsNew({
   embarkId,
   approvedReports,
 }: {
@@ -17,15 +17,13 @@ export function HasReports({
   return (
     <>
       <nav className="mb-4 flex items-center justify-between gap-2">
-        <Button
-          variant="ghost"
-          nativeButton={false}
-          render={
-            <Link to="/" aria-label="Return to search" className="text-foreground/60" viewTransition>
-              <ArrowLeftIcon weight="bold" aria-hidden /> RETURN
-            </Link>
-          }
-        />
+        <Link
+          to="/"
+          aria-label="Return to search"
+          className="btn-ring grid size-8 place-items-center rounded-full bg-arc-item p-1 text-arc-muted [--pass-radius:9999px] hover:text-arc-light focus-visible:text-arc-light"
+          viewTransition>
+          <CaretLeftIcon className="h-full w-full" weight="bold" aria-hidden />
+        </Link>
         <ReportDialog embarkId={embarkId}>
           <Button type="button" variant="ghost" className="text-foreground/60">
             FILE REPORT
@@ -56,17 +54,38 @@ export function HasReports({
         </Card>
       </section>
       <section className="mt-4">
-        <ul className="grid gap-2 sm:grid-cols-2">
-          {approvedReports.map((report, index) => (
-            <li
-              key={report.id}
-              className="report-stagger-item backdrop-blur-[2px] last:odd:sm:col-span-2"
-              style={{ "--stagger": index } as CSSProperties}>
-              <ReportDrawer embarkId={embarkId} report={report} />
-            </li>
-          ))}
-        </ul>
+        <div>
+          <div className="flex items-center overflow-hidden rounded-t-[6px] bg-arc-light text-xl font-bold text-arc-dark uppercase">
+            <div className="grid shrink-0 place-items-center bg-arc-primary px-2 py-0.5">
+              <WarningDiamondIcon aria-hidden weight="bold" size={32} />
+            </div>
+            <span className="px-2 py-0.5">REPORT HISTORY</span>
+          </div>
+          <ul className="grid gap-3 rounded-b-[6px] bg-arc-dark/50 p-4 backdrop-blur-sm">
+            <AddReportItem />
+            {approvedReports.length > 0 &&
+              approvedReports.map((report, index) => (
+                <li key={report.id} className="report-stagger-item" style={{ "--stagger": index } as CSSProperties}>
+                  <ReportDrawerNew embarkId={embarkId} report={report} />
+                </li>
+              ))}
+          </ul>
+        </div>
       </section>
     </>
+  );
+}
+
+function AddReportItem() {
+  return (
+    <li>
+      <button
+        type="button"
+        aria-label="View Report"
+        className="btn-ring flex w-full items-center justify-between gap-4 rounded-[4px] border border-arc-border bg-arc-dark/83 p-4 text-arc-muted [--pass-radius:2px] hover:bg-arc-light hover:text-arc-dark focus-visible:bg-arc-light focus-visible:text-arc-dark">
+        <h2 className="font-bold uppercase">ADD REPORT</h2>
+        <PlusIcon className="size-8 shrink-0" aria-hidden />
+      </button>
+    </li>
   );
 }

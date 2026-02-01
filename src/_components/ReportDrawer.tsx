@@ -28,6 +28,7 @@ export function ReportDrawer({ embarkId, report }: { embarkId: string; report: A
             <p className="text-xs/relaxed text-muted-foreground">{formatUtcDate(report.createdAt)}</p>
           </div>
           <CaretDoubleRightIcon
+            aria-hidden
             weight="thin"
             className="size-8 shrink-0 text-primary/20 transition-all duration-50 ease-out group-hover:translate-x-1 group-hover:text-primary group-focus-visible:translate-x-1 group-focus-visible:text-primary"
           />

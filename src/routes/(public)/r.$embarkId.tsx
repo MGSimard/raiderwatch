@@ -3,8 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { approvedReportsQuery } from "@/_lib/queries";
 import { LoaderBlocks } from "@/_components/LoaderBlocks";
-import { NoReports } from "@/_components/NoReports";
-import { HasReports } from "@/_components/HasReports";
+// import { NoReports } from "@/_components/NoReports";
+import { HasReportsNew } from "@/_components/HasReportsNew";
 
 export const Route = createFileRoute("/(public)/r/$embarkId")({
   component: PageRaiderProfile,
@@ -35,9 +35,9 @@ function PageRaiderProfile() {
 function ReportData({ embarkId }: { embarkId: string }) {
   const { data: approvedReports } = useSuspenseQuery(approvedReportsQuery(embarkId));
 
-  if (approvedReports.length === 0) {
-    return <NoReports embarkId={embarkId} />;
-  }
+  // if (approvedReports.length === 0) {
+  //   return <NoReports embarkId={embarkId} />;
+  // }
 
-  return <HasReports embarkId={embarkId} approvedReports={approvedReports} />;
+  return <HasReportsNew embarkId={embarkId} approvedReports={approvedReports} />;
 }

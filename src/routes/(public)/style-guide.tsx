@@ -29,13 +29,13 @@ function RouteComponent() {
           <div className="grid h-16 place-items-center bg-arc-blue px-2 py-1 text-arc-dark">
             <div>ARC Blue: #5fffff</div>
           </div>
-          <div className="bg-arc-green grid h-16 place-items-center px-2 py-1 text-arc-dark">
+          <div className="grid h-16 place-items-center bg-arc-green px-2 py-1 text-arc-dark">
             <div>ARC Green: #05ff74</div>
           </div>
-          <div className="bg-arc-yellow grid h-16 place-items-center px-2 py-1 text-arc-dark">
+          <div className="grid h-16 place-items-center bg-arc-yellow px-2 py-1 text-arc-dark">
             <div>ARC Yellow: #ffea00</div>
           </div>
-          <div className="bg-arc-red grid h-16 place-items-center px-2 py-1 text-arc-dark">
+          <div className="grid h-16 place-items-center bg-arc-red px-2 py-1 text-arc-dark">
             <div>ARC Red: #ff0000</div>
           </div>
         </div>
@@ -54,7 +54,7 @@ function RouteComponent() {
         <h2>Interface Elements</h2>
         <button
           type="button"
-          className="ring-btn rounded-full bg-[#f1aa1c] px-3.5 py-2 font-medium text-[#130918] uppercase">
+          className="btn-ring rounded-full bg-[#f1aa1c] px-3.5 py-2 font-medium text-[#130918] uppercase">
           PRIMARY BUTTON
         </button>
         <button type="button">Secondary Button</button>
@@ -62,12 +62,12 @@ function RouteComponent() {
         <div className="flex flex-col gap-2 bg-[#090c19]/83 p-4 backdrop-blur-xs">
           <button
             type="button"
-            className="ring-btn flex items-center justify-between gap-4 rounded-full border border-[#5a5f6f] bg-[#090c19]/83 px-3.5 py-2 text-[#ece2d0] hover:bg-[#090c19] focus-visible:bg-[#090c19]">
+            className="btn-ring flex items-center justify-between gap-4 rounded-full border border-[#5a5f6f] bg-[#090c19]/83 px-3.5 py-2 text-[#ece2d0] hover:bg-[#090c19] focus-visible:bg-[#090c19]">
             Fill Squad <span className="font-medium text-[#a4a5aa]">ON</span>
           </button>
           <button
             type="button"
-            className="ring-btn flex items-center justify-between gap-4 rounded-full border border-[#5a5f6f] bg-[#090c19]/83 px-3.5 py-2 text-[#ece2d0] hover:bg-[#090c19] focus-visible:bg-[#090c19]">
+            className="btn-ring flex items-center justify-between gap-4 rounded-full border border-[#5a5f6f] bg-[#090c19]/83 px-3.5 py-2 text-[#ece2d0] hover:bg-[#090c19] focus-visible:bg-[#090c19]">
             Solo vs. Squads <span className="font-medium text-[#a4a5aa]">OFF</span>
           </button>
         </div>

@@ -362,7 +362,7 @@
       animation: none;
     }
   }
-  .ring-btn {
+  .btn-ring {
     position: relative;
     &:hover::before {
       opacity: 1;

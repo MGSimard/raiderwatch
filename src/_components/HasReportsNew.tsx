@@ -2,14 +2,9 @@ import type { CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
 import { ReportDrawerNew } from "@/_components/ReportDrawerNew";
 import { ReportDialog } from "@/_components/ReportDialog";
-import {
-  CaretLeftIcon,
-  CircleDashedIcon,
-  PlusIcon,
-  WarningCircleIcon,
-  WarningDiamondIcon,
-} from "@phosphor-icons/react";
+import { cn } from "@/_lib/utils";
 import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
+import { CaretLeftIcon, CircleDashedIcon, PlusIcon, WarningDiamondIcon } from "@phosphor-icons/react";
 
 export function HasReportsNew({
   embarkId,
@@ -40,8 +35,11 @@ export function HasReportsNew({
             <div className="grid shrink-0 place-items-center bg-arc-primary px-2 py-0.5">
               <WarningDiamondIcon aria-hidden weight="bold" size={32} />
             </div>
-            <h2 className="gap-2 px-2 py-0.5 text-xl font-bold uppercase tabular-nums">
-              REPORT HISTORY ({approvedReports.length})
+            <h2 className="gap-2 px-2 py-0.5 text-xl font-bold uppercase">
+              REPORT HISTORY{" "}
+              <span className={cn("font-normal tabular-nums", approvedReports.length === 0 && "text-arc-muted")}>
+                ({approvedReports.length})
+              </span>
             </h2>
           </div>
           <ul className="grid gap-3 rounded-b-[6px] bg-arc-dark/50 p-4 backdrop-blur-sm">

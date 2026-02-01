@@ -20,30 +20,29 @@ export function HasReportsNew({
 }) {
   return (
     <>
-      <nav className="mb-4 flex items-center justify-between gap-2">
-        <Link
-          to="/"
-          aria-label="Return to search"
-          className="btn-ring grid size-8 place-items-center rounded-full bg-arc-item p-1 text-arc-muted [--pass-radius:9999px] hover:text-arc-light focus-visible:text-arc-light"
-          viewTransition>
-          <CaretLeftIcon className="h-full w-full" weight="bold" aria-hidden />
-        </Link>
-        <div className="flex items-center gap-2 text-arc-light">
-          <h1>{embarkId}</h1>
-          <div className="flex shrink-0 items-center gap-1 rounded-full bg-arc-light/20 px-3.5 py-2 text-arc-light tabular-nums">
-            <WarningCircleIcon weight="fill" className="-ml-1 size-6 shrink-0" aria-hidden />
-            {approvedReports.length}
-            <span className="sr-only"> reports</span>
-          </div>
+      <nav className="mb-4 flex items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <Link
+            to="/"
+            aria-label="Return to search"
+            className="btn-ring grid size-8 shrink-0 place-items-center rounded-full bg-arc-item p-1 text-arc-muted [--pass-radius:9999px] hover:text-arc-light focus-visible:text-arc-light"
+            viewTransition>
+            <CaretLeftIcon className="h-full w-full" weight="bold" aria-hidden />
+          </Link>
+          <div aria-hidden className="h-6 w-0.5 shrink-0 bg-arc-muted2" />
+          <span className="font-prompt text-xl font-bold text-arc-light uppercase">RAIDER PROFILE</span>
         </div>
+        <h1 className="font-prompt text-xl font-bold text-arc-light uppercase">{embarkId}</h1>
       </nav>
       <section className="mt-4">
         <div>
-          <div className="flex items-center overflow-hidden rounded-t-[6px] bg-arc-light text-xl font-bold text-arc-dark uppercase">
+          <div className="flex items-center overflow-hidden rounded-t-[6px] bg-arc-light text-arc-dark">
             <div className="grid shrink-0 place-items-center bg-arc-primary px-2 py-0.5">
               <WarningDiamondIcon aria-hidden weight="bold" size={32} />
             </div>
-            <h2 className="px-2 py-0.5">REPORT HISTORY</h2>
+            <h2 className="gap-2 px-2 py-0.5 text-xl font-bold uppercase tabular-nums">
+              REPORT HISTORY ({approvedReports.length})
+            </h2>
           </div>
           <ul className="grid gap-3 rounded-b-[6px] bg-arc-dark/50 p-4 backdrop-blur-sm">
             <li>

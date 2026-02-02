@@ -38,8 +38,10 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
       </DrawerTrigger>
       <DrawerContent className="bg-arc-dark/83">
         <DrawerHeader>
-          <DrawerTitle className="text-primary">{embarkId}</DrawerTitle>
-          <DrawerDescription>{REPORT_REASON_LABELS[report.reason]}</DrawerDescription>
+          <DrawerTitle className="font-prompt text-lg text-arc-light uppercase">{embarkId}</DrawerTitle>
+          <DrawerDescription className="font-body font-medium text-arc-muted uppercase">
+            {REPORT_REASON_LABELS[report.reason]}
+          </DrawerDescription>
         </DrawerHeader>
         <div className="flex min-h-0 flex-1">
           <ScrollArea.Root className="min-h-0 min-w-0 flex-1 px-4">
@@ -55,7 +57,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
                 </div>
                 {report.canonicalVideoUrl && (
                   <div>
-                    <h3 className="mb-2 text-muted-foreground uppercase">EVIDENCE</h3>
+                    <h3 className="mb-2 font-body font-medium text-arc-muted uppercase">EVIDENCE</h3>
                     <iframe
                       src={getYouTubeEmbedUrl(report.canonicalVideoUrl)}
                       title="YouTube video"
@@ -74,7 +76,11 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
         </div>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button variant="outline">Close</Button>
+            <button
+              type="button"
+              className="btn-ring flex items-center justify-center gap-3 rounded-full bg-arc-light px-3.5 py-1 text-base font-bold text-arc-dark uppercase [--pass-radius:9999px]">
+              <span className="rounded-[6px] bg-arc-dark px-2 py-1 text-arc-light">ESC</span> CLOSE
+            </button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

@@ -36,7 +36,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
           />
         </button>
       </DrawerTrigger>
-      <DrawerContent className="bg-card">
+      <DrawerContent className="bg-arc-dark/83">
         <DrawerHeader>
           <DrawerTitle className="text-primary">{embarkId}</DrawerTitle>
           <DrawerDescription>{REPORT_REASON_LABELS[report.reason]}</DrawerDescription>

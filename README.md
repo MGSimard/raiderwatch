@@ -3,6 +3,8 @@
 ## TASK LIST
 
 - Finish drawer restyle
+- Restyle toast notifications
+- Fix shadcn's dogshit dialog not having vert scroll
 - Px -> rem/em
 - After I'm done with ARC Raiders stylization, collapse duplicates into single components (i.e. buttons)
 - Replace explicit drizzle-adapter package once it releases to live

@@ -1,4 +1,4 @@
-import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "@/_lib/consts";
+import { VITE_SITE_DESCRIPTION, VITE_SITE_TITLE, VITE_SITE_URL } from "@/_lib/consts";
 import globalCss from "@/_styles/global.css?url";
 import fontsCss from "@/_styles/fonts.css?url";
 
@@ -11,11 +11,11 @@ export const configMeta = [
     content: "width=device-width, initial-scale=1",
   },
   {
-    title: SITE_TITLE,
+    title: VITE_SITE_TITLE,
   },
   {
     name: "description",
-    content: SITE_DESCRIPTION,
+    content: VITE_SITE_DESCRIPTION,
   },
   {
     name: "author",
@@ -100,23 +100,23 @@ export const openGraph = [
   },
   {
     property: "og:site_name",
-    content: SITE_TITLE,
+    content: VITE_SITE_TITLE,
   },
   {
     property: "og:url",
-    content: SITE_URL,
+    content: VITE_SITE_URL,
   },
   {
     property: "og:title",
-    content: SITE_TITLE,
+    content: VITE_SITE_TITLE,
   },
   {
     property: "og:description",
-    content: SITE_DESCRIPTION,
+    content: VITE_SITE_DESCRIPTION,
   },
   {
     property: "og:image",
-    content: `${SITE_URL}/metadata/og-img.jpg`,
+    content: `${VITE_SITE_URL}/metadata/og-img.jpg`,
   },
   {
     property: "og:image:width",
@@ -143,30 +143,30 @@ export const twitter = [
   },
   {
     name: "twitter:url",
-    content: SITE_URL,
+    content: VITE_SITE_URL,
   },
   {
     name: "twitter:title",
-    content: SITE_TITLE,
+    content: VITE_SITE_TITLE,
   },
   {
     name: "twitter:description",
-    content: SITE_DESCRIPTION,
+    content: VITE_SITE_DESCRIPTION,
   },
   {
     name: "twitter:image",
-    content: `${SITE_URL}/metadata/twitter-img.jpg`,
+    content: `${VITE_SITE_URL}/metadata/twitter-img.jpg`,
   },
 ];
 
 export const misc = [
   {
     name: "application-name",
-    content: SITE_TITLE,
+    content: VITE_SITE_TITLE,
   },
   {
     name: "apple-mobile-web-app-title",
-    content: SITE_TITLE,
+    content: VITE_SITE_TITLE,
   },
   {
     name: "theme-color",

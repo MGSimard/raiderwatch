@@ -2,6 +2,7 @@
 
 ## TASK LIST
 
+- Clear out consts loading envs and envs themselves for T3Env (Check latest conventions for TSS)
 - Replace field + copy icon under video to just button + text + copy icon
 - Finish drawer restyle
 - Restyle toast notifications

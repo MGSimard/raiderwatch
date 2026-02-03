@@ -1,9 +1,9 @@
 import type { ReportStatus, ReportReason } from "@/_lib/enums";
 import type { SearchFilters } from "@/_lib/types";
 
-export const SITE_URL = "https://raiderwatch.netlify.app";
-export const SITE_TITLE = "RAIDER.WATCH";
-export const SITE_DESCRIPTION = "Track and report on ARC Raiders gameplay violations";
+export const VITE_SITE_URL = import.meta.env.VITE_SITE_URL;
+export const VITE_SITE_TITLE = "Raider.Watch";
+export const VITE_SITE_DESCRIPTION = "Report and track cheating, exploiting, and griefing in ARC Raiders.";
 
 export const REPORT_STATUS_META = {
   pending: {

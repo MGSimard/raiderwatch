@@ -7,7 +7,8 @@
     "node_modules",
     "dist",
     ".tanstack",
-    ".netlify"
+    ".netlify",
+    "netlify.toml"
   ],
   "semi": true,
   "tabWidth": 2,

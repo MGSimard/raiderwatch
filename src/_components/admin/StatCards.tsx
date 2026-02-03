@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardAction, CardDescription, CardHeader, CardTitle } from "@/_components/admin/ui/card";
 import { Badge } from "@/_components/ui/badge";
-import { getDashboardOverview } from "@/_server/serverFunctions";
+import { getDashboardOverview } from "@/_server/server-functions";
 
 export function StatCards() {
   const { data } = useQuery({

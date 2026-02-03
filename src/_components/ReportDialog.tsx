@@ -19,7 +19,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import { REPORT_REASON_ENUMS } from "@/_lib/enums";
 import { REPORT_REASON_LABELS } from "@/_lib/consts";
-import { fileReport } from "@/_server/serverFunctions";
+import { fileReport } from "@/_server/server-functions";
 import { fileReportSchema } from "@/_lib/schemas";
 import { cn } from "@/_lib/utils";
 

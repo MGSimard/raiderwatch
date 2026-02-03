@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ReportDrawerNew } from "@/_components/ReportDrawerNew";
 import { ReportDialogNew } from "@/_components/ReportDialogNew";
 import { cn } from "@/_lib/utils";
-import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
+import type { getRaiderApprovedReports } from "@/_server/server-functions";
 import { ChevronLeft, CircleDashed, CircleCheck, Plus, TriangleAlert } from "lucide-react";
 
 export function HasReportsNew({

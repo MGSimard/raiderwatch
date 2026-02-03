@@ -29,7 +29,7 @@ import { toast } from "sonner";
 import { updateReportSchema } from "@/_lib/schemas";
 import { REPORT_REASON_ENUMS, REPORT_STATUS_ENUMS, ReportReason, ReportStatus } from "@/_lib/enums";
 import { REPORT_REASON_LABELS, REPORT_STATUS_META } from "@/_lib/consts";
-import { updateReport } from "@/_server/serverFunctions";
+import { updateReport } from "@/_server/server-functions";
 import { cn, copyToClipboard, formatUtcDateTime, getYouTubeEmbedUrl } from "@/_lib/utils";
 import type { ReportRow } from "@/_lib/types";
 import { Copy } from "lucide-react";

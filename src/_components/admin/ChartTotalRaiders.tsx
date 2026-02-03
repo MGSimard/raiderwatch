@@ -6,7 +6,7 @@ import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle }
 import { ToggleGroup, ToggleGroupItem } from "@/_components/ui/toggle-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/_components/ui/select";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/_components/admin/ui/chart";
-import { getRaidersChartData } from "@/_server/serverFunctions";
+import { getRaidersChartData } from "@/_server/server-functions";
 
 const chartConfig = {
   raiders: {

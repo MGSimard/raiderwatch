@@ -1,9 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
-import { db } from "./db";
-import { reports, users } from "./db/schema";
+import { db } from "@/_server/db";
+import { reports, users } from "@/_server/db/schema";
 import { and, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import { auth } from "@/_auth";
 import { authMiddleware } from "@/_auth/authMiddleware";
+import { ratelimitMiddleware } from "@/_server/ratelimit-middleware";
 import { fileReportSchema, searchFilterSchema, updateReportSchema } from "@/_lib/schemas";
 import { z } from "zod";
 // import { notFound } from "@tanstack/react-router"; // Available for 404 handling
@@ -12,6 +13,7 @@ import { z } from "zod";
 // https://www.better-auth.com/docs/plugins/admin#access-control-usage
 
 export const getRaiderApprovedReports = createServerFn({ method: "GET" })
+  .middleware([ratelimitMiddleware])
   .inputValidator(z.object({ embarkId: z.string() }))
   .handler(async ({ data }) => {
     const { embarkId } = data;
@@ -35,6 +37,7 @@ export const getRaiderApprovedReports = createServerFn({ method: "GET" })
   });
 
 export const fileReport = createServerFn({ method: "POST" })
+  .middleware([ratelimitMiddleware])
   .inputValidator(fileReportSchema)
   .handler(async ({ data }) => {
     const { embarkId, reason, description, videoUrl } = data;

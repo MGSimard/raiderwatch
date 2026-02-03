@@ -14,6 +14,11 @@ export const auth = betterAuth({
     transaction: true,
     usePlural: true,
   }),
+  advanced: {
+    ipAddress: {
+      ipAddressHeaders: ["x-nf-client-connection-ip"], // Netlify-specific header
+    },
+  },
   secondaryStorage: {
     get: async (key) => {
       return await redis.get(key);
@@ -28,10 +33,9 @@ export const auth = betterAuth({
   },
   rateLimit: {
     enabled: true,
-    window: 120, // Default
-    max: 5, // Default
+    window: 60,
+    max: 30,
     storage: "secondary-storage", // Upstash Redis
-    modelName: "better-auth-rate-limit", // Default
   },
   emailAndPassword: {
     enabled: true,

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ReportsTable } from "@/_components/admin/reports-table/ReportsTable";
-import { getReportsTableData } from "@/_server/serverFunctions";
+import { getReportsTableData } from "@/_server/server-functions";
 import { DEFAULT_REPORTS_FILTERS } from "@/_lib/consts";
 
 export const Route = createFileRoute("/dashboard/reports")({

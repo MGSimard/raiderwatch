@@ -1,6 +1,6 @@
 import type { z } from "zod";
 import type { searchFilterSchema } from "@/_lib/schemas";
-import type { getRaiderApprovedReports, getReportsTableData } from "@/_server/serverFunctions";
+import type { getRaiderApprovedReports, getReportsTableData } from "@/_server/server-functions";
 
 export type SearchFilters = z.infer<typeof searchFilterSchema>;
 

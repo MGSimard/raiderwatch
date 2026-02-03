@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle } from "@/_components/ui/card";
 import { ReportDrawer } from "@/_components/ReportDrawer";
 import { ReportDialog } from "@/_components/ReportDialog";
 import { ArrowLeftIcon } from "lucide-react";
-import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
+import type { getRaiderApprovedReports } from "@/_server/server-functions";
 
 export function HasReports({
   embarkId,

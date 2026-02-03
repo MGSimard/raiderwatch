@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebouncedValue } from "@tanstack/react-pacer";
-import { getReportsTableData } from "@/_server/serverFunctions";
+import { getReportsTableData } from "@/_server/server-functions";
 import { flexRender, getCoreRowModel, RowData, useReactTable } from "@tanstack/react-table";
 import { ReportsSearch } from "@/_components/admin/reports-table/ReportsSearch";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/_components/admin/ui/table";

@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { getCurrentUser, getRaiderApprovedReports } from "@/_server/serverFunctions";
+import { getCurrentUser, getRaiderApprovedReports } from "@/_server/server-functions";
 
 export const currentUserQuery = () => {
   return queryOptions({

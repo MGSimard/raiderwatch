@@ -78,7 +78,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
           <DrawerClose asChild>
             <button
               type="button"
-              className="flex w-fit items-center gap-3 rounded-full px-3.5 py-1 text-base font-bold text-arc-light uppercase opacity-50 hover:opacity-100 focus-visible:opacity-100">
+              className="ml-auto flex w-fit items-center gap-3 rounded-full px-3.5 py-1 text-base font-bold text-arc-light uppercase opacity-50 hover:opacity-100 focus-visible:opacity-100">
               <span className="rounded-[6px] bg-arc-light px-2 py-1 text-arc-dark">ESC</span> CLOSE
             </button>
           </DrawerClose>

@@ -80,7 +80,7 @@ export function HasReportsNew({
 
 function NoReportsItem() {
   return (
-    <li className="flex w-full items-center justify-between gap-4 rounded-[4px] border border-dashed border-arc-border bg-transparent p-4 text-arc-radial select-none">
+    <li className="flex w-full items-center justify-between gap-4 rounded-[4px] border border-dashed border-arc-border bg-arc-dark/70 p-4 text-arc-border select-none dark:bg-transparent">
       <h2 className="uppercase">NO ACTIVE REPORTS</h2>
       <CircleDashed className="size-8 shrink-0" />
     </li>

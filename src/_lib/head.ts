@@ -79,6 +79,13 @@ export const fontPreloads = [
   },
   {
     rel: "preload",
+    href: "/assets/fonts/Barlow/Barlow-Bold.woff2",
+    as: "font",
+    type: "font/woff2",
+    crossOrigin: "anonymous",
+  },
+  {
+    rel: "preload",
     href: "/assets/fonts/Prompt/Prompt-Bold.woff2",
     as: "font",
     type: "font/woff2",

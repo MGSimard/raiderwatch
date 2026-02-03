@@ -25,7 +25,9 @@ export function HasReportsNew({
             <ChevronLeft className="h-full w-full" />
           </Link>
           <div aria-hidden className="h-6 w-px shrink-0 bg-arc-muted2" />
-          <h1 className="truncate font-urbanist text-xl font-bold text-arc-light uppercase" title={embarkId}>
+          <h1
+            className="truncate font-urbanist text-xl font-bold text-arc-light uppercase text-shadow-md"
+            title={embarkId}>
             {embarkId}
           </h1>
         </div>

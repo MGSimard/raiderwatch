@@ -78,8 +78,8 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
           <DrawerClose asChild>
             <button
               type="button"
-              className="btn-ring flex h-full items-center justify-center gap-3 rounded-full bg-arc-light px-3.5 py-1 text-base font-bold text-arc-dark uppercase [--pass-radius:9999px]">
-              <span className="rounded-[6px] bg-arc-dark px-2 py-1 text-arc-light">ESC</span> CLOSE
+              className="flex w-fit items-center gap-3 rounded-full px-3.5 py-1 text-base font-bold text-arc-light uppercase opacity-50 hover:opacity-100 focus-visible:opacity-100">
+              <span className="rounded-[6px] bg-arc-light px-2 py-1 text-arc-dark">ESC</span> CLOSE
             </button>
           </DrawerClose>
         </DrawerFooter>

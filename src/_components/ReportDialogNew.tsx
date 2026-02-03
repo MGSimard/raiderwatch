@@ -55,7 +55,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
       <DialogContent
         className="block overflow-hidden rounded-[8px] bg-transparent p-0 text-arc-dark ring-0 sm:max-w-[425px]"
         showCloseButton={false}>
-        <DialogBody className="bg-arc-light py-4 text-arc-dark">
+        <DialogBody className="bg-arc-light py-4 pt-3 text-arc-dark">
           <DialogTitle className="prompt text-lg">FILE REPORT</DialogTitle>
           <form
             id="raider-report-form"

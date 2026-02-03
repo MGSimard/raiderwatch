@@ -70,9 +70,9 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name} className="prompt gap-1">
+                    <FieldLabel htmlFor={field.name} className="prompt gap-1 select-auto">
                       EMBARK ID
-                      <span className="text-destructive" aria-hidden>
+                      <span className="text-destructive select-none" aria-hidden>
                         *
                       </span>
                     </FieldLabel>
@@ -99,9 +99,9 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name} className="prompt gap-1">
+                    <FieldLabel htmlFor={field.name} className="prompt gap-1 select-auto">
                       REASON
-                      <span className="text-destructive" aria-hidden>
+                      <span className="text-destructive select-none" aria-hidden>
                         *
                       </span>
                     </FieldLabel>
@@ -141,9 +141,9 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name} className="prompt gap-1">
+                    <FieldLabel htmlFor={field.name} className="prompt gap-1 select-auto">
                       YOUTUBE URL
-                      <span className="text-destructive" aria-hidden>
+                      <span className="text-destructive select-none" aria-hidden>
                         *
                       </span>
                     </FieldLabel>
@@ -169,9 +169,9 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name} className="prompt gap-1">
+                    <FieldLabel htmlFor={field.name} className="prompt gap-1 select-auto">
                       DESCRIPTION
-                      <span className="text-destructive" aria-hidden>
+                      <span className="text-destructive select-none" aria-hidden>
                         *
                       </span>
                     </FieldLabel>

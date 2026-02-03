@@ -71,7 +71,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
                           aria-label="Copy Video URL"
                           title="Copy Video URL"
                           size="icon-xs"
-                          className="btn-ring rounded-[9999rem] [--pass-radius:9999rem]"
+                          className="btn-ring rounded-full [--pass-radius:9999rem]"
                           onClick={() => copyToClipboard(canonicalVideoUrl, "Video URL")}>
                           <CopySimpleIcon aria-hidden />
                         </InputGroupButton>

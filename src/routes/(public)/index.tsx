@@ -14,7 +14,7 @@ function PageHome() {
       <Button
         variant="outline"
         size="icon"
-        className="absolute top-4 right-4"
+        className="absolute top-4 right-4 rounded-full"
         nativeButton={false}
         aria-hidden
         tabIndex={-1}

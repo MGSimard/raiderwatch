@@ -52,6 +52,7 @@ export function SearchUser() {
           id="search-embark-id"
           name="search-embark-id"
           placeholder="username#1234"
+          className="rounded-l-full"
           aria-invalid={!!error}
           value={value}
           onChange={handleChange}
@@ -61,7 +62,7 @@ export function SearchUser() {
         />
         {error && <FieldError>{error}</FieldError>}
       </Field>
-      <Button type="submit" variant="outline" size="icon" disabled={isEmpty}>
+      <Button type="submit" variant="outline" size="icon" disabled={isEmpty} className="rounded-r-full">
         <MagnifyingGlassIcon className="size-4" aria-hidden />
       </Button>
     </form>

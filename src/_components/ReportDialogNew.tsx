@@ -70,8 +70,11 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name} className="prompt">
+                    <FieldLabel htmlFor={field.name} className="prompt gap-1">
                       EMBARK ID
+                      <span className="text-destructive" aria-hidden>
+                        *
+                      </span>
                     </FieldLabel>
                     <Input
                       id={field.name}
@@ -96,8 +99,11 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name} className="prompt">
+                    <FieldLabel htmlFor={field.name} className="prompt gap-1">
                       REASON
+                      <span className="text-destructive" aria-hidden>
+                        *
+                      </span>
                     </FieldLabel>
                     <Select
                       name={field.name}
@@ -135,8 +141,11 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name} className="prompt">
+                    <FieldLabel htmlFor={field.name} className="prompt gap-1">
                       YOUTUBE URL
+                      <span className="text-destructive" aria-hidden>
+                        *
+                      </span>
                     </FieldLabel>
                     <Input
                       id={field.name}
@@ -160,8 +169,11 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name} className="prompt">
+                    <FieldLabel htmlFor={field.name} className="prompt gap-1">
                       DESCRIPTION
+                      <span className="text-destructive" aria-hidden>
+                        *
+                      </span>
                     </FieldLabel>
                     <InputGroup className="rounded-[4px] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]">
                       <InputGroupTextarea
@@ -179,8 +191,11 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                       <InputGroupAddon align="block-end">
                         <InputGroupText
                           className={cn(
-                            field.state.value.length > 300 && "text-destructive",
-                            "font-bold text-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]"
+                            "font-bold text-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]",
+                            field.state.meta.isTouched &&
+                              field.state.meta.isDirty &&
+                              (field.state.value.length > 300 || field.state.value.length < 20) &&
+                              "text-destructive"
                           )}>
                           {field.state.value.length}/300 characters
                         </InputGroupText>
@@ -193,7 +208,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
             />
           </form>
         </DialogBody>
-        <DialogFooter className="grid shrink-0 grid-cols-2 bg-arc-dark p-4">
+        <DialogFooter className="grid shrink-0 grid-cols-2 gap-4 bg-arc-dark px-4 py-6">
           <DialogClose
             render={
               <button

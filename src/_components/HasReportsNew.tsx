@@ -4,7 +4,7 @@ import { ReportDrawerNew } from "@/_components/ReportDrawerNew";
 import { ReportDialogNew } from "@/_components/ReportDialogNew";
 import { cn } from "@/_lib/utils";
 import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
-import { CaretLeftIcon, CircleDashedIcon, PlusIcon, WarningDiamondIcon } from "@phosphor-icons/react";
+import { CaretLeftIcon, CircleDashedIcon, CheckCircleIcon, PlusIcon, WarningDiamondIcon } from "@phosphor-icons/react";
 
 export function HasReportsNew({
   embarkId,
@@ -33,8 +33,16 @@ export function HasReportsNew({
       <section className="mt-4">
         <div className="overflow-hidden">
           <div className="flex items-stretch overflow-hidden rounded-t-[6px] bg-arc-light text-arc-dark">
-            <div className="grid shrink-0 place-items-center bg-arc-primary px-2 py-0.5">
-              <WarningDiamondIcon aria-hidden weight="bold" size={32} />
+            <div
+              className={cn(
+                "grid shrink-0 place-items-center px-2 py-0.5",
+                approvedReports.length > 0 ? "bg-arc-primary" : "bg-arc-green"
+              )}>
+              {approvedReports.length > 0 ? (
+                <WarningDiamondIcon aria-hidden weight="bold" size={32} />
+              ) : (
+                <CheckCircleIcon aria-hidden weight="bold" size={32} />
+              )}
             </div>
             <h2 className="gap-2 px-2 py-0.5 text-xl font-bold uppercase">
               REPORT HISTORY{" "}

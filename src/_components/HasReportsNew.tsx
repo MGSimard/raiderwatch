@@ -15,8 +15,8 @@ export function HasReportsNew({
 }) {
   return (
     <>
-      <nav className="mb-4 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
+      <nav className="mb-4 flex flex-wrap items-center justify-between gap-8">
+        <div className="flex shrink-0 items-center gap-4">
           <Link
             to="/"
             aria-label="Return to search"
@@ -24,14 +24,15 @@ export function HasReportsNew({
             viewTransition>
             <CaretLeftIcon className="h-full w-full" weight="bold" aria-hidden />
           </Link>
-          <div aria-hidden className="h-6 w-0.5 shrink-0 bg-arc-muted2" />
-          <span className="prompt text-xl text-arc-light">RAIDER PROFILE</span>
+          <div aria-hidden className="h-6 w-px shrink-0 bg-arc-muted2" />
+          <h1 className="truncate font-urbanist text-xl font-bold text-arc-light uppercase" title={embarkId}>
+            {embarkId}
+          </h1>
         </div>
-        <h1 className="font-base font-urbanist text-xl font-bold text-arc-light uppercase">{embarkId}</h1>
       </nav>
       <section className="mt-4">
-        <div>
-          <div className="flex items-center overflow-hidden rounded-t-[6px] bg-arc-light text-arc-dark">
+        <div className="overflow-hidden">
+          <div className="flex items-stretch overflow-hidden rounded-t-[6px] bg-arc-light text-arc-dark">
             <div className="grid shrink-0 place-items-center bg-arc-primary px-2 py-0.5">
               <WarningDiamondIcon aria-hidden weight="bold" size={32} />
             </div>
@@ -42,7 +43,7 @@ export function HasReportsNew({
               </span>
             </h2>
           </div>
-          <ul className="grid gap-3 rounded-b-[6px] bg-arc-dark/50 p-4 backdrop-blur-sm">
+          <ul className="grid gap-3 overflow-hidden rounded-b-[6px] bg-arc-dark/50 p-4 backdrop-blur-sm">
             <li>
               <ReportDialogNew embarkId={embarkId}>
                 <button

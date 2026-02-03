@@ -54,7 +54,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <ThemeProvider>
           <TooltipProvider>
             <div id="root">{children}</div>
-            <Toaster className="z-9999" />
+            <Toaster />
           </TooltipProvider>
         </ThemeProvider>
         <TanStackDevtools

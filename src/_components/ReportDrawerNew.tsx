@@ -69,8 +69,9 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
                       <InputGroupAddon align="inline-end">
                         <InputGroupButton
                           aria-label="Copy Video URL"
-                          title="Copy"
+                          title="Copy Video URL"
                           size="icon-xs"
+                          className="btn-ring rounded-[9999rem] [--pass-radius:9999rem]"
                           onClick={() => copyToClipboard(canonicalVideoUrl, "Video URL")}>
                           <CopySimpleIcon aria-hidden />
                         </InputGroupButton>

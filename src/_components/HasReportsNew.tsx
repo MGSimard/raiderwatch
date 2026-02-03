@@ -25,7 +25,7 @@ export function HasReportsNew({
             <CaretLeftIcon className="h-full w-full" weight="bold" aria-hidden />
           </Link>
           <div aria-hidden className="h-6 w-0.5 shrink-0 bg-arc-muted2" />
-          <span className="font-prompt text-xl font-bold tracking-wide text-arc-light uppercase">RAIDER PROFILE</span>
+          <span className="prompt text-xl text-arc-light">RAIDER PROFILE</span>
         </div>
         <h1 className="font-base font-urbanist text-xl font-bold text-arc-light uppercase">{embarkId}</h1>
       </nav>

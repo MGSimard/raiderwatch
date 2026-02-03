@@ -24,9 +24,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
           aria-label="View Report"
           className="group btn-ring flex w-full items-center justify-between gap-4 rounded-[4px] border border-arc-border bg-arc-item p-4 [--pass-radius:2px]">
           <div className="text-start">
-            <h3 className="font-prompt font-bold tracking-wide text-arc-light uppercase">
-              {REPORT_REASON_LABELS[report.reason]}
-            </h3>
+            <h3 className="prompt text-arc-light">{REPORT_REASON_LABELS[report.reason]}</h3>
             <p className="flex items-center gap-1 text-xs/relaxed font-medium text-arc-muted">
               <CalendarDotsIcon weight="bold" className="shrink-0" aria-hidden />
               <span>{formatUtcDate(report.createdAt)}</span>
@@ -40,9 +38,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
       </DrawerTrigger>
       <DrawerContent className="rounded-[1rem] border-transparent bg-arc-dark/83">
         <DrawerHeader>
-          <DrawerTitle className="font-prompt text-lg font-bold tracking-wide text-arc-light uppercase">
-            {embarkId}
-          </DrawerTitle>
+          <DrawerTitle className="prompt text-lg text-arc-light">{embarkId}</DrawerTitle>
           <DrawerDescription className="font-body font-medium text-arc-muted uppercase">
             {REPORT_REASON_LABELS[report.reason]}
           </DrawerDescription>

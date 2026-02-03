@@ -12,6 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/_components/admin/ui/sidebar";
+import { RWLogo } from "@/_components/Icons";
 
 export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -22,7 +23,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
             <SidebarMenuButton
               render={<Link to="/" aria-label="Return home" />}
               className="data-[slot=sidebar-menu-button]:p-1.5!">
-              <Aperture className="size-5" />
+              <RWLogo className="text-red-500" />
               <span className="text-base font-semibold">RAIDER.WATCH</span>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -52,6 +52,7 @@
     "@tanstack/react-start": "^1.157.17",
     "@tanstack/react-table": "^8.21.3",
     "@tanstack/router-plugin": "^1.157.17",
+    "@upstash/redis": "^1.36.2",
     "better-auth": "1.5.0-beta.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

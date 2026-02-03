@@ -24,7 +24,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
         <button
           type="button"
           aria-label="View Report"
-          className="group btn-ring flex w-full items-center justify-between gap-4 rounded-[4px] border border-arc-border bg-arc-item p-4 [--pass-radius:2px]">
+          className="group btn-ring flex w-full items-center justify-between gap-4 rounded-[0.25rem] border border-arc-border bg-arc-item p-4 [--pass-radius:2px]">
           <div className="text-start">
             <h3 className="prompt text-arc-light">{REPORT_REASON_LABELS[reason]}</h3>
             <p className="flex items-center gap-1 text-xs/relaxed font-medium text-arc-muted">
@@ -81,7 +81,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
                   type="button"
                   aria-label="Copy Report Metadata"
                   title="Copy Report Metadata"
-                  className="group btn-ring rounded-[4px] border border-arc-border bg-arc-dark/83 p-2 text-start text-arc-muted [--pass-radius:2px]"
+                  className="group btn-ring rounded-[0.25rem] border border-arc-border bg-arc-dark/83 p-2 text-start text-arc-muted [--pass-radius:2px]"
                   onClick={() => copyToClipboard(JSON.stringify(report, null, 2), "Report Metadata")}>
                   <div className="flex items-center justify-between gap-2">
                     <h3 className="prompt group-hover:text-arc-light group-focus-visible:text-arc-light">
@@ -109,7 +109,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
             <button
               type="button"
               className="ml-auto flex w-fit items-center gap-3 rounded-full px-3.5 py-1 text-base font-bold text-arc-light uppercase opacity-50 hover:opacity-100 focus-visible:opacity-100">
-              <span className="rounded-[6px] bg-arc-light px-2 py-1 text-arc-dark">ESC</span> CLOSE
+              <span className="rounded-[0.375rem] bg-arc-light px-2 py-1 text-arc-dark">ESC</span> CLOSE
             </button>
           </DrawerClose>
         </DrawerFooter>

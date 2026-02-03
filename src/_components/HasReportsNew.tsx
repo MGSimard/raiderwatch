@@ -58,7 +58,7 @@ export function HasReportsNew({
               <ReportDialogNew embarkId={embarkId}>
                 <button
                   type="button"
-                  className="btn-ring flex w-full items-center justify-between gap-4 rounded-[4px] border border-arc-border bg-arc-dark/83 p-4 text-arc-muted [--pass-radius:2px] hover:bg-arc-light hover:text-arc-dark focus-visible:bg-arc-light focus-visible:text-arc-dark">
+                  className="btn-ring flex w-full items-center justify-between gap-4 rounded-[0.25rem] border border-arc-border bg-arc-dark/83 p-4 text-arc-muted [--pass-radius:2px] hover:bg-arc-light hover:text-arc-dark focus-visible:bg-arc-light focus-visible:text-arc-dark">
                   <h3 className="font-bold uppercase">ADD REPORT</h3>
                   <Plus className="size-8 shrink-0" />
                 </button>
@@ -82,7 +82,7 @@ export function HasReportsNew({
 
 function NoReportsItem() {
   return (
-    <li className="flex w-full items-center justify-between gap-4 rounded-[4px] border border-dashed border-arc-border bg-arc-dark/70 p-4 text-arc-border select-none dark:bg-transparent">
+    <li className="flex w-full items-center justify-between gap-4 rounded-[0.25rem] border border-dashed border-arc-border bg-arc-dark/70 p-4 text-arc-border select-none dark:bg-transparent">
       <h2 className="uppercase">NO ACTIVE REPORTS</h2>
       <CircleDashed className="size-8 shrink-0" />
     </li>

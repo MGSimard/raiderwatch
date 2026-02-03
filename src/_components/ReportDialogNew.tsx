@@ -51,7 +51,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={children as React.ReactElement} />
       <DialogContent
-        className="block overflow-hidden rounded-[8px] bg-transparent p-0 text-arc-dark ring-0 sm:max-w-[425px]"
+        className="block overflow-hidden rounded-[0.5rem] bg-transparent p-0 text-arc-dark ring-0 sm:max-w-[425px]"
         showCloseButton={false}>
         <DialogBody className="bg-arc-light py-4 pt-3 text-arc-dark">
           <DialogTitle className="prompt text-lg">FILE REPORT</DialogTitle>
@@ -80,7 +80,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="cursor-not-allowed rounded-[4px] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! font-bold text-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)] ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]"
+                      className="cursor-not-allowed rounded-[0.25rem] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! font-bold text-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)] ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]"
                       aria-invalid={isInvalid}
                       autoComplete="off"
                       required
@@ -111,7 +111,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                       <SelectTrigger
                         id={field.name}
                         aria-invalid={isInvalid}
-                        className="rounded-[4px] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]">
+                        className="rounded-[0.25rem] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]">
                         <SelectValue placeholder="...">
                           {(value: string) =>
                             value ? REPORT_REASON_LABELS[value as keyof typeof REPORT_REASON_LABELS] : "..."
@@ -120,7 +120,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                       </SelectTrigger>
                       <SelectContent
                         alignItemWithTrigger={false}
-                        className="rounded-[4px] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! text-arc-dark ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]">
+                        className="rounded-[0.25rem] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! text-arc-dark ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]">
                         {REPORT_REASON_ENUMS.map((reason) => (
                           <SelectItem key={reason} value={reason} className="cursor-pointer">
                             {REPORT_REASON_LABELS[reason]}
@@ -153,7 +153,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                       onChange={(e) => field.handleChange(e.target.value)}
                       aria-invalid={isInvalid}
                       required
-                      className="rounded-[4px] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)] placeholder:text-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]"
+                      className="rounded-[0.25rem] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)] placeholder:text-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]"
                       placeholder="(e.g. https://youtube.com/watch?v=xxx)..."
                     />
                     {isInvalid && <FieldError errors={field.state.meta.errors} />}
@@ -173,7 +173,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                         *
                       </span>
                     </FieldLabel>
-                    <InputGroup className="mb-0.5 rounded-[4px] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]">
+                    <InputGroup className="mb-0.5 rounded-[0.25rem] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]">
                       <InputGroupTextarea
                         id={field.name}
                         name={field.name}

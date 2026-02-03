@@ -163,6 +163,8 @@
   --color-arc-shimmer-beige: var(--arc-shimmer-beige);
   --color-arc-shimmer-cyan: var(--arc-shimmer-cyan);
   --color-arc-shimmer-purple: var(--arc-shimmer-purple);
+  /**/
+  --breakpoint-jeff: 24rem;
 }
 
 @layer base {
@@ -425,6 +427,6 @@
   }
 }
 
-/* * {
+* {
   outline: 1px solid rgba(255, 0, 0, 0.2);
-} */
+}

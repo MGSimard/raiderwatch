@@ -5,9 +5,7 @@ import {
   Dialog,
   DialogTrigger,
   DialogContent,
-  DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogBody,
   DialogClose,
   DialogFooter,
@@ -208,7 +206,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
             />
           </form>
         </DialogBody>
-        <DialogFooter className="grid shrink-0 grid-cols-2 gap-4 bg-arc-dark px-4 py-6">
+        <DialogFooter className="grid shrink-0 gap-4 bg-arc-dark px-4 py-6 jeff:grid-cols-2">
           <DialogClose
             render={
               <button

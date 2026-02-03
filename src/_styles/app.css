@@ -417,6 +417,12 @@
       background-position: 75% 75%;
     }
   }
+  .prompt {
+    font-family: var(--font-prompt);
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+  }
 }
 
 /* * {

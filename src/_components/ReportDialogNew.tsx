@@ -52,14 +52,11 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={children as React.ReactElement} />
-      <DialogContent className="rounded-[8px] bg-arc-dark/83 ring-0 sm:max-w-[425px]" showCloseButton={false}>
-        <DialogHeader className="shrink-0">
-          <DialogTitle className="font-prompt text-lg font-bold tracking-wide text-arc-light uppercase">
-            FILE REPORT
-          </DialogTitle>
-          <DialogDescription className="font-body font-medium text-arc-muted uppercase">{embarkId}</DialogDescription>
-        </DialogHeader>
-        <DialogBody className="text-arc-light">
+      <DialogContent
+        className="block overflow-hidden rounded-[8px] bg-transparent p-0 text-arc-dark ring-0 sm:max-w-[425px]"
+        showCloseButton={false}>
+        <DialogBody className="bg-arc-light py-4 text-arc-dark">
+          <DialogTitle className="prompt text-lg">FILE REPORT</DialogTitle>
           <form
             id="raider-report-form"
             className="grid gap-4"
@@ -73,7 +70,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name} className="font-medium">
+                    <FieldLabel htmlFor={field.name} className="prompt">
                       EMBARK ID
                     </FieldLabel>
                     <Input
@@ -82,7 +79,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="cursor-not-allowed rounded-[4px] text-muted-foreground"
+                      className="cursor-not-allowed rounded-[4px] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! font-bold text-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)] ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]"
                       aria-invalid={isInvalid}
                       autoComplete="off"
                       required
@@ -99,7 +96,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name} className="font-medium">
+                    <FieldLabel htmlFor={field.name} className="prompt">
                       REASON
                     </FieldLabel>
                     <Select
@@ -107,14 +104,19 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                       value={field.state.value}
                       required
                       onValueChange={(value) => field.handleChange(value ?? "")}>
-                      <SelectTrigger id={field.name} aria-invalid={isInvalid} className="rounded-[4px]">
+                      <SelectTrigger
+                        id={field.name}
+                        aria-invalid={isInvalid}
+                        className="rounded-[4px] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]">
                         <SelectValue placeholder="...">
                           {(value: string) =>
                             value ? REPORT_REASON_LABELS[value as keyof typeof REPORT_REASON_LABELS] : "..."
                           }
                         </SelectValue>
                       </SelectTrigger>
-                      <SelectContent alignItemWithTrigger={false}>
+                      <SelectContent
+                        alignItemWithTrigger={false}
+                        className="rounded-[4px] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! text-arc-dark ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]">
                         {REPORT_REASON_ENUMS.map((reason) => (
                           <SelectItem key={reason} value={reason} className="cursor-pointer">
                             {REPORT_REASON_LABELS[reason]}
@@ -133,7 +135,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name} className="font-medium">
+                    <FieldLabel htmlFor={field.name} className="prompt">
                       YOUTUBE URL
                     </FieldLabel>
                     <Input
@@ -144,7 +146,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                       onChange={(e) => field.handleChange(e.target.value)}
                       aria-invalid={isInvalid}
                       required
-                      className="rounded-[4px]"
+                      className="rounded-[4px] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)] placeholder:text-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]"
                       placeholder="(e.g. https://youtube.com/watch?v=xxx)..."
                     />
                     {isInvalid && <FieldError errors={field.state.meta.errors} />}
@@ -158,10 +160,10 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name} className="font-medium">
+                    <FieldLabel htmlFor={field.name} className="prompt">
                       DESCRIPTION
                     </FieldLabel>
-                    <InputGroup className="rounded-[4px]">
+                    <InputGroup className="rounded-[4px] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]">
                       <InputGroupTextarea
                         id={field.name}
                         name={field.name}
@@ -171,11 +173,15 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                         placeholder="Briefly describe the situation..."
                         required
                         rows={6}
-                        className="min-h-24 resize-none wrap-break-word"
+                        className="min-h-24 resize-none wrap-break-word placeholder:text-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]"
                         aria-invalid={isInvalid}
                       />
                       <InputGroupAddon align="block-end">
-                        <InputGroupText className={cn(field.state.value.length > 300 && "text-destructive")}>
+                        <InputGroupText
+                          className={cn(
+                            field.state.value.length > 300 && "text-destructive",
+                            "font-bold text-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]"
+                          )}>
                           {field.state.value.length}/300 characters
                         </InputGroupText>
                       </InputGroupAddon>
@@ -187,21 +193,26 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
             />
           </form>
         </DialogBody>
-        <DialogFooter className="shrink-0 justify-start!">
+        <DialogFooter className="grid shrink-0 grid-cols-2 bg-arc-dark p-4">
           <DialogClose
             render={
               <button
                 type="button"
-                className="btn-ring flex h-full items-center justify-center gap-3 rounded-full px-3.5 py-1 text-base font-bold text-arc-light uppercase opacity-50 [--pass-radius:9999px]">
-                <span className="rounded-[6px] bg-arc-light px-2 py-1 text-arc-dark">ESC</span> CLOSE
+                className="btn-ring flex h-full items-center justify-center gap-3 rounded-full bg-arc-radial px-3.5 py-1 text-base font-bold tracking-wide text-arc-light uppercase [--pass-radius:9999px]">
+                CANCEL
               </button>
             }
           />
           <button
             type="button"
             form="raider-report-form"
-            className="btn-ring flex h-full items-center justify-center gap-3 rounded-full bg-arc-light px-3.5 py-1 text-base font-bold text-arc-dark uppercase [--pass-radius:9999px]">
-            <span className="rounded-[6px] bg-arc-dark px-2 py-1 text-arc-light">ENTER</span> SUBMIT
+            disabled={!form.state.canSubmit}
+            aria-busy={form.state.isSubmitting}
+            className={cn(
+              "btn-ring flex h-full items-center justify-center gap-3 rounded-full bg-arc-primary px-3.5 py-2 text-base font-bold tracking-wide text-arc-dark uppercase [--pass-radius:9999px]",
+              !form.state.canSubmit && "opacity-50"
+            )}>
+            SUBMIT
           </button>
         </DialogFooter>
       </DialogContent>

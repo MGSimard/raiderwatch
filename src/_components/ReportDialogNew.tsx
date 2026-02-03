@@ -173,7 +173,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
                         *
                       </span>
                     </FieldLabel>
-                    <InputGroup className="rounded-[4px] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]">
+                    <InputGroup className="mb-0.5 rounded-[4px] bg-[oklch(from_var(--arc-light)_calc(l-0.1)_c_h)]! ring-1 ring-[oklch(from_var(--arc-light)_calc(l-0.3)_c_h)]">
                       <InputGroupTextarea
                         id={field.name}
                         name={field.name}

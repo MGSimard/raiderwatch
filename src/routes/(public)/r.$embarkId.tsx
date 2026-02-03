@@ -5,7 +5,7 @@ import { approvedReportsQuery } from "@/_lib/queries";
 import { LoaderBlocks } from "@/_components/LoaderBlocks";
 // import { NoReports } from "@/_components/NoReports";
 import { HasReportsNew } from "@/_components/HasReportsNew";
-import { SITE_URL } from "@/_lib/consts";
+import { SITE_TITLE, SITE_URL } from "@/_lib/consts";
 
 export const Route = createFileRoute("/(public)/r/$embarkId")({
   component: PageRaiderProfile,
@@ -15,6 +15,7 @@ export const Route = createFileRoute("/(public)/r/$embarkId")({
     return { embarkId };
   },
   head: ({ params }) => ({
+    meta: [{ title: `${params.embarkId} | ${SITE_TITLE}` }],
     links: [
       {
         rel: "canonical",

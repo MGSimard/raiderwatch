@@ -12,13 +12,12 @@ Report and track cheating, exploiting, and griefing in ARC Raiders.
 
 ## TASK LIST
 
-- Clear out consts loading envs and envs themselves for T3Env (Check latest conventions for TSS)
-- Replace field + copy icon under video to just button + text + copy icon
-- Finish drawer restyle
+- T3Env
 - Restyle toast notifications
 - Fix shadcn's dogshit dialog not having vert scroll
-- After I'm done with ARC Raiders stylization, collapse duplicates into single components (i.e. buttons)
 - Replace explicit drizzle-adapter package once it releases to live
+  - https://github.com/better-auth/better-auth/issues/6766
+  - https://github.com/better-auth/better-auth/pull/6913
 - Consider ISR + Caching - generate pages on validated report, "no reports" on non-matching pages, saving DB trip? - [https://tanstack.com/start/latest/docs/framework/react/guide/isr](https://tanstack.com/start/latest/docs/framework/react/guide/isr)
 - ISR, SSR, Static setups
 - Admin panel's internal Team & Audit Logs (maybe)

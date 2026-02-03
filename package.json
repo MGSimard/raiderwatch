@@ -1,6 +1,22 @@
 {
   "name": "raiderwatch",
   "private": true,
+  "description": "Report and track cheating, exploiting, and griefing in ARC Raiders.",
+  "keywords": [
+    "ARC Raiders",
+    "Raider.Watch",
+    "TanStack Start"
+  ],
+  "homepage": "https://raiderwatch.netlify.app",
+  "bugs": {
+    "url": "https://github.com/MGSimard/raiderwatch/issues"
+  },
+  "license": "MIT",
+  "author": "MGSimard <mgsimard.dev@gmail.com> (https://mgsimard.dev)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MGSimard/raiderwatch.git"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite dev --port 3000",

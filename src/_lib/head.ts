@@ -25,10 +25,6 @@ export const configMeta = [
 
 export const configLinks = [
   {
-    rel: "canonical",
-    href: SITE_URL,
-  },
-  {
     rel: "sitemap",
     href: "/sitemap.xml",
   },
@@ -174,12 +170,12 @@ export const misc = [
   },
   {
     name: "theme-color",
-    content: "#FFFFFF",
+    content: "#f8fafc",
     media: "(prefers-color-scheme: light)",
   },
   {
     name: "theme-color",
-    content: "#FFFFFF",
+    content: "#181012",
     media: "(prefers-color-scheme: dark)",
   },
   {
@@ -188,7 +184,7 @@ export const misc = [
   },
   {
     name: "msapplication-TileColor",
-    content: "#FFFFFF",
+    content: "#181012",
   },
   {
     name: "mobile-web-app-capable",

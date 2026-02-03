@@ -5,6 +5,7 @@ import { approvedReportsQuery } from "@/_lib/queries";
 import { LoaderBlocks } from "@/_components/LoaderBlocks";
 // import { NoReports } from "@/_components/NoReports";
 import { HasReportsNew } from "@/_components/HasReportsNew";
+import { SITE_URL } from "@/_lib/consts";
 
 export const Route = createFileRoute("/(public)/r/$embarkId")({
   component: PageRaiderProfile,
@@ -13,6 +14,14 @@ export const Route = createFileRoute("/(public)/r/$embarkId")({
     void context.queryClient.ensureQueryData(approvedReportsQuery(embarkId));
     return { embarkId };
   },
+  head: ({ params }) => ({
+    links: [
+      {
+        rel: "canonical",
+        href: `${SITE_URL}/r/${params.embarkId}`,
+      },
+    ],
+  }),
 });
 
 function PageRaiderProfile() {

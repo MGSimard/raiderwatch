@@ -1,7 +1,7 @@
 import type { ReportStatus, ReportReason } from "@/_lib/enums";
 import type { SearchFilters } from "@/_lib/types";
 
-export const SITE_URL = "https://raiderwatch.netlify.app";
+export const SITE_URL = "http://localhost:3000";
 export const SITE_TITLE = "RAIDER.WATCH";
 export const SITE_DESCRIPTION = "Track and report on ARC Raiders gameplay violations";
 

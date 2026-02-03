@@ -2,7 +2,6 @@
 
 ## TASK LIST
 
-- Replace dashboard icon top left with new svg
 - Replace field + copy icon under video to just button + text + copy icon
 - Finish drawer restyle
 - Restyle toast notifications
@@ -14,5 +13,4 @@
 - ISR, SSR, Static setups
 - Admin panel's internal Team & Audit Logs (maybe)
 - Rate-limiting solution
-- Meta (Adjust stuff like canonical, maybe use env vars, finish up theme/bg hex values in metadata)
 - Deploy

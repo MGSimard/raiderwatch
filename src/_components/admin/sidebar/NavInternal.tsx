@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { BellIcon, UsersIcon } from "@phosphor-icons/react";
+import { Bell, UsersRound } from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -17,12 +17,12 @@ export function NavInternal() {
     {
       title: "Team",
       url: "/dashboard/team",
-      icon: UsersIcon,
+      icon: UsersRound,
     },
     {
       title: "Audit Logs",
       url: "/dashboard/audit-logs",
-      icon: BellIcon,
+      icon: Bell,
     },
   ];
 

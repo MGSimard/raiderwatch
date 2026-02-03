@@ -5,12 +5,12 @@
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "src/_styles/app.css",
+    "css": "src/_styles/global.css",
     "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
   },
-  "iconLibrary": "phosphor",
+  "iconLibrary": "lucide",
   "aliases": {
     "components": "@/_components/admin",
     "utils": "@/_lib/utils",

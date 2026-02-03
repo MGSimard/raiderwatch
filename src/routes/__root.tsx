@@ -8,8 +8,7 @@ import { ThemeProvider } from "@/_components/ThemeProvider";
 import { Toaster } from "@/_components/ui/sonner";
 import { TooltipProvider } from "@/_components/ui/tooltip";
 import type { QueryClient } from "@tanstack/react-query";
-import appCss from "../_styles/app.css?url";
-import fontsCss from "../_styles/fonts.css?url";
+import { configLinks, configMeta, favIcons, fontPreloads, misc, openGraph, styles, twitter } from "@/_lib/head";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -17,30 +16,9 @@ interface MyRouterContext {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
-    meta: [
-      {
-        charSet: "utf-8",
-      },
-      {
-        name: "viewport",
-        content: "width=device-width, initial-scale=1",
-      },
-      {
-        title: "TanStack Start Starter",
-      },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      {
-        rel: "stylesheet",
-        href: fontsCss,
-      },
-    ],
+    meta: [...configMeta, ...openGraph, ...twitter, ...misc],
+    links: [...configLinks, ...favIcons, ...fontPreloads, ...styles],
   }),
-
   shellComponent: RootDocument,
 });
 

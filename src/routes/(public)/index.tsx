@@ -2,7 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { SearchUser } from "@/_components/SearchUser";
 import { Button } from "@/_components/ui/button";
 import { Separator } from "@/_components/ui/separator";
-import { EyeIcon } from "@phosphor-icons/react";
+import { Eye } from "lucide-react";
 
 export const Route = createFileRoute("/(public)/")({
   component: PageHome,
@@ -20,7 +20,7 @@ function PageHome() {
         tabIndex={-1}
         render={
           <Link to="/dashboard">
-            <EyeIcon aria-hidden />
+            <Eye />
           </Link>
         }
       />

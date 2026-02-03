@@ -3,7 +3,7 @@ import { ReportDialog } from "@/_components/ReportDialog";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/_components/ui/card";
 import { Button } from "@/_components/ui/button";
 import { Separator } from "@/_components/ui/separator";
-import { ArrowLeftIcon } from "@phosphor-icons/react";
+import { ArrowLeft } from "lucide-react";
 
 export function NoReports({ embarkId }: { embarkId: string }) {
   return (
@@ -30,7 +30,7 @@ export function NoReports({ embarkId }: { embarkId: string }) {
               nativeButton={false}
               render={
                 <Link to="/" aria-label="Return to search">
-                  <ArrowLeftIcon weight="bold" aria-hidden /> RETURN
+                  <ArrowLeft /> RETURN
                 </Link>
               }
             />

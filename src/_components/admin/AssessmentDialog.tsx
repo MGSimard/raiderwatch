@@ -28,11 +28,11 @@ import { Spinner } from "@/_components/admin/ui/spinner";
 import { toast } from "sonner";
 import { updateReportSchema } from "@/_lib/schemas";
 import { REPORT_REASON_ENUMS, REPORT_STATUS_ENUMS, ReportReason, ReportStatus } from "@/_lib/enums";
-import { REPORT_REASON_LABELS, REPORT_STATUS_META } from "@/_lib/constants";
+import { REPORT_REASON_LABELS, REPORT_STATUS_META } from "@/_lib/consts";
 import { updateReport } from "@/_server/serverFunctions";
 import { cn, copyToClipboard, formatUtcDateTime, getYouTubeEmbedUrl } from "@/_lib/utils";
 import type { ReportRow } from "@/_lib/types";
-import { CopySimpleIcon } from "@phosphor-icons/react";
+import { Copy } from "lucide-react";
 
 export function AssessmentDialog({ report }: { report: ReportRow }) {
   const queryClient = useQueryClient();
@@ -96,7 +96,7 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
             className="ml-auto shrink-0"
             aria-label="Copy Report"
             onClick={() => copyToClipboard(JSON.stringify(report, null, 2), "Report")}>
-            <CopySimpleIcon aria-hidden />
+            <Copy />
           </Button>
         </div>
         <div>
@@ -128,7 +128,7 @@ export function AssessmentDialog({ report }: { report: ReportRow }) {
                     title="Copy"
                     size="icon-xs"
                     onClick={() => copyToClipboard(report.videoUrl, "Video URL")}>
-                    <CopySimpleIcon aria-hidden />
+                    <Copy />
                   </InputGroupButton>
                 </InputGroupAddon>
               </InputGroup>

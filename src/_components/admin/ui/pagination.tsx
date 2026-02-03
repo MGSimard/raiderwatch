@@ -1,6 +1,6 @@
 /* oxlint-disable anchor-has-content */
 import * as React from "react";
-import { CaretLeftIcon, CaretRightIcon, DotsThreeIcon } from "@phosphor-icons/react";
+import { ChevronLeft, ChevronRight, Ellipsis } from "lucide-react";
 import { cn } from "@/_lib/utils";
 import { Button } from "@/_components/admin/ui/button";
 
@@ -64,7 +64,7 @@ function PaginationLink({ className, isActive, size = "icon", disabled, ...props
 function PaginationPrevious({ className, ...props }: React.ComponentProps<typeof PaginationLink>) {
   return (
     <PaginationLink aria-label="Previous page" size="icon" className={cn(className)} {...props}>
-      <CaretLeftIcon />
+      <ChevronLeft />
     </PaginationLink>
   );
 }
@@ -72,7 +72,7 @@ function PaginationPrevious({ className, ...props }: React.ComponentProps<typeof
 function PaginationNext({ className, ...props }: React.ComponentProps<typeof PaginationLink>) {
   return (
     <PaginationLink aria-label="Next page" size="icon" className={cn(className)} {...props}>
-      <CaretRightIcon />
+      <ChevronRight />
     </PaginationLink>
   );
 }
@@ -83,7 +83,7 @@ function PaginationEllipsis({ className, ...props }: React.ComponentProps<"span"
       data-slot="pagination-ellipsis"
       className={cn("flex size-8 items-center justify-center [&_svg:not([class*='size-'])]:size-4", className)}
       {...props}>
-      <DotsThreeIcon aria-hidden="true" />
+      <Ellipsis />
       <span className="sr-only">More pages</span>
     </span>
   );

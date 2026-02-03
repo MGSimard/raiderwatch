@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { PlaceholderIcon } from "@phosphor-icons/react";
+import { Aperture } from "lucide-react";
 import { NavMain } from "./NavMain";
 import { NavInternal } from "./NavInternal";
 import { NavUser } from "./NavUser";
@@ -22,7 +22,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
             <SidebarMenuButton
               render={<Link to="/" aria-label="Return home" />}
               className="data-[slot=sidebar-menu-button]:p-1.5!">
-              <PlaceholderIcon className="size-5!" aria-hidden />
+              <Aperture className="size-5" />
               <span className="text-base font-semibold">RAIDER.WATCH</span>
             </SidebarMenuButton>
           </SidebarMenuItem>

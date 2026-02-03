@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { ReportsRowActions } from "@/_components/admin/reports-table/ReportsRowActions";
-import { REPORT_STATUS_META, REPORT_REASON_LABELS } from "@/_lib/constants";
+import { REPORT_STATUS_META, REPORT_REASON_LABELS } from "@/_lib/consts";
 import { cn, formatUtcDateTime } from "@/_lib/utils";
 import type { ReportRow } from "@/_lib/types";
 

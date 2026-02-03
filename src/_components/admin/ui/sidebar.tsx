@@ -2,7 +2,7 @@ import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { cva } from "class-variance-authority";
-import { SidebarIcon } from "@phosphor-icons/react";
+import { PanelLeft } from "lucide-react";
 import type { VariantProps } from "class-variance-authority";
 import { cn } from "@/_lib/utils";
 import { Button } from "@/_components/ui/button";
@@ -233,7 +233,7 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
         toggleSidebar();
       }}
       {...props}>
-      <SidebarIcon aria-hidden />
+      <PanelLeft />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );

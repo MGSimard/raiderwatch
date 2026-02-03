@@ -18,7 +18,7 @@ import { InputGroup, InputGroupAddon, InputGroupText, InputGroupTextarea } from 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/_components/ui/select";
 import { toast } from "sonner";
 import { REPORT_REASON_ENUMS } from "@/_lib/enums";
-import { REPORT_REASON_LABELS } from "@/_lib/constants";
+import { REPORT_REASON_LABELS } from "@/_lib/consts";
 import { fileReport } from "@/_server/serverFunctions";
 import { fileReportSchema } from "@/_lib/schemas";
 import { cn } from "@/_lib/utils";

@@ -18,8 +18,8 @@ import {
   SelectValue,
 } from "@/_components/admin/ui/select";
 import { Field, FieldLabel } from "@/_components/admin/ui/field";
-import { CaretDoubleLeftIcon, CaretDoubleRightIcon, CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
-import { DEFAULT_REPORTS_FILTERS } from "@/_lib/constants";
+import { ChevronsLeft, ChevronsRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { DEFAULT_REPORTS_FILTERS } from "@/_lib/consts";
 import type { SearchFilters } from "@/_lib/types";
 
 const AUTO_WIDTH_COLUMNS = new Set(["status", "actions"]);
@@ -150,7 +150,7 @@ export function ReportsTable() {
               onClick={() => setFilters((prev) => ({ ...prev, page: 1 }))}
               disabled={page === 1}
               aria-label="First page">
-              <CaretDoubleLeftIcon />
+              <ChevronsLeft />
             </Button>
             <Button
               variant="outline"
@@ -158,7 +158,7 @@ export function ReportsTable() {
               onClick={() => setFilters((prev) => ({ ...prev, page: prev.page - 1 }))}
               disabled={page === 1}
               aria-label="Previous page">
-              <CaretLeftIcon />
+              <ChevronLeft />
             </Button>
             <Button
               variant="outline"
@@ -166,7 +166,7 @@ export function ReportsTable() {
               onClick={() => setFilters((prev) => ({ ...prev, page: prev.page + 1 }))}
               disabled={page >= totalPages}
               aria-label="Next page">
-              <CaretRightIcon />
+              <ChevronRight />
             </Button>
             <Button
               variant="outline"
@@ -174,7 +174,7 @@ export function ReportsTable() {
               onClick={() => setFilters((prev) => ({ ...prev, page: totalPages }))}
               disabled={page >= totalPages}
               aria-label="Last page">
-              <CaretDoubleRightIcon />
+              <ChevronsRight />
             </Button>
           </div>
         </div>

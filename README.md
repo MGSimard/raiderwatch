@@ -2,6 +2,8 @@
 
 ## TASK LIST
 
+- Replace dashboard icon top left with new svg
+- Replace field + copy icon under video to just button + text + copy icon
 - Finish drawer restyle
 - Restyle toast notifications
 - Fix shadcn's dogshit dialog not having vert scroll

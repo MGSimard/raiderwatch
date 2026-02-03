@@ -1,6 +1,6 @@
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { ScrollArea } from "@base-ui/react/scroll-area";
-import { XIcon } from "@phosphor-icons/react";
+import { X } from "lucide-react";
 import { cn } from "@/_lib/utils";
 import { Button } from "@/_components/ui/button";
 
@@ -56,7 +56,7 @@ function DialogContent({
           <DialogPrimitive.Close
             data-slot="dialog-close"
             render={<Button variant="ghost" className="absolute top-2 right-2" size="icon-sm" />}>
-            <XIcon aria-hidden />
+            <X />
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>
         )}

@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon } from "@phosphor-icons/react";
+import { Search } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/_components/ui/button";
@@ -63,7 +63,7 @@ export function SearchUser() {
         {error && <FieldError>{error}</FieldError>}
       </Field>
       <Button type="submit" variant="outline" size="icon" disabled={isEmpty} className="rounded-r-full">
-        <MagnifyingGlassIcon className="size-4" aria-hidden />
+        <Search className="size-4" />
       </Button>
     </form>
   );

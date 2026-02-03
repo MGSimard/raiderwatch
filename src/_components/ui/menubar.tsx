@@ -1,7 +1,7 @@
 "use client";
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import { Menubar as MenubarPrimitive } from "@base-ui/react/menubar";
-import { CheckIcon } from "@phosphor-icons/react";
+import { Check } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -103,7 +103,7 @@ function MenubarCheckboxItem({ className, children, checked, ...props }: MenuPri
       {...props}>
       <span className="pointer-events-none absolute left-1.5 flex size-4 items-center justify-center [&_svg:not([class*='size-'])]:size-4">
         <MenuPrimitive.CheckboxItemIndicator>
-          <CheckIcon aria-hidden />
+          <Check />
         </MenuPrimitive.CheckboxItemIndicator>
       </span>
       {children}
@@ -126,7 +126,7 @@ function MenubarRadioItem({ className, children, ...props }: MenuPrimitive.Radio
       {...props}>
       <span className="pointer-events-none absolute left-1.5 flex size-4 items-center justify-center [&_svg:not([class*='size-'])]:size-4">
         <MenuPrimitive.RadioItemIndicator>
-          <CheckIcon />
+          <Check />
         </MenuPrimitive.RadioItemIndicator>
       </span>
       {children}

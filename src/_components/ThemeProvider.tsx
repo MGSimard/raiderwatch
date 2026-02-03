@@ -7,8 +7,6 @@
  * - Class-based theming for Tailwind/Shadcn compatibility
  * - Proper colorScheme CSS property setting for browser integration
  * - Theme validation to prevent invalid states
- * - Remove system related functionalities for portfolio version as
- * communicated branding default is more important than user's system preferences
  */
 import { createContext, use, useEffect, useState } from "react";
 import { ScriptOnce } from "@tanstack/react-router";

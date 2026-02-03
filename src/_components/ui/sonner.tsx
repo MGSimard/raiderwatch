@@ -1,5 +1,5 @@
 import { Toaster as Sonner, type ToasterProps } from "sonner";
-import { CheckCircleIcon, InfoIcon, WarningIcon, XCircleIcon, SpinnerIcon } from "@phosphor-icons/react";
+import { CircleCheck, Info, TriangleAlert, CircleX, LoaderCircle } from "lucide-react";
 import { useTheme } from "@/_components/ThemeProvider";
 
 const Toaster = ({ ...props }: ToasterProps) => {
@@ -10,11 +10,11 @@ const Toaster = ({ ...props }: ToasterProps) => {
       theme={theme as ToasterProps["theme"]}
       className="toaster group z-9999"
       icons={{
-        success: <CheckCircleIcon className="size-4" aria-hidden />,
-        info: <InfoIcon className="size-4" aria-hidden />,
-        warning: <WarningIcon className="size-4" aria-hidden />,
-        error: <XCircleIcon className="size-4" aria-hidden />,
-        loading: <SpinnerIcon className="size-4 animate-spin" aria-hidden />,
+        success: <CircleCheck className="size-4" />,
+        info: <Info className="size-4" />,
+        warning: <TriangleAlert className="size-4" />,
+        error: <CircleX className="size-4" />,
+        loading: <LoaderCircle className="size-4 animate-spin" />,
       }}
       style={
         {

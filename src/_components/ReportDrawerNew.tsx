@@ -8,10 +8,10 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/_components/ui/drawer";
-import { REPORT_REASON_LABELS } from "@/_lib/constants";
+import { REPORT_REASON_LABELS } from "@/_lib/consts";
 import { formatUtcDate, formatUtcDateTime, getYouTubeEmbedUrl, copyToClipboard } from "@/_lib/utils";
 import { ScrollArea } from "@base-ui/react/scroll-area";
-import { CalendarDotsIcon, CaretRightIcon, CopySimpleIcon } from "@phosphor-icons/react";
+import { CalendarDays, ChevronRight, Copy } from "lucide-react";
 import type { ApprovedReport } from "@/_lib/types";
 import { InputGroupInput, InputGroupAddon, InputGroupButton, InputGroup } from "@/_components/ui/input-group";
 
@@ -28,14 +28,11 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
           <div className="text-start">
             <h3 className="prompt text-arc-light">{REPORT_REASON_LABELS[reason]}</h3>
             <p className="flex items-center gap-1 text-xs/relaxed font-medium text-arc-muted">
-              <CalendarDotsIcon weight="bold" className="shrink-0" aria-hidden />
+              <CalendarDays className="shrink-0" />
               <span>{formatUtcDate(createdAt)}</span>
             </p>
           </div>
-          <CaretRightIcon
-            aria-hidden
-            className="size-8 shrink-0 text-arc-muted transition-all duration-50 ease-out group-hover:translate-x-1 group-hover:text-arc-light group-focus-visible:translate-x-1 group-focus-visible:text-arc-light"
-          />
+          <ChevronRight className="size-8 shrink-0 text-arc-muted transition-all duration-50 ease-out group-hover:translate-x-1 group-hover:text-arc-light group-focus-visible:translate-x-1 group-focus-visible:text-arc-light" />
         </button>
       </DrawerTrigger>
       <DrawerContent className="rounded-[1rem] border-transparent bg-arc-dark/83">
@@ -73,7 +70,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
                           size="icon-xs"
                           className="btn-ring rounded-full [--pass-radius:9999rem]"
                           onClick={() => copyToClipboard(canonicalVideoUrl, "Video URL")}>
-                          <CopySimpleIcon aria-hidden />
+                          <Copy />
                         </InputGroupButton>
                       </InputGroupAddon>
                     </InputGroup>
@@ -90,10 +87,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
                     <h3 className="prompt group-hover:text-arc-light group-focus-visible:text-arc-light">
                       REPORT METADATA
                     </h3>
-                    <CopySimpleIcon
-                      aria-hidden
-                      className="-mt-1 shrink-0 text-arc-muted group-hover:text-arc-light group-focus-visible:text-arc-light"
-                    />
+                    <Copy className="-mt-1 size-4 shrink-0 text-arc-muted group-hover:text-arc-light group-focus-visible:text-arc-light" />
                   </div>
                   <ul>
                     <li>Report ID: #{id}</li>

@@ -1,4 +1,4 @@
-import { CaretRightIcon, SignOutIcon, UserIcon } from "@phosphor-icons/react";
+import { ChevronRight, LogOut, UserRound } from "lucide-react";
 import { useNavigate, useRouter, useRouteContext } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/_components/admin/ui/sidebar";
@@ -53,7 +53,7 @@ export function NavUser() {
               <span className="truncate font-medium">{user.name}</span>
               <span className="truncate text-xs text-muted-foreground">{user.email}</span>
             </div>
-            <CaretRightIcon className="ml-auto size-4" aria-hidden />
+            <ChevronRight className="ml-auto" />
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-(--anchor-width) min-w-56 rounded-lg"
@@ -77,13 +77,13 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem onClick={() => setOpenMobile(false)}>
-                <UserIcon className="size-4" aria-hidden />
+                <UserRound />
                 Account
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSignOut}>
-              <SignOutIcon className="size-4" aria-hidden />
+              <LogOut />
               Disconnect
             </DropdownMenuItem>
           </DropdownMenuContent>

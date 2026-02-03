@@ -1,4 +1,4 @@
-import { CaretDownIcon } from "@phosphor-icons/react";
+import { ChevronDown } from "lucide-react";
 import { Button } from "@/_components/admin/ui/button";
 import {
   DropdownMenu,
@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/_components/admin/ui/dropdown-menu";
 import { REPORT_STATUS_ENUMS } from "@/_lib/enums";
-import { REPORT_STATUS_META } from "@/_lib/constants";
+import { REPORT_STATUS_META } from "@/_lib/consts";
 import type { ReportStatus } from "@/_lib/enums";
 import { cn } from "@/_lib/utils";
 
@@ -54,7 +54,7 @@ export function ReportsStatusSelect({ value, onValueChange }: ReportsStatusSelec
             <span className="text-muted-foreground">
               {selectedCount === 0 ? "All" : `${selectedCount}/${totalStatuses}`}
             </span>
-            <CaretDownIcon aria-hidden />
+            <ChevronDown />
           </Button>
         }
       />

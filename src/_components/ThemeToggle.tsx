@@ -1,10 +1,16 @@
 import { Button } from "@/_components/ui/button";
 import { useTheme } from "@/_components/ThemeProvider";
 import { cn } from "@/_lib/utils";
-import { FireIcon, SnowflakeIcon } from "@phosphor-icons/react";
+import { Flame, Snowflake } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export function ThemeToggle({ className }: { className?: string }) {
   const { theme: activeTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <Button
@@ -15,10 +21,12 @@ export function ThemeToggle({ className }: { className?: string }) {
         className
       )}
       onClick={() => setTheme(activeTheme === "light" ? "dark" : "light")}>
-      {activeTheme === "light" ? (
-        <SnowflakeIcon className="size-5" aria-hidden />
+      {!mounted ? (
+        <Flame className="size-5" aria-hidden />
+      ) : activeTheme === "light" ? (
+        <Snowflake className="size-5" aria-hidden />
       ) : (
-        <FireIcon className="size-5" aria-hidden />
+        <Flame className="size-5" aria-hidden />
       )}
     </Button>
   );

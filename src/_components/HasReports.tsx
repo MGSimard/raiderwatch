@@ -4,7 +4,7 @@ import { Button } from "@/_components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/_components/ui/card";
 import { ReportDrawer } from "@/_components/ReportDrawer";
 import { ReportDialog } from "@/_components/ReportDialog";
-import { ArrowLeftIcon } from "@phosphor-icons/react";
+import { ArrowLeftIcon } from "lucide-react";
 import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
 
 export function HasReports({
@@ -22,7 +22,7 @@ export function HasReports({
           nativeButton={false}
           render={
             <Link to="/" aria-label="Return to search" className="text-foreground/60" viewTransition>
-              <ArrowLeftIcon weight="bold" aria-hidden /> RETURN
+              <ArrowLeftIcon /> RETURN
             </Link>
           }
         />

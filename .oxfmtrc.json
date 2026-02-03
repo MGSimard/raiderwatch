@@ -16,7 +16,7 @@
   "trailingComma": "es5",
   "bracketSameLine": true,
   "experimentalTailwindcss": {
-    "stylesheet": "./src/_styles/app.css",
+    "stylesheet": "./src/_styles/global.css",
     "functions": ["clsx", "cn", "cva", "tw"]
   }
 }

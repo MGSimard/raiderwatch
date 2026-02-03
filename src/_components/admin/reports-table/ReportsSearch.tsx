@@ -1,6 +1,6 @@
 import { Button } from "@/_components/admin/ui/button";
 import { Input } from "@/_components/admin/ui/input";
-import { MagnifyingGlassIcon, XIcon } from "@phosphor-icons/react";
+import { Search, X } from "lucide-react";
 
 interface ReportsSearchProps {
   value: string;
@@ -12,7 +12,7 @@ export function ReportsSearch({ value, onChange }: ReportsSearchProps) {
 
   return (
     <div className="relative flex items-center">
-      <MagnifyingGlassIcon className="pointer-events-none absolute left-2 size-4 text-muted-foreground" aria-hidden />
+      <Search className="pointer-events-none absolute left-2 size-4 text-muted-foreground" />
       <Input
         type="text"
         value={value}
@@ -28,7 +28,7 @@ export function ReportsSearch({ value, onChange }: ReportsSearchProps) {
           onClick={() => onChange("")}
           className="absolute right-1"
           aria-label="Clear search">
-          <XIcon aria-hidden />
+          <X />
         </Button>
       )}
     </div>

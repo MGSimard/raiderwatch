@@ -9,7 +9,7 @@ import { AssessmentDialog } from "@/_components/admin/AssessmentDialog";
 import { Dialog, DialogTrigger } from "@/_components/admin/ui/dialog";
 import { copyToClipboard } from "@/_lib/utils";
 import type { ReportRow, SearchFilters } from "@/_lib/types";
-import { CopySimpleIcon, DotsThreeVerticalIcon, GavelIcon, UserFocusIcon } from "@phosphor-icons/react";
+import { Copy, EllipsisVertical, GavelIcon, SquareUserRound } from "lucide-react";
 
 interface ReportsRowActionsProps {
   reportData: ReportRow;
@@ -33,7 +33,7 @@ export function ReportsRowActions({ reportData, setFilters }: ReportsRowActionsP
         <DropdownMenuTrigger
           render={
             <Button variant="ghost" size="icon-sm">
-              <DotsThreeVerticalIcon aria-hidden />
+              <EllipsisVertical />
             </Button>
           }
         />
@@ -42,21 +42,21 @@ export function ReportsRowActions({ reportData, setFilters }: ReportsRowActionsP
             nativeButton={false}
             render={
               <DropdownMenuItem>
-                <GavelIcon aria-hidden />
+                <GavelIcon />
                 Review Report
               </DropdownMenuItem>
             }
           />
           <DropdownMenuItem onClick={handleIsolateRaider}>
-            <UserFocusIcon aria-hidden />
+            <SquareUserRound />
             Isolate Raider
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => copyToClipboard(JSON.stringify(reportData, null, 2), "Report")}>
-            <CopySimpleIcon aria-hidden />
+            <Copy />
             Copy Report
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => copyToClipboard(reportData.embarkId, "Embark ID")}>
-            <CopySimpleIcon aria-hidden />
+            <Copy />
             Copy Embark ID
           </DropdownMenuItem>
         </DropdownMenuContent>

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { GaugeIcon, WarningIcon } from "@phosphor-icons/react";
+import { Gauge, TriangleAlert } from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -17,13 +17,13 @@ export function NavMain() {
     {
       title: "Overview",
       url: "/dashboard",
-      icon: GaugeIcon,
+      icon: Gauge,
       activeExact: true,
     },
     {
       title: "Reports",
       url: "/dashboard/reports",
-      icon: WarningIcon,
+      icon: TriangleAlert,
     },
   ];
 

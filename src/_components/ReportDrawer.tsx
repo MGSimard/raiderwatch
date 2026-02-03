@@ -9,10 +9,10 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/_components/ui/drawer";
-import { REPORT_REASON_LABELS } from "@/_lib/constants";
+import { REPORT_REASON_LABELS } from "@/_lib/consts";
 import { formatUtcDate, formatUtcDateTime, getYouTubeEmbedUrl } from "@/_lib/utils";
 import { ScrollArea } from "@base-ui/react/scroll-area";
-import { CaretDoubleRightIcon } from "@phosphor-icons/react";
+import { ChevronsRight } from "lucide-react";
 import type { ApprovedReport } from "@/_lib/types";
 
 export function ReportDrawer({ embarkId, report }: { embarkId: string; report: ApprovedReport }) {
@@ -27,11 +27,7 @@ export function ReportDrawer({ embarkId, report }: { embarkId: string; report: A
             <h2 className="text-base text-primary uppercase">{REPORT_REASON_LABELS[report.reason]}</h2>
             <p className="text-xs/relaxed text-muted-foreground">{formatUtcDate(report.createdAt)}</p>
           </div>
-          <CaretDoubleRightIcon
-            aria-hidden
-            weight="thin"
-            className="size-8 shrink-0 text-primary/20 transition-all duration-50 ease-out group-hover:translate-x-1 group-hover:text-primary group-focus-visible:translate-x-1 group-focus-visible:text-primary"
-          />
+          <ChevronsRight className="size-8 shrink-0 text-primary/20 transition-all duration-50 ease-out group-hover:translate-x-1 group-hover:text-primary group-focus-visible:translate-x-1 group-focus-visible:text-primary" />
         </button>
       </DrawerTrigger>
       <DrawerContent className="bg-card">

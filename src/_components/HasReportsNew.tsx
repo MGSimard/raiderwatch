@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
 import { ReportDrawerNew } from "@/_components/ReportDrawerNew";
-import { ReportDialog } from "@/_components/ReportDialog";
+import { ReportDialogNew } from "@/_components/ReportDialogNew";
 import { cn } from "@/_lib/utils";
 import type { getRaiderApprovedReports } from "@/_server/serverFunctions";
 import { CaretLeftIcon, CircleDashedIcon, PlusIcon, WarningDiamondIcon } from "@phosphor-icons/react";
@@ -25,7 +25,7 @@ export function HasReportsNew({
             <CaretLeftIcon className="h-full w-full" weight="bold" aria-hidden />
           </Link>
           <div aria-hidden className="h-6 w-0.5 shrink-0 bg-arc-muted2" />
-          <span className="font-prompt text-xl font-bold text-arc-light uppercase">RAIDER PROFILE</span>
+          <span className="font-prompt text-xl font-bold tracking-wide text-arc-light uppercase">RAIDER PROFILE</span>
         </div>
         <h1 className="font-base font-urbanist text-xl font-bold text-arc-light uppercase">{embarkId}</h1>
       </nav>
@@ -44,14 +44,14 @@ export function HasReportsNew({
           </div>
           <ul className="grid gap-3 rounded-b-[6px] bg-arc-dark/50 p-4 backdrop-blur-sm">
             <li>
-              <ReportDialog embarkId={embarkId}>
+              <ReportDialogNew embarkId={embarkId}>
                 <button
                   type="button"
                   className="btn-ring flex w-full items-center justify-between gap-4 rounded-[4px] border border-arc-border bg-arc-dark/83 p-4 text-arc-muted [--pass-radius:2px] hover:bg-arc-light hover:text-arc-dark focus-visible:bg-arc-light focus-visible:text-arc-dark">
                   <h3 className="font-bold uppercase">ADD REPORT</h3>
                   <PlusIcon className="size-8 shrink-0" aria-hidden />
                 </button>
-              </ReportDialog>
+              </ReportDialogNew>
             </li>
             {approvedReports.length > 0 ? (
               approvedReports.map((report, index) => (

@@ -24,7 +24,9 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
           aria-label="View Report"
           className="group btn-ring flex w-full items-center justify-between gap-4 rounded-[4px] border border-arc-border bg-arc-item p-4 [--pass-radius:2px]">
           <div className="text-start">
-            <h3 className="font-prompt font-bold text-arc-light uppercase">{REPORT_REASON_LABELS[report.reason]}</h3>
+            <h3 className="font-prompt font-bold tracking-wide text-arc-light uppercase">
+              {REPORT_REASON_LABELS[report.reason]}
+            </h3>
             <p className="flex items-center gap-1 text-xs/relaxed font-medium text-arc-muted">
               <CalendarDotsIcon weight="bold" className="shrink-0" aria-hidden />
               <span>{formatUtcDate(report.createdAt)}</span>
@@ -36,9 +38,11 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
           />
         </button>
       </DrawerTrigger>
-      <DrawerContent className="bg-arc-dark/83">
+      <DrawerContent className="rounded-[1rem] border-transparent bg-arc-dark/83">
         <DrawerHeader>
-          <DrawerTitle className="font-prompt text-lg text-arc-light uppercase">{embarkId}</DrawerTitle>
+          <DrawerTitle className="font-prompt text-lg font-bold tracking-wide text-arc-light uppercase">
+            {embarkId}
+          </DrawerTitle>
           <DrawerDescription className="font-body font-medium text-arc-muted uppercase">
             {REPORT_REASON_LABELS[report.reason]}
           </DrawerDescription>
@@ -78,7 +82,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
           <DrawerClose asChild>
             <button
               type="button"
-              className="btn-ring flex items-center justify-center gap-3 rounded-full bg-arc-light px-3.5 py-1 text-base font-bold text-arc-dark uppercase [--pass-radius:9999px]">
+              className="btn-ring flex h-full items-center justify-center gap-3 rounded-full bg-arc-light px-3.5 py-1 text-base font-bold text-arc-dark uppercase [--pass-radius:9999px]">
               <span className="rounded-[6px] bg-arc-dark px-2 py-1 text-arc-light">ESC</span> CLOSE
             </button>
           </DrawerClose>

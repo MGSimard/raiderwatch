@@ -40,10 +40,10 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
       </DrawerTrigger>
       <DrawerContent className="rounded-[1rem] border-transparent bg-arc-dark/83">
         <DrawerHeader>
-          <DrawerDescription className="font-body font-medium text-arc-muted uppercase">Report #{id}</DrawerDescription>
+          <DrawerDescription className="font font-body text-arc-muted uppercase">Report #{id}</DrawerDescription>
           <DrawerTitle className="prompt text-lg text-arc-light">{embarkId}</DrawerTitle>
-          <DrawerDescription className="font-body font-medium text-arc-muted uppercase">
-            {REPORT_REASON_LABELS[reason]}
+          <DrawerDescription className="font-body font-bold text-arc-muted uppercase">
+            REASON: {REPORT_REASON_LABELS[reason]}
           </DrawerDescription>
         </DrawerHeader>
         <div className="flex min-h-0 flex-1">
@@ -52,15 +52,15 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
               <div className="flex flex-col gap-4">
                 {canonicalVideoUrl && (
                   <div>
-                    <h3 className="mb-2 font-body font-medium text-arc-muted uppercase">EVIDENCE</h3>
+                    <h3 className="mb-2 font-body font-bold text-arc-muted uppercase">EVIDENCE</h3>
                     <iframe
                       src={getYouTubeEmbedUrl(canonicalVideoUrl)}
                       title="YouTube video"
-                      className="aspect-video w-full rounded-[4px]"
+                      className="aspect-video w-full rounded-t-[4px]"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     />
-                    <InputGroup>
+                    <InputGroup className="rounded-b-[4px]">
                       <InputGroupInput placeholder={canonicalVideoUrl} readOnly />
                       <InputGroupAddon align="inline-end">
                         <InputGroupButton

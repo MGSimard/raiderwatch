@@ -14,5 +14,5 @@
 - ISR, SSR, Static setups
 - Admin panel's internal Team & Audit Logs (maybe)
 - Rate-limiting solution
-- Meta
+- Meta (Adjust stuff like canonical, maybe use env vars, finish up theme/bg hex values in metadata)
 - Deploy

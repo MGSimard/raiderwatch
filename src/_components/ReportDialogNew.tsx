@@ -217,7 +217,7 @@ export function ReportDialogNew({ embarkId, children }: { embarkId: string; chil
             }
           />
           <button
-            type="button"
+            type="submit"
             form="raider-report-form"
             disabled={!form.state.canSubmit}
             aria-busy={form.state.isSubmitting}

@@ -47,9 +47,9 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
           <ScrollArea.Root className="min-h-0 min-w-0 flex-1 px-4">
             <ScrollArea.Viewport className="h-full overscroll-contain outline-none before:pointer-events-none before:absolute before:top-0 before:left-0 before:block before:h-[min(40px,var(--scroll-area-overflow-y-start))] before:w-full before:bg-[linear-gradient(to_bottom,var(--card),transparent)] before:transition-[height] before:duration-100 before:ease-out before:content-[''] before:[--scroll-area-overflow-y-start:inherit] after:pointer-events-none after:absolute after:bottom-0 after:left-0 after:block after:h-[min(40px,var(--scroll-area-overflow-y-end,40px))] after:w-full after:bg-[linear-gradient(to_top,var(--card),transparent)] after:transition-[height] after:duration-100 after:ease-out after:content-[''] after:[--scroll-area-overflow-y-end:inherit]">
               <div className="flex flex-col gap-4">
-                <div className="border px-2 py-1.5">
-                  <h3 className="text-muted-foreground uppercase">REPORT DATA (#{report.id})</h3>
-                  <ul className="text-muted-foreground">
+                <div>
+                  <h3 className="text-arc-muted uppercase">REPORT DATA (#{report.id})</h3>
+                  <ul className="text-arc-muted">
                     <li>Embark ID: {embarkId}</li>
                     <li>Reason: {REPORT_REASON_LABELS[report.reason]}</li>
                     <li>Filed: {formatUtcDateTime(report.createdAt)}</li>
@@ -61,7 +61,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
                     <iframe
                       src={getYouTubeEmbedUrl(report.canonicalVideoUrl)}
                       title="YouTube video"
-                      className="aspect-video w-full"
+                      className="aspect-video w-full rounded-[4px]"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     />

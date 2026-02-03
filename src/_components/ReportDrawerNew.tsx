@@ -1,4 +1,3 @@
-import { Button } from "@/_components/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -10,12 +9,15 @@ import {
   DrawerTrigger,
 } from "@/_components/ui/drawer";
 import { REPORT_REASON_LABELS } from "@/_lib/constants";
-import { formatUtcDate, formatUtcDateTime, getYouTubeEmbedUrl } from "@/_lib/utils";
+import { formatUtcDate, formatUtcDateTime, getYouTubeEmbedUrl, copyToClipboard } from "@/_lib/utils";
 import { ScrollArea } from "@base-ui/react/scroll-area";
-import { CalendarDotsIcon, CaretRightIcon } from "@phosphor-icons/react";
+import { CalendarDotsIcon, CaretRightIcon, CopySimpleIcon } from "@phosphor-icons/react";
 import type { ApprovedReport } from "@/_lib/types";
+import { InputGroupInput, InputGroupAddon, InputGroupButton, InputGroup } from "@/_components/ui/input-group";
 
 export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report: ApprovedReport }) {
+  const { id, canonicalVideoUrl, reason, createdAt } = report;
+
   return (
     <Drawer direction="right">
       <DrawerTrigger asChild>
@@ -24,10 +26,10 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
           aria-label="View Report"
           className="group btn-ring flex w-full items-center justify-between gap-4 rounded-[4px] border border-arc-border bg-arc-item p-4 [--pass-radius:2px]">
           <div className="text-start">
-            <h3 className="prompt text-arc-light">{REPORT_REASON_LABELS[report.reason]}</h3>
+            <h3 className="prompt text-arc-light">{REPORT_REASON_LABELS[reason]}</h3>
             <p className="flex items-center gap-1 text-xs/relaxed font-medium text-arc-muted">
               <CalendarDotsIcon weight="bold" className="shrink-0" aria-hidden />
-              <span>{formatUtcDate(report.createdAt)}</span>
+              <span>{formatUtcDate(createdAt)}</span>
             </p>
           </div>
           <CaretRightIcon
@@ -38,33 +40,38 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
       </DrawerTrigger>
       <DrawerContent className="rounded-[1rem] border-transparent bg-arc-dark/83">
         <DrawerHeader>
+          <DrawerDescription className="font-body font-medium text-arc-muted uppercase">Report #{id}</DrawerDescription>
           <DrawerTitle className="prompt text-lg text-arc-light">{embarkId}</DrawerTitle>
           <DrawerDescription className="font-body font-medium text-arc-muted uppercase">
-            {REPORT_REASON_LABELS[report.reason]}
+            {REPORT_REASON_LABELS[reason]}
           </DrawerDescription>
         </DrawerHeader>
         <div className="flex min-h-0 flex-1">
           <ScrollArea.Root className="min-h-0 min-w-0 flex-1 px-4">
             <ScrollArea.Viewport className="h-full overscroll-contain outline-none before:pointer-events-none before:absolute before:top-0 before:left-0 before:block before:h-[min(40px,var(--scroll-area-overflow-y-start))] before:w-full before:bg-[linear-gradient(to_bottom,var(--card),transparent)] before:transition-[height] before:duration-100 before:ease-out before:content-[''] before:[--scroll-area-overflow-y-start:inherit] after:pointer-events-none after:absolute after:bottom-0 after:left-0 after:block after:h-[min(40px,var(--scroll-area-overflow-y-end,40px))] after:w-full after:bg-[linear-gradient(to_top,var(--card),transparent)] after:transition-[height] after:duration-100 after:ease-out after:content-[''] after:[--scroll-area-overflow-y-end:inherit]">
               <div className="flex flex-col gap-4">
-                <div>
-                  <h3 className="text-arc-muted uppercase">REPORT DATA (#{report.id})</h3>
-                  <ul className="text-arc-muted">
-                    <li>Embark ID: {embarkId}</li>
-                    <li>Reason: {REPORT_REASON_LABELS[report.reason]}</li>
-                    <li>Filed: {formatUtcDateTime(report.createdAt)}</li>
-                  </ul>
-                </div>
-                {report.canonicalVideoUrl && (
+                {canonicalVideoUrl && (
                   <div>
                     <h3 className="mb-2 font-body font-medium text-arc-muted uppercase">EVIDENCE</h3>
                     <iframe
-                      src={getYouTubeEmbedUrl(report.canonicalVideoUrl)}
+                      src={getYouTubeEmbedUrl(canonicalVideoUrl)}
                       title="YouTube video"
                       className="aspect-video w-full rounded-[4px]"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     />
+                    <InputGroup>
+                      <InputGroupInput placeholder={canonicalVideoUrl} readOnly />
+                      <InputGroupAddon align="inline-end">
+                        <InputGroupButton
+                          aria-label="Copy"
+                          title="Copy"
+                          size="icon-xs"
+                          onClick={() => copyToClipboard(canonicalVideoUrl, "Video URL")}>
+                          <CopySimpleIcon aria-hidden />
+                        </InputGroupButton>
+                      </InputGroupAddon>
+                    </InputGroup>
                   </div>
                 )}
               </div>

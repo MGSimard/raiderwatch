@@ -61,7 +61,7 @@ export function ReportDrawerNew({ embarkId, report }: { embarkId: string; report
                       allowFullScreen
                     />
                     <InputGroup className="rounded-b-[4px]">
-                      <InputGroupInput placeholder={canonicalVideoUrl} readOnly />
+                      <InputGroupInput placeholder={canonicalVideoUrl} value={canonicalVideoUrl} readOnly />
                       <InputGroupAddon align="inline-end">
                         <InputGroupButton
                           aria-label="Copy"

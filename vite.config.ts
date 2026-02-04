@@ -21,7 +21,20 @@ const config = defineConfig({
       projects: ["./tsconfig.json"],
     }),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      prerender: {
+        enabled: true,
+        crawlLinks: true,
+        filter: ({ path }) => !path.startsWith("/dashboard") && path !== "/auth",
+        retryCount: 2,
+        retryDelay: 1000,
+        maxRedirects: 5,
+        failOnError: true,
+        onSuccess: ({ page }) => {
+          console.log(`Pre-rendered ${page.path}!`);
+        },
+      },
+    }),
     viteReact({
       babel: {
         plugins: ["babel-plugin-react-compiler"],

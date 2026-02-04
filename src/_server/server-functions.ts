@@ -305,7 +305,15 @@ export const updateReport = createServerFn({ method: "POST" })
 
       const { reportId, status, reason, canonicalVideoUrl, reviewerComment } = data;
 
-      const updated = await db
+      // Fetch the old status before updating to determine if cache purge is needed
+      const [oldReport] = await db
+        .select({ status: reports.status, embarkId: reports.embarkId })
+        .from(reports)
+        .where(eq(reports.id, reportId));
+
+      if (!oldReport) throw new Error(`Report with ID ${reportId} not found.`);
+
+      const [updated] = await db
         .update(reports)
         .set({
           status,
@@ -318,9 +326,85 @@ export const updateReport = createServerFn({ method: "POST" })
         .where(eq(reports.id, reportId))
         .returning({ id: reports.id });
 
-      if (updated.length === 0) throw new Error(`Report with ID ${reportId} not found.`);
+      // Check if update succeeded (handles race condition where report was deleted between SELECT and UPDATE)
+      if (!updated) throw new Error(`Report with ID ${reportId} not found or was deleted.`);
+
+      // Only purge cache if the status change affects public visibility
+      // Raider pages only show "approved" reports, so we only need to purge when:
+      // 1. A report becomes approved (was not approved, now is)
+      // 2. A report is no longer approved (was approved, now is not)
+      const oldWasApproved = oldReport.status === "approved";
+      const newIsApproved = status === "approved";
+
+      if (oldWasApproved !== newIsApproved) {
+        console.log(`[Cache] Status changed ${oldReport.status} → ${status} for ${oldReport.embarkId}, purging cache`);
+        void purgeRaiderPageCache(oldReport.embarkId);
+      } else {
+        console.log(
+          `[Cache] Status changed ${oldReport.status} → ${status} for ${oldReport.embarkId}, no purge needed (public page unchanged)`,
+        );
+      }
     } catch (err: unknown) {
       console.error("Error updating report:", err instanceof Error ? err : "Unknown error");
       throw new Error("Failed to update report.");
     }
   });
+
+/**
+ * Purges CDN cache for a raider page using Netlify's cache tag API.
+ *
+ * This function is called when a report's status changes to/from "approved"
+ * to ensure visitors see updated content immediately instead of waiting for
+ * the ISR cache to expire naturally.
+ *
+ * How it works:
+ * 1. Raider pages (/r/$embarkId) are tagged with "raider:{embarkId}" via Netlify-Cache-Tag header
+ * 2. When report status changes, this function purges all cached pages with that tag
+ * 3. Next request regenerates the page with fresh data from the database
+ *
+ * Rate limit: Each cache tag can only be purged twice every 5 seconds (Netlify limit)
+ *
+ * @param embarkId - The raider's embark ID (e.g., "player#1234")
+ * @see https://docs.netlify.com/build/caching/caching-overview/#purge-by-cache-tag
+ */
+async function purgeRaiderPageCache(embarkId: string): Promise<void> {
+  // Only purge in production
+  if (process.env.NODE_ENV !== "production") {
+    console.log(`[Cache] [DEV] Would purge cache for: /r/${embarkId}`);
+    return;
+  }
+
+  const netlifyApiToken = process.env.NETLIFY_API_TOKEN;
+  const netlifySiteId = process.env.NETLIFY_SITE_ID;
+
+  if (!netlifyApiToken || !netlifySiteId) {
+    console.error(
+      `[Cache] ⚠️  CACHE PURGING DISABLED: NETLIFY_API_TOKEN or NETLIFY_SITE_ID not configured. ` +
+        `Cache for /r/${embarkId} will only invalidate on deploy or after TTL expires.`,
+    );
+    return;
+  }
+
+  try {
+    const res = await fetch("https://api.netlify.com/api/v1/purge", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${netlifyApiToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        site_id: netlifySiteId,
+        cache_tags: [`raider:${embarkId}`],
+      }),
+    });
+
+    if (!res.ok) {
+      console.error(`[Cache] Failed to purge cache for raider ${embarkId}:`, await res.text());
+    } else {
+      console.log(`[Cache] Successfully purged cache for raider: ${embarkId}`);
+    }
+  } catch (err: unknown) {
+    console.error("[Cache] Error purging CDN cache:", err instanceof Error ? err : "Unknown error");
+    // Don't throw - cache purge failure shouldn't break the update
+  }
+}

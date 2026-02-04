@@ -10,6 +10,10 @@ export const Route = createFileRoute("/(public)/auth")({
       throw redirect({ to: "/dashboard", replace: true });
     }
   },
+  headers: () => ({
+    // Auth page should not be cached (user-specific redirects)
+    "Cache-Control": "private, no-cache, no-store, must-revalidate",
+  }),
 });
 
 function RouteComponent() {

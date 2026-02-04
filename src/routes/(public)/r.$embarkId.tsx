@@ -16,13 +16,20 @@ export const Route = createFileRoute("/(public)/r/$embarkId")({
   },
   head: ({ params }) => ({
     meta: [{ title: `${params.embarkId} | ${VITE_SITE_TITLE}` }],
-    links: [
-      {
-        rel: "canonical",
-        href: `${VITE_SITE_URL}/r/${params.embarkId}`,
-      },
-    ],
+    links: [{ rel: "canonical", href: `${VITE_SITE_URL}/r/${params.embarkId}` }],
   }),
+  headers: ({ params }) => {
+    const embarkId = params.embarkId.replace("~", "#").toLowerCase();
+    return {
+      // Cache for 1 hour, stale for 24 hours (browser and CDN edge)
+      "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
+      // Netlify-specific: durable cache for cross-region sharing, reduces function invocations
+      "Netlify-CDN-Cache-Control": "public, durable, max-age=3600, stale-while-revalidate=86400",
+      // Cache tag for on-demand purging when reports change
+      "Netlify-Cache-Tag": `raider:${embarkId}`,
+    };
+  },
+  staleTime: 5 * 60_000, // Consider data fresh for 60 seconds on client
 });
 
 function PageRaiderProfile() {

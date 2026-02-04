@@ -18,7 +18,6 @@ import { Route as DashboardReportsRouteImport } from './routes/dashboard/reports
 import { Route as DashboardAuditLogsRouteImport } from './routes/dashboard/audit-logs'
 import { Route as publicWpAdminRouteImport } from './routes/(public)/wp-admin'
 import { Route as publicUnauthorizedRouteImport } from './routes/(public)/unauthorized'
-import { Route as publicStyleGuideRouteImport } from './routes/(public)/style-guide'
 import { Route as publicAuthRouteImport } from './routes/(public)/auth'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as publicREmbarkIdRouteImport } from './routes/(public)/r.$embarkId'
@@ -67,11 +66,6 @@ const publicUnauthorizedRoute = publicUnauthorizedRouteImport.update({
   path: '/unauthorized',
   getParentRoute: () => publicRouteRoute,
 } as any)
-const publicStyleGuideRoute = publicStyleGuideRouteImport.update({
-  id: '/style-guide',
-  path: '/style-guide',
-  getParentRoute: () => publicRouteRoute,
-} as any)
 const publicAuthRoute = publicAuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -91,7 +85,6 @@ const publicREmbarkIdRoute = publicREmbarkIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/auth': typeof publicAuthRoute
-  '/style-guide': typeof publicStyleGuideRoute
   '/unauthorized': typeof publicUnauthorizedRoute
   '/wp-admin': typeof publicWpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
@@ -104,7 +97,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/auth': typeof publicAuthRoute
-  '/style-guide': typeof publicStyleGuideRoute
   '/unauthorized': typeof publicUnauthorizedRoute
   '/wp-admin': typeof publicWpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
@@ -120,7 +112,6 @@ export interface FileRoutesById {
   '/(public)': typeof publicRouteRouteWithChildren
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/(public)/auth': typeof publicAuthRoute
-  '/(public)/style-guide': typeof publicStyleGuideRoute
   '/(public)/unauthorized': typeof publicUnauthorizedRoute
   '/(public)/wp-admin': typeof publicWpAdminRoute
   '/dashboard/audit-logs': typeof DashboardAuditLogsRoute
@@ -136,7 +127,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/dashboard'
     | '/auth'
-    | '/style-guide'
     | '/unauthorized'
     | '/wp-admin'
     | '/dashboard/audit-logs'
@@ -149,7 +139,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
-    | '/style-guide'
     | '/unauthorized'
     | '/wp-admin'
     | '/dashboard/audit-logs'
@@ -164,7 +153,6 @@ export interface FileRouteTypes {
     | '/(public)'
     | '/dashboard'
     | '/(public)/auth'
-    | '/(public)/style-guide'
     | '/(public)/unauthorized'
     | '/(public)/wp-admin'
     | '/dashboard/audit-logs'
@@ -247,13 +235,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof publicUnauthorizedRouteImport
       parentRoute: typeof publicRouteRoute
     }
-    '/(public)/style-guide': {
-      id: '/(public)/style-guide'
-      path: '/style-guide'
-      fullPath: '/style-guide'
-      preLoaderRoute: typeof publicStyleGuideRouteImport
-      parentRoute: typeof publicRouteRoute
-    }
     '/(public)/auth': {
       id: '/(public)/auth'
       path: '/auth'
@@ -280,7 +261,6 @@ declare module '@tanstack/react-router' {
 
 interface publicRouteRouteChildren {
   publicAuthRoute: typeof publicAuthRoute
-  publicStyleGuideRoute: typeof publicStyleGuideRoute
   publicUnauthorizedRoute: typeof publicUnauthorizedRoute
   publicWpAdminRoute: typeof publicWpAdminRoute
   publicIndexRoute: typeof publicIndexRoute
@@ -289,7 +269,6 @@ interface publicRouteRouteChildren {
 
 const publicRouteRouteChildren: publicRouteRouteChildren = {
   publicAuthRoute: publicAuthRoute,
-  publicStyleGuideRoute: publicStyleGuideRoute,
   publicUnauthorizedRoute: publicUnauthorizedRoute,
   publicWpAdminRoute: publicWpAdminRoute,
   publicIndexRoute: publicIndexRoute,

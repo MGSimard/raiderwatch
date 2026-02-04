@@ -13,7 +13,6 @@ Report and track cheating, exploiting, and griefing in ARC Raiders.
 ## TASK LIST
 
 - T3Env
-- RBAC middleware for functions instead of constantly rewriting it
 - Restyle toast notifications
 - Fix shadcn's dogshit dialog not having vert scroll
 - Replace explicit drizzle-adapter package once it releases to live

@@ -5,6 +5,7 @@ import { and, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import { auth } from "@/_auth";
 import { authMiddleware } from "@/_auth/authMiddleware";
 import { ratelimitMiddleware } from "@/_server/ratelimit-middleware";
+import { assessMiddleware } from "@/_server/rbac-middleware";
 import { fileReportSchema, searchFilterSchema, updateReportSchema } from "@/_lib/schemas";
 import { z } from "zod";
 // import { notFound } from "@tanstack/react-router"; // Available for 404 handling
@@ -66,19 +67,7 @@ export const getCurrentUser = createServerFn({ method: "GET" })
     };
   });
 
-export const isAssessor = createServerFn({ method: "GET" })
-  .middleware([authMiddleware])
-  .handler(async ({ context }) => {
-    const user = context.session?.user;
-    if (!user) return false;
-    const { success: hasPermission } = await auth.api.userHasPermission({
-      body: { userId: user.id, permissions: { report: ["assess"] } },
-    });
-
-    return hasPermission;
-  });
-
-export const getUserWithPermissions = createServerFn({ method: "GET" })
+export const getCurrentUserWithPermissions = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
   .handler(async ({ context }) => {
     const user = context.session?.user;
@@ -101,17 +90,9 @@ export const getUserWithPermissions = createServerFn({ method: "GET" })
   });
 
 export const getDashboardOverview = createServerFn({ method: "GET" })
-  .middleware([authMiddleware])
-  .handler(async ({ context }) => {
+  .middleware([assessMiddleware])
+  .handler(async () => {
     try {
-      const user = context.session?.user;
-      if (!user) throw new Error("Unauthenticated");
-
-      const { success: hasPermission } = await auth.api.userHasPermission({
-        body: { userId: user.id, permissions: { report: ["assess"] } },
-      });
-      if (!hasPermission) throw new Error("Unauthorized");
-
       const weekStartUtc = sql.raw("date_trunc('week', now() at time zone 'utc')");
       const weekEndUtc = sql.raw("(date_trunc('week', now() at time zone 'utc') + interval '7 days')");
 
@@ -136,17 +117,9 @@ export const getDashboardOverview = createServerFn({ method: "GET" })
   });
 
 export const getReportsChartData = createServerFn({ method: "GET" })
-  .middleware([authMiddleware])
-  .handler(async ({ context }) => {
+  .middleware([assessMiddleware])
+  .handler(async () => {
     try {
-      const user = context.session?.user;
-      if (!user) throw new Error("Unauthenticated");
-
-      const { success: hasPermission } = await auth.api.userHasPermission({
-        body: { userId: user.id, permissions: { report: ["assess"] } },
-      });
-      if (!hasPermission) throw new Error("Unauthorized");
-
       const asOfUtc = new Date();
       asOfUtc.setUTCHours(0, 0, 0, 0);
 
@@ -179,17 +152,9 @@ export const getReportsChartData = createServerFn({ method: "GET" })
   });
 
 export const getRaidersChartData = createServerFn({ method: "GET" })
-  .middleware([authMiddleware])
-  .handler(async ({ context }) => {
+  .middleware([assessMiddleware])
+  .handler(async () => {
     try {
-      const user = context.session?.user;
-      if (!user) throw new Error("Unauthenticated");
-
-      const { success: hasPermission } = await auth.api.userHasPermission({
-        body: { userId: user.id, permissions: { report: ["assess"] } },
-      });
-      if (!hasPermission) throw new Error("Unauthorized");
-
       const asOfUtc = new Date();
       asOfUtc.setUTCHours(0, 0, 0, 0);
 
@@ -222,18 +187,10 @@ export const getRaidersChartData = createServerFn({ method: "GET" })
   });
 
 export const getReportsTableData = createServerFn({ method: "GET" })
-  .middleware([authMiddleware])
+  .middleware([assessMiddleware])
   .inputValidator(searchFilterSchema)
-  .handler(async ({ context, data }) => {
+  .handler(async ({ data }) => {
     try {
-      const user = context.session?.user;
-      if (!user) throw new Error("Unauthenticated");
-
-      const { success: hasPermission } = await auth.api.userHasPermission({
-        body: { userId: user.id, permissions: { report: ["assess"] } },
-      });
-      if (!hasPermission) throw new Error("Unauthorized");
-
       const { searchQuery, statuses, page, pageSize } = data;
       const trimmed = searchQuery.trim();
 
@@ -290,19 +247,12 @@ export const getReportsTableData = createServerFn({ method: "GET" })
     }
   });
 
-// UPDATE REPORT (Assessment)
 export const updateReport = createServerFn({ method: "POST" })
-  .middleware([authMiddleware])
+  .middleware([assessMiddleware])
   .inputValidator(updateReportSchema)
   .handler(async ({ context, data }) => {
     try {
-      const user = context.session?.user;
-      if (!user) throw new Error("Unauthenticated");
-      const { success: hasPermission } = await auth.api.userHasPermission({
-        body: { userId: user.id, permissions: { report: ["assess"] } },
-      });
-      if (!hasPermission) throw new Error("Unauthorized");
-
+      const user = context.session.user;
       const { reportId, status, reason, canonicalVideoUrl, reviewerComment } = data;
 
       // Fetch the old status before updating to determine if cache purge is needed
@@ -310,7 +260,6 @@ export const updateReport = createServerFn({ method: "POST" })
         .select({ status: reports.status, embarkId: reports.embarkId })
         .from(reports)
         .where(eq(reports.id, reportId));
-
       if (!oldReport) throw new Error(`Report with ID ${reportId} not found.`);
 
       const [updated] = await db
@@ -325,17 +274,11 @@ export const updateReport = createServerFn({ method: "POST" })
         })
         .where(eq(reports.id, reportId))
         .returning({ id: reports.id });
-
-      // Check if update succeeded (handles race condition where report was deleted between SELECT and UPDATE)
       if (!updated) throw new Error(`Report with ID ${reportId} not found or was deleted.`);
 
-      // Only purge cache if the status change affects public visibility
-      // Raider pages only show "approved" reports, so we only need to purge when:
-      // 1. A report becomes approved (was not approved, now is)
-      // 2. A report is no longer approved (was approved, now is not)
+      // Purge matching page from CDN cache if updating to/from "approve" status
       const oldWasApproved = oldReport.status === "approved";
       const newIsApproved = status === "approved";
-
       if (oldWasApproved !== newIsApproved) {
         console.log(`[Cache] Status changed ${oldReport.status} → ${status} for ${oldReport.embarkId}, purging cache`);
         void purgeRaiderPageCache(oldReport.embarkId);
@@ -351,24 +294,14 @@ export const updateReport = createServerFn({ method: "POST" })
   });
 
 /**
- * Purges CDN cache for a raider page using Netlify's cache tag API.
- *
- * This function is called when a report's status changes to/from "approved"
- * to ensure visitors see updated content immediately instead of waiting for
- * the ISR cache to expire naturally.
- *
- * How it works:
- * 1. Raider pages (/r/$embarkId) are tagged with "raider:{embarkId}" via Netlify-Cache-Tag header
- * 2. When report status changes, this function purges all cached pages with that tag
- * 3. Next request regenerates the page with fresh data from the database
- *
- * Rate limit: Each cache tag can only be purged twice every 5 seconds (Netlify limit)
+ * Purges Netlify CDN cache for a raider page when report status changes to/from "approved".
+ * Uses cache tag "raider:{embarkId}" to invalidate specific pages.
+ * Rate limit: 2 purges per tag every 5 seconds.
  *
  * @param embarkId - The raider's embark ID (e.g., "player#1234")
  * @see https://docs.netlify.com/build/caching/caching-overview/#purge-by-cache-tag
  */
 async function purgeRaiderPageCache(embarkId: string): Promise<void> {
-  // Only purge in production
   if (process.env.NODE_ENV !== "production") {
     console.log(`[Cache] [DEV] Would purge cache for: /r/${embarkId}`);
     return;
@@ -379,8 +312,7 @@ async function purgeRaiderPageCache(embarkId: string): Promise<void> {
 
   if (!netlifyApiToken || !netlifySiteId) {
     console.error(
-      `[Cache] ⚠️  CACHE PURGING DISABLED: NETLIFY_API_TOKEN or NETLIFY_SITE_ID not configured. ` +
-        `Cache for /r/${embarkId} will only invalidate on deploy or after TTL expires.`,
+      "[Cache] CACHE PURGING DISABLED: NETLIFY_API_TOKEN or NETLIFY_SITE_ID not configured. Cache for /r/${embarkId} will only invalidate on deploy or after TTL expires.",
     );
     return;
   }

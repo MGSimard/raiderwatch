@@ -2,12 +2,12 @@ import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 import { SidebarProvider } from "@/_components/admin/ui/sidebar";
 import { AdminSidebar } from "@/_components/admin/sidebar";
 import { Header } from "@/_components/admin/Header";
-import { getUserWithPermissions } from "@/_server/server-functions";
+import { getCurrentUserWithPermissions } from "@/_server/server-functions";
 
 export const Route = createFileRoute("/dashboard")({
   component: LayoutDashboard,
   beforeLoad: async () => {
-    const result = await getUserWithPermissions();
+    const result = await getCurrentUserWithPermissions();
     if (!result) {
       throw redirect({ to: "/auth", replace: true });
     }

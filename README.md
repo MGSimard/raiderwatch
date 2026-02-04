@@ -20,6 +20,4 @@ Report and track cheating, exploiting, and griefing in ARC Raiders.
   - https://github.com/better-auth/better-auth/issues/6766
   - https://github.com/better-auth/better-auth/pull/6913
   - Clear .npmrc
-- Consider ISR + Caching - generate pages on validated report, "no reports" on non-matching pages, saving DB trip? - [https://tanstack.com/start/latest/docs/framework/react/guide/isr](https://tanstack.com/start/latest/docs/framework/react/guide/isr)
-- ISR, SSR, Static setups
 - Admin panel's internal Team & Audit Logs (maybe)
